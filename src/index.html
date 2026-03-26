@@ -121,7 +121,94 @@
       pointer-events: none;
     }
 
-    /* Page layout */
+    /* ─────────────────────────────────────────────
+       PERSONALIZATION: ANNOUNCEMENT BAR (header)
+       Content zone: announcement_bar
+       Hidden by default — Personalization shows it
+    ───────────────────────────────────────────── */
+    #pers-announcement-bar {
+      display: none; /* shown by Personalization */
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(8, 8, 10, 0.82);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(200, 169, 110, 0.18);
+    }
+
+    #pers-announcement-bar.is-visible {
+      display: block;
+      animation: slideDown 0.4s cubic-bezier(.22,1,.36,1) forwards;
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to   { transform: translateY(0);     opacity: 1; }
+    }
+
+    .announcement-inner {
+      max-width: 390px;
+      margin: 0 auto;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .announcement-icon {
+      color: var(--gold);
+      font-size: 11px;
+      flex-shrink: 0;
+    }
+
+    /* Content zone: announcement_text — Personalization fills this */
+    #pers-announcement-text {
+      flex: 1;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.8px;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    /* Content zone: announcement_cta — Personalization fills this */
+    #pers-announcement-cta {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      white-space: nowrap;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    #pers-announcement-cta:hover {
+      border-bottom-color: var(--gold);
+    }
+
+    .announcement-close {
+      background: none;
+      border: none;
+      color: rgba(232, 228, 220, 0.4);
+      font-size: 14px;
+      cursor: pointer;
+      padding: 2px 4px;
+      flex-shrink: 0;
+      transition: color 0.2s ease;
+      line-height: 1;
+    }
+
+    .announcement-close:hover {
+      color: var(--text);
+    }
+
+    /* Page layout — shifts down when bar is visible */
     .page {
       position: relative;
       z-index: 1;
@@ -131,6 +218,11 @@
       align-items: center;
       justify-content: center;
       padding: 48px 24px 40px;
+      transition: padding-top 0.4s cubic-bezier(.22,1,.36,1);
+    }
+
+    body.has-announcement .page {
+      padding-top: 90px;
     }
 
     /* Centered column */
@@ -278,9 +370,7 @@
     .link-card::before {
       content: '';
       position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
+      left: 0; top: 0; bottom: 0;
       width: 2px;
       background: var(--gold);
       opacity: 0;
@@ -306,13 +396,9 @@
     }
 
     .link-card:hover::before,
-    .link-card:hover::after {
-      opacity: 1;
-    }
+    .link-card:hover::after { opacity: 1; }
 
-    .link-card:active {
-      transform: scale(0.98);
-    }
+    .link-card:active { transform: scale(0.98); }
 
     /* Icon bubble */
     .card-icon {
@@ -328,10 +414,7 @@
       z-index: 1;
     }
 
-    .card-icon svg {
-      width: 22px;
-      height: 22px;
-    }
+    .card-icon svg { width: 22px; height: 22px; }
 
     /* Card text */
     .card-text {
@@ -364,9 +447,7 @@
       line-height: 1;
       position: relative;
       z-index: 1;
-      transition:
-        color 0.22s ease,
-        transform 0.22s ease;
+      transition: color 0.22s ease, transform 0.22s ease;
       flex-shrink: 0;
     }
 
@@ -375,14 +456,75 @@
       transform: translateX(4px);
     }
 
+    /* ─────────────────────────────────────────────
+       PERSONALIZATION: FOOTER FEATURED ZONE
+       Content zone: footer_featured
+       Personalization injects a featured card here
+    ───────────────────────────────────────────── */
+    #pers-footer-featured {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    /* Default empty state — hidden until Personalization fills it */
+    #pers-footer-featured:empty { display: none; }
+
+    /* Personalization injects a .featured-card into this zone */
+    .featured-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 16px;
+      border-radius: 12px;
+      background: rgba(200, 169, 110, 0.06);
+      border: 1px solid rgba(200, 169, 110, 0.15);
+      text-decoration: none;
+      color: var(--text);
+      transition: background 0.22s ease, border-color 0.22s ease;
+    }
+
+    .featured-card:hover {
+      background: rgba(200, 169, 110, 0.10);
+      border-color: rgba(200, 169, 110, 0.28);
+    }
+
+    .featured-card-eyebrow {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 3px;
+    }
+
+    .featured-card-title {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
     /* ── Footer ── */
     .footer {
       text-align: center;
       opacity: 0;
       animation: fadeUp 0.6s cubic-bezier(.22,1,.36,1) 0.56s forwards;
+      width: 100%;
     }
 
-    .footer a {
+    /* Content zone: footer_message — optional personalized tagline above link */
+    #pers-footer-message {
+      font-size: 10.5px;
+      font-weight: 400;
+      letter-spacing: 1px;
+      color: rgba(232, 228, 220, 0.45);
+      margin-bottom: 8px;
+      min-height: 0;
+    }
+
+    #pers-footer-message:empty { display: none; }
+
+    .footer-link {
       font-size: 11px;
       letter-spacing: 1.5px;
       color: var(--muted);
@@ -392,25 +534,189 @@
       transition: color 0.2s ease, border-color 0.2s ease;
     }
 
-    .footer a:hover {
+    .footer-link:hover {
       color: var(--text);
       border-bottom-color: rgba(232, 228, 220, 0.3);
     }
 
     /* ── Entrance animation ── */
     @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
+
+    /* ─────────────────────────────────────────────
+       PERSONALIZATION: POPUP / MODAL
+       Content zones: popup_content, popup_headline,
+                      popup_body, popup_cta
+       Hidden by default — JS shows on pers trigger
+    ───────────────────────────────────────────── */
+    #pers-popup-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(5, 5, 6, 0.72);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    #pers-popup-overlay.is-visible {
+      display: flex;
+      animation: fadeIn 0.35s cubic-bezier(.22,1,.36,1) forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    .popup-card {
+      position: relative;
+      width: 100%;
+      max-width: 360px;
+      background: rgba(10, 10, 12, 0.90);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(200, 169, 110, 0.20);
+      border-radius: 20px;
+      padding: 32px 28px 28px;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6);
+      animation: popUp 0.4s cubic-bezier(.22,1,.36,1) forwards;
+    }
+
+    @keyframes popUp {
+      from { transform: translateY(24px) scale(0.97); opacity: 0; }
+      to   { transform: translateY(0)    scale(1);    opacity: 1; }
+    }
+
+    /* Gold top accent line */
+    .popup-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 28px; right: 28px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(200, 169, 110, 0.5), transparent);
+      border-radius: 1px;
+    }
+
+    .popup-close {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      background: none;
+      border: none;
+      color: rgba(232, 228, 220, 0.35);
+      font-size: 18px;
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px 6px;
+      border-radius: 6px;
+      transition: color 0.2s ease, background 0.2s ease;
+    }
+
+    .popup-close:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    /* Content zone: popup_eyebrow */
+    #pers-popup-eyebrow {
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+
+    #pers-popup-eyebrow:empty { display: none; }
+
+    /* Content zone: popup_headline */
+    #pers-popup-headline {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: var(--text);
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+
+    /* Content zone: popup_body */
+    #pers-popup-body {
+      font-size: 13.5px;
+      font-weight: 400;
+      color: rgba(232, 228, 220, 0.70);
+      line-height: 1.6;
+      margin-bottom: 22px;
+    }
+
+    /* Content zone: popup_cta — Personalization fills href + text */
+    #pers-popup-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 22px;
+      border-radius: 10px;
+      background: var(--gold);
+      color: #0c0c0d;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.2s ease;
+      width: 100%;
+      justify-content: center;
+    }
+
+    #pers-popup-cta:hover {
+      background: #d4b87a;
+      transform: translateY(-1px);
+    }
+
+    #pers-popup-cta:empty { display: none; }
+
+    /* Popup reason tag (shown below CTA) */
+    .popup-reason {
+      margin-top: 14px;
+      text-align: center;
+      font-size: 9.5px;
+      letter-spacing: 1.2px;
+      color: rgba(232, 228, 220, 0.25);
+      text-transform: uppercase;
+    }
+
+    /* Content zone: popup_reason — Personalization fills this */
+    #pers-popup-reason:empty { display: none; }
   </style>
 </head>
 <body>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       PERSONALIZATION ZONE 1: ANNOUNCEMENT BAR
+       Zone name: announcement_bar
+       Personalization shows this bar with a targeted message + CTA.
+       Examples: "New video out now →", "Welcome back, Anthony fan!"
+  ════════════════════════════════════════════════════════════════ -->
+  <div id="pers-announcement-bar" role="banner" aria-live="polite">
+    <div class="announcement-inner">
+      <span class="announcement-icon" aria-hidden="true">✦</span>
+      <!-- Zone: announcement_text -->
+      <span id="pers-announcement-text"></span>
+      <!-- Zone: announcement_cta -->
+      <a id="pers-announcement-cta" href="#" target="_blank" rel="noopener noreferrer"></a>
+      <button
+        class="announcement-close"
+        aria-label="Dismiss announcement"
+        onclick="ABPersonalization.dismissBar()"
+      >✕</button>
+    </div>
+  </div>
+
   <div class="page">
     <div class="container">
 
@@ -495,12 +801,135 @@
 
       </div>
 
+      <!-- ═══════════════════════════════════════════════════════════
+           PERSONALIZATION ZONE 2: FOOTER FEATURED CONTENT
+           Zone name: footer_featured
+           Personalization injects a .featured-card here.
+           Examples: "Latest video", "New collection drop", etc.
+           Empty by default — hidden until filled.
+      ════════════════════════════════════════════════════════════ -->
+      <div id="pers-footer-featured" aria-label="Featured content"></div>
+
       <!-- Footer -->
       <footer class="footer">
-        <a href="https://anthonybest.com" target="_blank" rel="noopener noreferrer">anthonybest.com</a>
+        <!-- Zone: footer_message — optional personalized line above link -->
+        <p id="pers-footer-message" aria-live="polite"></p>
+        <a class="footer-link" href="https://anthonybest.com" target="_blank" rel="noopener noreferrer">
+          anthonybest.com
+        </a>
       </footer>
 
     </div>
   </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       PERSONALIZATION ZONE 3: POPUP / MODAL
+       Zones: popup_eyebrow, popup_headline, popup_body,
+              popup_cta, popup_reason
+       Hidden by default. Call ABPersonalization.showPopup()
+       from sitemap.js to display. Personalization fills each
+       sub-zone with targeted copy + CTA before calling showPopup.
+  ════════════════════════════════════════════════════════════════ -->
+  <div
+    id="pers-popup-overlay"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="pers-popup-headline"
+  >
+    <div class="popup-card">
+      <button
+        class="popup-close"
+        aria-label="Close"
+        onclick="ABPersonalization.dismissPopup()"
+      >✕</button>
+
+      <!-- Zone: popup_eyebrow — e.g. "New Release" / "Just for you" -->
+      <p id="pers-popup-eyebrow"></p>
+
+      <!-- Zone: popup_headline — main personalized headline -->
+      <h2 id="pers-popup-headline"></h2>
+
+      <!-- Zone: popup_body — supporting copy -->
+      <p id="pers-popup-body"></p>
+
+      <!-- Zone: popup_cta — Personalization sets href + link text -->
+      <a id="pers-popup-cta" href="#" target="_blank" rel="noopener noreferrer"></a>
+
+      <!-- Zone: popup_reason — explains WHY this was shown -->
+      <p class="popup-reason">
+        <span id="pers-popup-reason"></span>
+      </p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       PERSONALIZATION UTILITY API
+       ABPersonalization — called by sitemap.js action handlers
+       to show / dismiss zones without framework dependencies.
+  ════════════════════════════════════════════════════════════════ -->
+  <script>
+    window.ABPersonalization = (function () {
+
+      // ── Announcement Bar ──────────────────────────────────────────
+      function showBar() {
+        var bar = document.getElementById('pers-announcement-bar');
+        if (bar) {
+          bar.classList.add('is-visible');
+          document.body.classList.add('has-announcement');
+        }
+      }
+
+      function dismissBar() {
+        var bar = document.getElementById('pers-announcement-bar');
+        if (bar) {
+          bar.classList.remove('is-visible');
+          document.body.classList.remove('has-announcement');
+        }
+        // Track dismissal
+        if (window.SalesforceInteractions) {
+          SalesforceInteractions.sendEvent({
+            interaction: { name: 'Announcement Bar Dismissed' }
+          });
+        }
+      }
+
+      // ── Popup ─────────────────────────────────────────────────────
+      function showPopup() {
+        var overlay = document.getElementById('pers-popup-overlay');
+        if (overlay) {
+          overlay.classList.add('is-visible');
+          document.body.style.overflow = 'hidden';
+        }
+      }
+
+      function dismissPopup() {
+        var overlay = document.getElementById('pers-popup-overlay');
+        if (overlay) {
+          overlay.classList.remove('is-visible');
+          document.body.style.overflow = '';
+        }
+        // Track dismissal
+        if (window.SalesforceInteractions) {
+          SalesforceInteractions.sendEvent({
+            interaction: { name: 'Popup Dismissed' }
+          });
+        }
+      }
+
+      // Close popup on overlay click (outside card)
+      document.getElementById('pers-popup-overlay')
+        .addEventListener('click', function (e) {
+          if (e.target === this) dismissPopup();
+        });
+
+      // Close on Escape key
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') dismissPopup();
+      });
+
+      return { showBar: showBar, dismissBar: dismissBar, showPopup: showPopup, dismissPopup: dismissPopup };
+    })();
+  </script>
+
 </body>
 </html>
