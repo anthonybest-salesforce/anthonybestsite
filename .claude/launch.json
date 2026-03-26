@@ -4,7 +4,7 @@
     {
       "name": "Static Site (src/)",
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["serve", "src", "--no-clipboard"],
+      "runtimeArgs": ["serve", "/Users/anthonybest/Documents/GitHub/anthonybestsite/src", "--no-clipboard"],
       "port": 8080,
       "autoPort": true
     }
