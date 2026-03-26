@@ -1,0 +1,47 @@
+daemon off;
+worker_processes <%= ENV['NGINX_WORKERS'] || 4 %>;
+
+events {
+  use epoll;
+  accept_mutex on;
+  worker_connections 1024;
+}
+
+http {
+  gzip on;
+  gzip_comp_level 2;
+  gzip_min_length 512;
+  gzip_types text/plain text/css application/javascript application/json image/svg+xml;
+
+  server_tokens off;
+
+  access_log logs/access.log;
+  error_log stderr;
+
+  include mime.types;
+  default_type application/octet-stream;
+  sendfile on;
+
+  server {
+    listen <%= ENV['PORT'] %>;
+    server_name _;
+    root /app/src;
+    index index.html;
+
+    # Redirect HTTP to HTTPS in production
+    if ($http_x_forwarded_proto != "https") {
+      return 301 https://$host$request_uri;
+    }
+
+    # Cache static assets
+    add_header Cache-Control "public, max-age=3600";
+
+    # Clean URLs — try file, then file.html, then directory
+    location / {
+      try_files $uri $uri.html $uri/ =404;
+    }
+
+    # Custom 404
+    error_page 404 /404.html;
+  }
+}
