@@ -545,6 +545,27 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
+    /* ── Version badge ── */
+    .version-badge {
+      position: fixed;
+      bottom: 12px;
+      right: 14px;
+      z-index: 50;
+      font-family: 'Syne', monospace;
+      font-size: 9px;
+      font-weight: 400;
+      letter-spacing: 1.2px;
+      color: rgba(232, 228, 220, 0.25);
+      background: rgba(8, 8, 10, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 6px;
+      padding: 3px 7px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      pointer-events: none;
+      user-select: none;
+    }
+
     /* ─────────────────────────────────────────────
        PERSONALIZATION: POPUP / MODAL
        Content zones: popup_content, popup_headline,
@@ -861,6 +882,9 @@
       </p>
     </div>
   </div>
+
+  <!-- Version badge — update this number on each deploy -->
+  <div class="version-badge">v16</div>
 
   <!-- ═══════════════════════════════════════════════════════════════
        PERSONALIZATION UTILITY API
