@@ -14,6 +14,52 @@
   <meta property="og:type" content="website">
 
   <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
+  <link rel="canonical" href="https://anthonybest.com/links">
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+
+  <!-- JSON-LD — Person schema (used by Salesforce resolvers + SEO) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "https://anthonybest.com/#person",
+    "name": "Anthony Best",
+    "url": "https://anthonybest.com",
+    "image": "https://anthonybest.com/assets/images/hero-bg.jpg",
+    "description": "Youtuber. Musician. Collector.",
+    "jobTitle": "Content Creator",
+    "sameAs": [
+      "https://instagram.com/itsanthonybest",
+      "https://linkedin.com/in/anthonylbest",
+      "https://youtube.com/c/anthonybestmusic"
+    ]
+  }
+  </script>
+
+  <!-- JSON-LD — WebPage schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": "https://anthonybest.com/links",
+    "name": "Anthony Best — Links",
+    "url": "https://anthonybest.com/links",
+    "description": "Youtuber. Musician. Collector.",
+    "author": { "@id": "https://anthonybest.com/#person" },
+    "publisher": { "@id": "https://anthonybest.com/#person" }
+  }
+  </script>
+
+  <!--
+    Salesforce Marketing Cloud Personalization — Beacon
+    ─────────────────────────────────────────────────────
+    REPLACE YOUR_ACCOUNT and YOUR_DATASET with your actual values.
+    Found in: Personalization Admin > Channels & Campaigns > Web > JavaScript Integration
+    Synchronous load (recommended) prevents content flicker.
+  -->
+  <!-- <script type="text/javascript"
+    src="//cdn.evgnet.com/beacon/YOUR_ACCOUNT/YOUR_DATASET/scripts/evergage.min.js">
+  </script> -->
 
   <!-- Syne font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
