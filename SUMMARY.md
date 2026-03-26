@@ -1,89 +1,65 @@
 # anthonybest.com — Migration Project Summary
-**Date:** March 26, 2026  
+
+**Date:** March 26, 2026
 **Goal:** Move anthonybest.com from Squarespace to a static site on Heroku, managed via GitHub.
 
 ---
 
-## What's been done so far
+## Status
 
 ### ✅ DNS fully audited
-Every DNS record on anthonybest.com has been documented. See the DNS section below. This is the most critical piece — your Google Workspace email depends on these records surviving the migration.
+Every DNS record on anthonybest.com has been documented in [`docs/dns-backup.md`](docs/dns-backup.md). This is the most critical piece — Google Workspace email depends on these records surviving the migration.
 
-### ✅ Project location confirmed
-Your git repo should live at:
-```
-~/Sites/anthonybest-site
-```
-The folder and git repo were partially initialized. Run this to finish setup from scratch:
+### ✅ Heroku static site scaffold built
+`static.json`, `Procfile`, and the `src/` web root are all in place and deploy-ready.
 
-```bash
-cd ~/Sites/anthonybest-site
-git config user.email "anthony@anthonybest.com"
-git config user.name "Anthony Best"
-git checkout -b main
-```
+### ✅ Homepage built — link-in-bio page
+`src/index.html` is a single-page social link-in-bio site:
+- Background: anthonybest.com hero photo (Squarespace CDN)
+- Dark gradient overlay + frosted glass cards
+- Logo: `ALB_Logo_White_Transparent.png` with spinning gold ring
+- Name: ANTHONY BEST (Syne bold, all-caps)
+- Tagline: YOUTUBER · MUSICIAN · COLLECTOR
+- Cards: Instagram (`@itsanthonybest`), LinkedIn, YouTube
+- Staggered fade-up entrance animations
+- Fully responsive, single HTML file, no build step
+
+### ✅ GitHub repo live
+Repo: `github.com/anthonybest/anthonybestsite`
 
 ---
 
-## Project structure to create
+## Project structure
 
 ```
-anthonybest-site/
-├── static.json          ← Heroku static buildpack config
-├── Procfile             ← Heroku process file
-├── .gitignore
+anthonybestsite/
+├── Procfile                      ← web: bin/start-nginx-static
+├── static.json                   ← root: src/, clean_urls, https_only
 ├── README.md
-├── docs/
-│   └── dns-backup.md   ← paste DNS records below here
-├── src/                 ← DEPLOYED to Heroku (the live site)
-│   ├── index.html
+├── SUMMARY.md                    ← this file
+├── src/                          ← deployed web root
+│   ├── index.html                ← link-in-bio homepage
+│   ├── ALB_Logo_White_Transparent.png
 │   └── assets/
-│       ├── css/main.css
-│       ├── js/main.js
 │       ├── images/
+│       │   ├── favicon.ico
+│       │   ├── home-main.jpg
+│       │   └── logo.png
+│       ├── css/
+│       ├── js/
 │       └── fonts/
-└── clone/               ← Squarespace snapshot (reference only)
-    └── assets/
-        ├── css/
-        ├── js/
-        ├── images/
-        └── fonts/
-```
-
-### static.json
-```json
-{
-  "root": "src/",
-  "clean_urls": true,
-  "https_only": true,
-  "headers": {
-    "/**": {
-      "Cache-Control": "public, max-age=3600"
-    }
-  }
-}
-```
-
-### Procfile
-```
-web: bin/boot
-```
-
-### .gitignore
-```
-.DS_Store
-node_modules/
-*.log
-.env
+├── docs/
+│   └── dns-backup.md             ← full DNS record backup
+└── clone/                        ← Squarespace snapshot (reference only)
 ```
 
 ---
 
 ## Full DNS record backup — anthonybest.com
 
-**Registrar:** Squarespace  
-**Renews:** December 14, 2026 — $20/yr  
-**Domain lock:** OFF (ready to transfer)  
+**Registrar:** Squarespace
+**Renews:** December 14, 2026 — $20/yr
+**Domain lock:** OFF (ready to transfer)
 
 ### Squarespace defaults — DELETE these during migration
 | Host | Type  | Data                   |
@@ -141,29 +117,15 @@ node_modules/
 
 ---
 
-## Next steps (in order)
+## Remaining steps
 
-1. **Create GitHub repo** — go to github.com/new, name it `anthonybest-site`, private, no template
-2. **Push local repo to GitHub:**
-   ```bash
-   cd ~/Sites/anthonybest-site
-   git remote add origin git@github.com:anthonybest/anthonybest-site.git
-   git push -u origin main
-   ```
-3. **Create Heroku app** — go to heroku.com, new app, name it `anthonybest`
-4. **Add static buildpack** in Heroku: `heroku-buildpack-static`
-5. **Connect GitHub → Heroku** auto-deploy in Heroku dashboard
-6. **Clone the live site** — use `wget` to mirror anthonybest.com into `clone/`
-7. **Build src/ version** — clean static rebuild from the clone
-8. **Test on .herokuapp.com** before touching DNS
-9. **Transfer domain** from Squarespace to Cloudflare (free, fast)
-10. **Re-add all DNS records** at Cloudflare using the table above
-11. **Verify email works** before cancelling Squarespace
-
----
+1. **Point DNS to Heroku** — swap the four Squarespace A records and `www` CNAME to Heroku DNS targets
+2. **Add custom domain in Heroku** — `heroku domains:add anthonybest.com www.anthonybest.com`
+3. **Verify SSL** — Heroku ACM provisions automatically once DNS propagates
+4. **Test email** — confirm Google Workspace mail still works after DNS cutover
+5. **Cancel Squarespace** — only after email is verified working on the new DNS
 
 ## Key decisions still needed
 
-- **Registrar for transfer:** Cloudflare (recommended — free, fast DNS) or Namecheap?
-- **Heroku app name:** `anthonybest` or something else?
+- **Registrar for transfer:** Cloudflare (recommended — free, fast DNS) or stay at Squarespace?
 - **GitHub repo visibility:** private or public?

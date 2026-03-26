@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Static Site (src/)",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "src", "--no-clipboard"],
+      "port": 8080,
+      "autoPort": true
+    }
+  ]
+}

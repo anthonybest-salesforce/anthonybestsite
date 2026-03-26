@@ -123,7 +123,7 @@
       height: 88px;
       border-radius: 50%;
       object-fit: cover;
-      background: rgba(14, 14, 16, 0.7);
+      background: #ffffff;
       border: 1px solid rgba(200, 169, 110, 0.22);
       position: relative;
       z-index: 1;
@@ -349,6 +349,7 @@
       color: var(--muted);
       text-decoration: none;
       text-transform: lowercase;
+      transition: color 0.2s ease;
       border-bottom: 1px solid transparent;
       transition: color 0.2s ease, border-color 0.2s ease;
     }
@@ -369,6 +370,15 @@
         transform: translateY(0);
       }
     }
+
+    /* ── Instagram icon gradient ── */
+    .ig-gradient {
+      --ig-a: #f09433;
+      --ig-b: #e6683c;
+      --ig-c: #dc2743;
+      --ig-d: #cc2366;
+      --ig-e: #bc1888;
+    }
   </style>
 </head>
 <body>
@@ -380,7 +390,7 @@
         <div class="logo-ring"></div>
         <img
           class="logo-img"
-          src="./ALB_Logo_White_Transparent.png"
+          src="/assets/images/logo.png"
           alt="Anthony Best"
           loading="eager"
         >
