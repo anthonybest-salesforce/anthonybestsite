@@ -203,6 +203,69 @@ table.mx tr.win td{color:var(--text)}
 .slide.active .a:nth-child(4){animation-delay:.29s}
 .slide.active .a:nth-child(5){animation-delay:.37s}
 .slide.active .a:nth-child(6){animation-delay:.44s}
+
+/* ── MOBILE RESPONSIVE ── */
+@media (max-width:768px){
+  html,body{overflow:auto;height:auto}
+  .deck{height:auto;min-height:100svh}
+
+  /* Slide model: absolute stack → display:none/flex */
+  .slide{position:static;display:none;opacity:1;pointer-events:all;transition:none}
+  .slide.active{display:flex}
+  .inner{overflow:visible;padding:20px 5% 88px}
+
+  /* Slides with absolutely-positioned children need position:relative */
+  #s1,#s7,#s11{position:relative}
+
+  /* ── COVER SLIDE ── */
+  #s1{padding:24px 5% 88px;min-height:100svh;overflow:visible;justify-content:flex-start}
+  .clogo{position:static;margin-bottom:20px}
+  .ctitle{max-width:100%}
+  .csub{max-width:100%}
+  .cmeta{max-width:100%;gap:16px;flex-wrap:wrap}
+  .cfoot,.cfoot2{display:none}
+
+  /* ── SLIDE HEADER ── */
+  .sh{flex-direction:column;gap:8px}
+  .st{max-width:100%}
+
+  /* ── ALL MULTI-COLUMN GRIDS → SINGLE COLUMN ── */
+  .ss-grid,
+  .fg,
+  .yg,
+  .rg,
+  .mx-wrap,
+  .pillars,
+  .risk-g{grid-template-columns:1fr}
+
+  /* ── DECISION MATRIX TABLE: horizontal scroll ── */
+  table.mx{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:nowrap}
+
+  /* ── S7 RECOMMENDATION: side-by-side → stacked ── */
+  #s7{flex-direction:column}
+  .rl{width:100%;padding:24px 5% 20px;border-right:none;border-bottom:.5px solid var(--border);flex-shrink:1}
+  .rright{padding:20px 5% 0}
+
+  /* ── S8/S9 ALTERNATIVES: override inline flex-direction:row ── */
+  #s8 .inner,#s9 .inner{flex-direction:column !important;gap:16px !important;align-items:stretch !important}
+  #s8 .rl,#s9 .rl{flex:none !important;width:100% !important;padding-right:5% !important;padding-bottom:20px !important;border-right:none !important;border-bottom:.5px solid var(--border) !important}
+
+  /* ── S11 CLOSE: scale down decorative rings ── */
+  .crings span:nth-child(1){width:200px !important;height:200px !important}
+  .crings span:nth-child(2){width:300px !important;height:300px !important}
+  .crings span:nth-child(3){width:400px !important;height:400px !important}
+
+  /* ── CONTROLS ── */
+  .controls{max-width:calc(100vw - 24px);gap:8px;padding:8px 14px;bottom:12px}
+}
+
+@media (max-width:480px){
+  .btn{padding:5px 10px;font-size:11px}
+  .dots{gap:4px}
+  .d{width:4px;height:4px}
+  .ctr{min-width:32px;font-size:10px}
+  .controls{gap:6px;padding:7px 10px}
+}
 </style>
 </head>
 <body>
@@ -717,9 +780,25 @@ const ct=document.getElementById('ctr');
 let c=0,n=sl.length;
 ct.textContent=`1 / ${n}`;
 sl.forEach((_,i)=>{const d=document.createElement('div');d.className='d'+(i===0?' on':'');d.onclick=()=>gt(i);dEl.appendChild(d)});
-function gt(i){sl[c].classList.remove('active');dEl.children[c].classList.remove('on');c=Math.max(0,Math.min(i,n-1));sl[c].classList.add('active');dEl.children[c].classList.add('on');ct.textContent=`${c+1} / ${n}`;sl[c].querySelectorAll('.a').forEach(e=>{e.style.animation='none';e.offsetHeight;e.style.animation=''})}
+function gt(i){
+  sl[c].classList.remove('active');dEl.children[c].classList.remove('on');
+  c=Math.max(0,Math.min(i,n-1));
+  sl[c].classList.add('active');dEl.children[c].classList.add('on');
+  ct.textContent=`${c+1} / ${n}`;
+  sl[c].querySelectorAll('.a').forEach(e=>{e.style.animation='none';e.offsetHeight;e.style.animation=''});
+  if(window.innerWidth<=768)window.scrollTo({top:0,behavior:'instant'});
+}
 function go(d){gt(c+d)}
 document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowDown')go(1);if(e.key==='ArrowLeft'||e.key==='ArrowUp')go(-1)});
+
+/* Touch / swipe navigation */
+let tx=0,ty=0;
+document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY},{passive:true});
+document.addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-tx;
+  const dy=e.changedTouches[0].clientY-ty;
+  if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>50)go(dx<0?1:-1);
+});
 </script>
 </body>
 </html>
