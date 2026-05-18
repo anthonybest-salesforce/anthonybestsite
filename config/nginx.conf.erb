@@ -28,6 +28,10 @@ http {
   tcp_nopush on;
   keepalive_timeout 65;
 
+  # Never include the internal Heroku port in redirect URLs
+  port_in_redirect off;
+  absolute_redirect off;
+
   server {
     listen <%= ENV['PORT'] %>;
     server_name _;
