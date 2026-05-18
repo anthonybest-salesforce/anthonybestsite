@@ -35,12 +35,22 @@ http {
       return 301 https://$host$request_uri;
     }
 
-    # Cache static assets
-    add_header Cache-Control "public, max-age=3600";
-
     # Clean URLs — try file, then file.html, then directory
     location / {
+      add_header Cache-Control "public, max-age=3600";
       try_files $uri $uri.html $uri/ =404;
+    }
+
+    # CSS and JS — cache 1 week
+    location ~* \.(css|js)$ {
+      add_header Cache-Control "public, max-age=604800, stale-while-revalidate=86400";
+      try_files $uri =404;
+    }
+
+    # Images and fonts — cache 30 days
+    location ~* \.(jpg|jpeg|png|gif|ico|webp|svg|woff|woff2|ttf|eot)$ {
+      add_header Cache-Control "public, max-age=2592000, stale-while-revalidate=86400";
+      try_files $uri =404;
     }
 
     # Custom 404
