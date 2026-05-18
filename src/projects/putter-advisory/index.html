@@ -123,14 +123,22 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-seri
 table.mx{width:100%;border-collapse:collapse}
 table.mx th{font-family:'Syne',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:6px 9px;text-align:center;border-bottom:.5px solid var(--border-f);font-weight:500}
 table.mx th:first-child{text-align:left}
-table.mx td{font-size:11px;padding:9px 9px;border-bottom:.5px solid var(--border-f);color:rgba(232,228,220,0.55);text-align:center}
-table.mx td:first-child{text-align:left;color:var(--text);font-weight:500;font-size:11px}
+table.mx td{font-size:11px;padding:9px 6px;border-bottom:.5px solid var(--border-f);color:rgba(232,228,220,0.55);text-align:center;vertical-align:middle;white-space:nowrap}
+table.mx td:first-child{text-align:left;color:var(--text);font-weight:500;font-size:11px;white-space:normal}
 table.mx tr.win{background:rgba(200,169,110,0.055)}
 table.mx tr.win td{color:var(--text)}
 .wp{display:inline-block;background:var(--gold);color:#0c0c0d;font-size:8px;padding:2px 5px;border-radius:2px;letter-spacing:.07em;font-weight:700;margin-left:4px;font-family:'Syne',sans-serif;vertical-align:middle}
-.ck{color:var(--gold);font-size:13px}
-.hf{color:var(--gold-dim);font-size:13px}
-.no{color:rgba(255,255,255,0.11);font-size:11px}
+/* Pie chart score cells */
+.pc{display:inline-block;width:16px;height:16px;border-radius:50%;vertical-align:middle;flex-shrink:0}
+.pc-full{background:var(--gold)}
+.pc-hi{background:conic-gradient(var(--gold) 83%,rgba(200,169,110,0.12) 0)}
+.pc-mid{background:conic-gradient(var(--gold) 50%,rgba(200,169,110,0.12) 0)}
+.pc-lo{background:none;border:1.5px solid rgba(200,169,110,0.2)}
+.pc-na{display:inline-block;width:12px;height:1.5px;background:rgba(255,255,255,0.12);vertical-align:middle;border-radius:1px;margin:0 2px}
+.pv{font-family:'Syne',sans-serif;font-size:10px;font-weight:600;margin-left:3px;vertical-align:middle}
+.pv-g{color:var(--gold)}
+.pv-d{color:var(--gold-dim)}
+.pv-l{color:rgba(255,255,255,0.2)}
 .sw{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--gold)!important}
 .sc{font-family:'Syne',sans-serif;font-size:14px;font-weight:600}
 
@@ -541,6 +549,12 @@ table.mx tr.win td{color:var(--text)}
           <div style="font-size:22px;font-family:'Syne',sans-serif;font-weight:800;color:var(--gold);line-height:1">3</div>
           <div style="font-size:9px;color:var(--muted)">finalists advance</div>
         </div>
+        <div style="margin-top:14px;padding-top:12px;border-top:.5px solid var(--border-f);font-size:11px;color:var(--muted);line-height:1.7">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><span class="pc pc-full"></span> Dominant</div>
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><span class="pc pc-hi"></span> Strong</div>
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><span class="pc pc-mid"></span> Moderate</div>
+          <div style="display:flex;align-items:center;gap:6px"><span class="pc pc-lo"></span> Eliminated</div>
+        </div>
       </div>
       <table class="mx">
         <thead><tr>
@@ -550,36 +564,66 @@ table.mx tr.win td{color:var(--text)}
         <tbody>
           <tr class="win">
             <td>Phantom 7.2 <span class="wp">FINALIST</span></td>
-            <td><span class="ck">✓</span></td><td><span class="ck">✓✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓✓</span></td><td><span class="ck">✓</span></td>
+            <td><span class="pc pc-hi"></span><span class="pv pv-g">95%</span></td>
+            <td><span class="pc pc-full"></span><span class="pv pv-g">100%</span></td>
+            <td><span class="pc pc-full"></span><span class="pv pv-g">95%</span></td>
+            <td><span class="pc pc-full"></span><span class="pv pv-g">100%</span></td>
+            <td><span class="pc pc-hi"></span><span class="pv pv-g">90%</span></td>
             <td><span class="sc sw">94</span></td>
           </tr>
           <tr class="win">
             <td>Phantom 9.2R <span class="wp">FINALIST</span></td>
-            <td><span class="ck">✓</span></td><td><span class="ck">✓✓✓</span></td><td><span class="ck">✓</span></td><td><span class="hf">◑</span></td><td><span class="ck">✓</span></td>
+            <td><span class="pc pc-hi"></span><span class="pv pv-g">90%</span></td>
+            <td><span class="pc pc-full"></span><span class="pv pv-g">100%</span></td>
+            <td><span class="pc pc-hi"></span><span class="pv pv-g">90%</span></td>
+            <td><span class="pc pc-mid"></span><span class="pv pv-d">45%</span></td>
+            <td><span class="pc pc-mid"></span><span class="pv pv-d">55%</span></td>
             <td><span class="sc sw">81</span></td>
           </tr>
           <tr class="win">
             <td>Phantom 5.2 <span class="wp">FINALIST</span></td>
-            <td><span class="ck">✓</span></td><td><span class="hf">◑</span></td><td><span class="ck">✓</span></td><td><span class="hf">◑</span></td><td><span class="ck">✓✓</span></td>
+            <td><span class="pc pc-hi"></span><span class="pv pv-g">88%</span></td>
+            <td><span class="pc pc-mid"></span><span class="pv pv-d">58%</span></td>
+            <td><span class="pc pc-hi"></span><span class="pv pv-g">88%</span></td>
+            <td><span class="pc pc-mid"></span><span class="pv pv-d">50%</span></td>
+            <td><span class="pc pc-hi"></span><span class="pv pv-g">82%</span></td>
             <td><span class="sc sw">76</span></td>
           </tr>
           <tr style="border-top:.5px solid rgba(255,255,255,0.07)">
             <td style="color:rgba(232,228,220,0.25);font-style:italic">Phantom 5.5 / 7.5</td>
-            <td><span class="no">✗</span></td><td><span class="hf">◑</span></td><td><span class="no">✗</span></td><td><span class="no">✗</span></td><td><span class="hf">◑</span></td>
+            <td><span class="pc pc-lo"></span><span class="pv pv-l">8%</span></td>
+            <td><span class="pc pc-mid"></span><span class="pv pv-l">58%</span></td>
+            <td><span class="pc pc-lo"></span><span class="pv pv-l">8%</span></td>
+            <td><span class="pc pc-lo"></span><span class="pv pv-l">8%</span></td>
+            <td><span class="pc pc-mid"></span><span class="pv pv-l">48%</span></td>
             <td><span class="sc" style="color:rgba(255,255,255,0.15)">41</span></td>
           </tr>
           <tr>
             <td style="color:rgba(232,228,220,0.25);font-style:italic">OC models (×2)</td>
-            <td><span class="no">✗</span></td><td><span class="ck">✓✓</span></td><td><span class="no">✗</span></td><td><span class="hf">◑</span></td><td><span class="no">✗</span></td>
+            <td><span class="pc pc-lo"></span><span class="pv pv-l">8%</span></td>
+            <td><span class="pc pc-full" style="opacity:0.35"></span><span class="pv pv-l">95%</span></td>
+            <td><span class="pc pc-lo"></span><span class="pv pv-l">8%</span></td>
+            <td><span class="pc pc-mid" style="opacity:0.4"></span><span class="pv pv-l">48%</span></td>
+            <td><span class="pc pc-lo"></span><span class="pv pv-l">8%</span></td>
             <td><span class="sc" style="color:rgba(255,255,255,0.15)">29</span></td>
           </tr>
           <tr>
             <td style="color:rgba(232,228,220,0.25);font-style:italic">Remaining 5</td>
-            <td><span class="no">✗</span></td><td><span class="no">—</span></td><td><span class="no">✗</span></td><td><span class="no">—</span></td><td><span class="no">—</span></td>
+            <td><span class="pc pc-lo"></span><span class="pv pv-l">5%</span></td>
+            <td><span class="pc-na"></span></td>
+            <td><span class="pc pc-lo"></span><span class="pv pv-l">5%</span></td>
+            <td><span class="pc-na"></span></td>
+            <td><span class="pc-na"></span></td>
             <td><span class="sc" style="color:rgba(255,255,255,0.15)">&lt;25</span></td>
           </tr>
         </tbody>
       </table>
+    </div>
+    <div style="margin-top:14px;padding-top:12px;border-top:.5px solid rgba(255,255,255,0.06);font-size:10px;color:rgba(232,228,220,0.28);line-height:1.7" class="a">
+      <span style="color:rgba(200,169,110,0.5);font-family:'Syne',sans-serif;font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-size:9px">How scores are calculated — </span>
+      <strong style="color:rgba(232,228,220,0.38)">Composite score</strong> is a weighted sum: each criterion's percentile (0–100) multiplied by its weight (Stroke 30%, MOI 25%, Neck 20%, Alignment 15%, Confidence 10%), summed to 100. Percentiles derived from independent specifications vs the full 2026 Phantom lineup.
+      &nbsp;·&nbsp;
+      <strong style="color:rgba(232,228,220,0.38)">MOI gain</strong> is each model's MOI improvement over the Special Select Newport expressed as a percentage of the maximum gain available in the lineup. 100% = highest available MOI gain among plumbing-neck-compatible models.
     </div>
   </div>
 </div>
