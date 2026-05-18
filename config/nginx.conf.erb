@@ -11,9 +11,11 @@ events {
 
 http {
   gzip on;
-  gzip_comp_level 2;
+  gzip_comp_level 6;
   gzip_min_length 512;
-  gzip_types text/plain text/css application/javascript application/json image/svg+xml;
+  gzip_proxied any;
+  gzip_vary on;
+  gzip_types text/plain text/css application/javascript application/json image/svg+xml application/font-woff2;
 
   server_tokens off;
 
@@ -23,6 +25,8 @@ http {
   include mime.types;
   default_type application/octet-stream;
   sendfile on;
+  tcp_nopush on;
+  keepalive_timeout 65;
 
   server {
     listen <%= ENV['PORT'] %>;
@@ -30,10 +34,16 @@ http {
     root /app/src;
     index index.html;
 
-    # Redirect HTTP to HTTPS in production
+    # Trust Cloudflare + Heroku proxy headers for HTTPS redirect
+    # Cloudflare always sends X-Forwarded-Proto; Heroku does too
     if ($http_x_forwarded_proto != "https") {
       return 301 https://$host$request_uri;
     }
+
+    # Security headers (Cloudflare passes these through)
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
 
     # Clean URLs — try file, then file.html, then directory
     location / {
@@ -41,13 +51,13 @@ http {
       try_files $uri $uri.html $uri/ =404;
     }
 
-    # CSS and JS — cache 1 week
+    # CSS and JS — cache 1 week; Cloudflare will also cache at edge
     location ~* \.(css|js)$ {
       add_header Cache-Control "public, max-age=604800, stale-while-revalidate=86400";
       try_files $uri =404;
     }
 
-    # Images and fonts — cache 30 days
+    # Images and fonts — cache 30 days; Cloudflare edge caches these too
     location ~* \.(jpg|jpeg|png|gif|ico|webp|svg|woff|woff2|ttf|eot)$ {
       add_header Cache-Control "public, max-age=2592000, stale-while-revalidate=86400";
       try_files $uri =404;
