@@ -524,6 +524,21 @@
 
     #pers-footer-message:empty { display: none; }
 
+    .footer-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+    }
+
+    .footer-sep {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: rgba(200, 169, 110, 0.35);
+      flex-shrink: 0;
+    }
+
     .footer-link {
       font-size: 11px;
       letter-spacing: 1.5px;
@@ -537,6 +552,15 @@
     .footer-link:hover {
       color: var(--text);
       border-bottom-color: rgba(232, 228, 220, 0.3);
+    }
+
+    .footer-link.footer-link--subtle {
+      color: rgba(232, 228, 220, 0.35);
+    }
+
+    .footer-link.footer-link--subtle:hover {
+      color: var(--gold);
+      border-bottom-color: rgba(200, 169, 110, 0.35);
     }
 
     /* ── Entrance animation ── */
@@ -835,9 +859,15 @@
       <footer class="footer">
         <!-- Zone: footer_message — optional personalized line above link -->
         <p id="pers-footer-message" aria-live="polite"></p>
-        <a class="footer-link" href="https://anthonybest.com" target="_blank" rel="noopener noreferrer">
-          anthonybest.com
-        </a>
+        <div class="footer-links">
+          <a class="footer-link" href="https://anthonybest.com" target="_blank" rel="noopener noreferrer">
+            anthonybest.com
+          </a>
+          <span class="footer-sep" aria-hidden="true"></span>
+          <a class="footer-link footer-link--subtle" href="/projects">
+            projects
+          </a>
+        </div>
       </footer>
 
     </div>
@@ -884,7 +914,7 @@
   </div>
 
   <!-- Version badge — update this number on each deploy -->
-  <div class="version-badge">v18</div>
+  <div class="version-badge">v19</div>
 
   <!-- ═══════════════════════════════════════════════════════════════
        PERSONALIZATION UTILITY API
