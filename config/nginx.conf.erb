@@ -10,25 +10,31 @@ events {
 }
 
 http {
+  # ── Compression ──────────────────────────────────────────────────────────
   gzip on;
   gzip_comp_level 6;
   gzip_min_length 512;
   gzip_proxied any;
   gzip_vary on;
-  gzip_types text/plain text/css application/javascript application/json image/svg+xml application/font-woff2;
+  gzip_types
+    text/plain
+    text/css
+    application/javascript
+    application/json
+    image/svg+xml
+    application/font-woff2;
 
+  # ── Core ─────────────────────────────────────────────────────────────────
   server_tokens off;
-
   access_log /dev/stdout;
   error_log /dev/stderr;
-
   include mime.types;
   default_type application/octet-stream;
   sendfile on;
   tcp_nopush on;
   keepalive_timeout 65;
 
-  # Never include the internal Heroku port in redirect URLs
+  # Never leak the internal Heroku port in redirects
   port_in_redirect off;
   absolute_redirect off;
 
@@ -38,37 +44,39 @@ http {
     root /app/src;
     index index.html;
 
-    # Trust Cloudflare + Heroku proxy headers for HTTPS redirect
-    # Cloudflare always sends X-Forwarded-Proto; Heroku does too
+    # ── HTTPS enforcement ─────────────────────────────────────────────────
+    # Heroku (and Cloudflare if added later) set X-Forwarded-Proto
     if ($http_x_forwarded_proto != "https") {
       return 301 https://$host$request_uri;
     }
 
-    # Security headers (Cloudflare passes these through)
-    add_header X-Content-Type-Options "nosniff" always;
-    add_header X-Frame-Options "SAMEORIGIN" always;
-    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    # ── Security headers ──────────────────────────────────────────────────
+    add_header X-Content-Type-Options  "nosniff"                       always;
+    add_header X-Frame-Options         "SAMEORIGIN"                    always;
+    add_header Referrer-Policy         "strict-origin-when-cross-origin" always;
 
-    # Clean URLs — try file, then file.html, then directory index directly
-    # (avoids nginx issuing an external trailing-slash redirect that breaks the HTTPS check)
+    # ── Routing ───────────────────────────────────────────────────────────
+    # Try: exact file → file.html (clean URLs) → directory index.html
+    # Using $uri/index.html instead of $uri/ avoids nginx issuing an
+    # external trailing-slash redirect (which would break the HTTPS check).
     location / {
       add_header Cache-Control "public, max-age=3600";
       try_files $uri $uri.html $uri/index.html =404;
     }
 
-    # CSS and JS — cache 1 week; Cloudflare will also cache at edge
+    # CSS / JS — cache 1 week
     location ~* \.(css|js)$ {
       add_header Cache-Control "public, max-age=604800, stale-while-revalidate=86400";
       try_files $uri =404;
     }
 
-    # Images and fonts — cache 30 days; Cloudflare edge caches these too
+    # Images / fonts — cache 30 days
     location ~* \.(jpg|jpeg|png|gif|ico|webp|svg|woff|woff2|ttf|eot)$ {
       add_header Cache-Control "public, max-age=2592000, stale-while-revalidate=86400";
       try_files $uri =404;
     }
 
-    # Custom 404
+    # ── Error pages ───────────────────────────────────────────────────────
     error_page 404 /404.html;
   }
 }
