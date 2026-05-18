@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anthony Best — Iron Shaft Advisory</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #0c0c0d;
+  --bg2:       rgba(8,8,10,0.88);
+  --card-bg:   rgba(8,8,10,0.52);
+  --text:      #e8e4dc;
+  --muted:     rgba(232,228,220,0.45);
+  --gold:      #c8a96e;
+  --gold-dim:  rgba(200,169,110,0.45);
+  --gold-faint:rgba(200,169,110,0.08);
+  --orange:    #cc6633;
+  --orange-dim:rgba(204,102,51,0.14);
+  --border:    rgba(200,169,110,0.16);
+  --border-f:  rgba(255,255,255,0.055);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;height:100%;overflow:hidden}
+
+.deck{width:100vw;height:100vh;position:relative;overflow:hidden}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .5s ease}
+.slide.active{opacity:1;pointer-events:all}
+.gold-rule{height:2px;background:linear-gradient(90deg,var(--gold),rgba(200,169,110,0));flex-shrink:0}
+
+/* ── CONTROLS ── */
+.controls{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:14px;z-index:100;background:rgba(8,8,10,0.9);border:.5px solid var(--border);padding:9px 20px;border-radius:40px;backdrop-filter:blur(12px)}
+.btn{background:none;border:.5px solid rgba(200,169,110,0.28);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;padding:5px 15px;border-radius:20px;cursor:pointer;letter-spacing:.05em;transition:all .2s}
+.btn:hover{background:var(--orange);border-color:var(--orange)}
+.ctr{font-size:13px;color:var(--muted);letter-spacing:.1em;min-width:46px;text-align:center}
+.dots{display:flex;gap:5px}
+.d{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.14);cursor:pointer;transition:background .2s}
+.d.on{background:var(--gold)}
+
+/* ── SHARED ── */
+.inner{flex:1;padding:46px 9% 76px;overflow:hidden}
+.sh{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px;border-bottom:.5px solid var(--border-f);padding-bottom:16px}
+.sn{font-family:'Syne',sans-serif;font-size:12px;color:var(--gold);letter-spacing:.18em;text-transform:uppercase;font-weight:600}
+.st{font-family:'Syne',sans-serif;font-size:clamp(23px,3vw,36px);font-weight:700;max-width:58%;line-height:1.2}
+.divider{height:.5px;background:var(--border-f);margin:.7rem 0}
+.note{font-size:14px;color:var(--muted);line-height:1.65}
+
+/* ── S1 COVER ── */
+#s1{background:var(--bg);justify-content:center;align-items:flex-start;padding:0 9%;overflow:hidden}
+.cgrain{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none}
+.cglow{position:absolute;right:-10%;top:20%;width:55%;height:60%;background:radial-gradient(ellipse,rgba(200,169,110,0.04),transparent 70%);pointer-events:none}
+.cline{position:absolute;right:0;top:0;width:38%;height:100%;border-left:.5px solid rgba(200,169,110,0.06);pointer-events:none}
+.clogo{position:absolute;top:40px;right:9%;display:flex;align-items:center;gap:10px}
+.clogo img{height:30px}
+.cbrand{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--text);letter-spacing:.1em;text-transform:uppercase}
+.cbrand span{display:block;font-size:11px;font-weight:400;color:var(--gold);letter-spacing:.12em;margin-top:1px}
+.cey{font-family:'Syne',sans-serif;font-size:12px;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;font-weight:600;margin-bottom:24px}
+.ctitle{font-family:'Syne',sans-serif;font-size:clamp(38px,6.24vw,77px);font-weight:800;line-height:1.06;margin-bottom:20px;max-width:540px}
+.ctitle em{font-style:italic;color:var(--gold);font-weight:400}
+.csub{font-size:16px;color:var(--muted);max-width:400px;line-height:1.72;margin-bottom:48px}
+.cmeta{display:flex;gap:36px;border-top:.5px solid var(--border-f);padding-top:16px;max-width:500px}
+.ml{font-size:12px;color:var(--muted);letter-spacing:.09em;text-transform:uppercase;margin-bottom:3px}
+.mv{font-size:16px;font-weight:500}
+.cfoot{position:absolute;bottom:76px;left:9%;font-size:12px;color:rgba(232,228,220,0.1);letter-spacing:.13em;text-transform:uppercase}
+
+/* ── S2 CURRENT SHAFT ── */
+#s2{background:var(--bg)}
+.ss-grid{display:grid;grid-template-columns:1fr 1.7fr;gap:20px;margin-top:4px}
+.ss-left{display:flex;flex-direction:column;gap:14px}
+.ss-badge{display:inline-flex;align-items:center;gap:6px;background:var(--gold-faint);border:.5px solid var(--border);padding:5px 12px;border-radius:2px;font-family:'Syne',sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:600;width:fit-content}
+.ss-name{font-family:'Syne',sans-serif;font-size:clamp(24px,3.36vw,43px);font-weight:800;line-height:1.1}
+.ss-name em{display:block;font-style:italic;color:var(--gold);font-weight:400;font-size:0.68em}
+.ss-era{font-size:14px;color:var(--muted);line-height:1.6;margin-top:2px}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
+.spec{background:var(--card-bg);border:.5px solid var(--border-f);padding:10px 13px;border-radius:2px}
+.spec-l{font-family:'Syne',sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:3px;font-weight:600}
+.spec-v{font-size:14px;font-weight:500}
+.ss-right{display:flex;flex-direction:column;gap:12px}
+.why-card{background:var(--card-bg);border:.5px solid var(--border-f);border-left:2px solid var(--gold);padding:14px 16px;border-radius:2px}
+.why-head{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--text);margin-bottom:5px}
+.why-body{font-size:13px;color:var(--muted);line-height:1.62}
+.why-body strong{color:var(--text);font-weight:500}
+.ss-quote{background:var(--gold-faint);border:.5px solid var(--border);padding:14px 16px;border-radius:2px;font-size:14px;color:var(--text);line-height:1.65;font-style:italic;margin-top:2px}
+.ss-quote cite{display:block;font-style:normal;font-size:12px;color:var(--gold);letter-spacing:.08em;margin-top:6px;font-family:'Syne',sans-serif;font-weight:600}
+.upgrade-bar{background:rgba(204,102,51,0.08);border:.5px solid rgba(204,102,51,0.2);border-left:2px solid var(--orange);padding:12px 16px;border-radius:2px;font-size:14px;color:var(--text);line-height:1.6;margin-top:4px}
+.upgrade-bar strong{color:var(--orange);font-weight:500}
+
+/* ── S3 EXEC SUMMARY ── */
+.insight{background:linear-gradient(135deg,rgba(200,169,110,0.08),rgba(200,169,110,0.02));border:.5px solid var(--border);border-left:2px solid var(--gold);padding:20px 24px;border-radius:2px;margin-bottom:24px}
+.iey{font-family:'Syne',sans-serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:9px;font-weight:600}
+.itxt{font-family:'Syne',sans-serif;font-size:clamp(17px,2.16vw,23px);font-weight:600;line-height:1.4}
+.fg{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.fc{background:var(--card-bg);border:.5px solid var(--border-f);border-top:1.5px solid var(--gold);padding:16px;border-radius:2px}
+.fn{font-family:'Syne',sans-serif;font-size:11px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px;font-weight:600}
+.ft{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:6px;line-height:1.3}
+.fb{font-size:13px;color:var(--muted);line-height:1.62}
+
+/* ── S4 PLAYER PROFILE ── */
+.yg{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.yc{background:var(--card-bg);border:.5px solid var(--border-f);padding:18px 20px;border-radius:2px}
+.yn{font-family:'Syne',sans-serif;font-size:46px;font-weight:800;color:var(--gold);line-height:1}
+.yt{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:6px}
+.yb{font-size:13px;color:var(--muted);line-height:1.62}
+.yq{background:rgba(200,169,110,0.04);border:.5px solid var(--border);border-left:2px solid var(--orange);padding:16px 18px;border-radius:2px;font-size:14px;color:var(--text);line-height:1.7;font-style:italic;margin-top:14px}
+.yq strong{font-style:normal;font-weight:500;color:var(--gold)}
+
+/* ── S5 RESEARCH / STAT CARDS ── */
+.rg{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.rc{background:var(--card-bg);border:.5px solid var(--border-f);padding:16px;border-radius:2px;display:flex;flex-direction:column;gap:5px}
+.rsrc{font-family:'Syne',sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.rn{font-family:'Syne',sans-serif;font-size:34px;font-weight:800;line-height:1}
+.rn span{color:var(--gold)}
+.rb{font-size:13px;color:var(--muted);line-height:1.62;margin-top:2px}
+.rnote{margin-top:14px;background:var(--gold-faint);border:.5px solid var(--border);padding:12px 16px;border-radius:2px;font-size:13px;color:var(--muted);line-height:1.6}
+.rnote strong{color:var(--text);font-weight:500}
+
+/* ── S6 MATRIX ── */
+.mx-wrap{display:grid;grid-template-columns:188px 1fr;gap:14px;margin-top:6px}
+.crit{background:var(--card-bg);border:.5px solid var(--border-f);padding:14px;border-radius:2px}
+.ch{font-family:'Syne',sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-weight:600}
+.ci{display:flex;align-items:center;gap:6px;margin-bottom:8px;font-size:12px;color:var(--muted)}
+.cw{font-size:11px;color:var(--orange);background:var(--orange-dim);padding:1px 5px;border-radius:2px;font-weight:500;flex-shrink:0}
+table.mx{width:100%;border-collapse:collapse}
+table.mx th{font-family:'Syne',sans-serif;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:6px 6px;text-align:center;border-bottom:.5px solid var(--border-f);font-weight:500}
+table.mx th:first-child{text-align:left}
+table.mx td{font-size:12px;padding:9px 6px;border-bottom:.5px solid var(--border-f);color:rgba(232,228,220,0.55);text-align:center;vertical-align:middle;white-space:nowrap}
+table.mx td:first-child{text-align:left;color:var(--text);font-weight:500;font-size:12px;white-space:normal}
+table.mx tr.win{background:rgba(200,169,110,0.055)}
+table.mx tr.win td{color:var(--text)}
+.wp{display:inline-block;background:var(--gold);color:#0c0c0d;font-size:9px;padding:2px 4px;border-radius:2px;letter-spacing:.07em;font-weight:700;margin-left:4px;font-family:'Syne',sans-serif;vertical-align:middle}
+.pc{display:inline-block;width:16px;height:16px;border-radius:50%;vertical-align:middle;flex-shrink:0}
+.pc-full{background:var(--gold)}
+.pc-hi{background:conic-gradient(var(--gold) 83%,rgba(200,169,110,0.12) 0)}
+.pc-mid{background:conic-gradient(var(--gold) 50%,rgba(200,169,110,0.12) 0)}
+.pc-lo{background:none;border:1.5px solid rgba(200,169,110,0.2)}
+.pc-na{display:inline-block;width:12px;height:1.5px;background:rgba(255,255,255,0.12);vertical-align:middle;border-radius:1px;margin:0 2px}
+.pv{font-family:'Syne',sans-serif;font-size:10px;font-weight:600;margin-left:3px;vertical-align:middle}
+.pv-g{color:var(--gold)}
+.pv-d{color:var(--gold-dim)}
+.pv-l{color:rgba(255,255,255,0.2)}
+.sw{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--gold)!important}
+.sc{font-family:'Syne',sans-serif;font-size:17px;font-weight:600}
+
+/* ── S7 RECOMMENDATION ── */
+#s7{background:var(--bg);flex-direction:row}
+.rl{width:40%;flex-shrink:0;padding:50px 42px;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(160deg,rgba(200,169,110,0.07),rgba(200,169,110,0.015));border-right:.5px solid var(--border);position:relative}
+.rl::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent)}
+.rey{font-family:'Syne',sans-serif;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;font-weight:600}
+.rmod{font-family:'Syne',sans-serif;font-size:clamp(34px,4.56vw,60px);font-weight:800;line-height:1.07;margin-bottom:16px}
+.rmod em{display:block;font-style:italic;color:var(--gold);font-weight:400;font-size:0.72em}
+.rsub{font-size:14px;color:var(--muted);line-height:1.68;margin-bottom:24px}
+.rprice{display:inline-block;border:.5px solid var(--border);padding:7px 16px;font-family:'Syne',sans-serif;font-size:14px;font-weight:600;letter-spacing:.06em;border-radius:2px;color:var(--gold)}
+.rright{flex:1;padding:50px 42px;display:flex;flex-direction:column;justify-content:center}
+.rlbl{font-family:'Syne',sans-serif;font-size:11px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;margin-bottom:9px;font-weight:600}
+.rttl{font-family:'Syne',sans-serif;font-size:clamp(18px,2.28vw,26px);font-weight:700;margin-bottom:18px;line-height:1.25}
+.pillars{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pill{background:var(--card-bg);border:.5px solid var(--border-f);padding:14px 15px;border-radius:2px}
+.pi{font-size:19px;margin-bottom:7px}
+.pt{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;margin-bottom:4px}
+.pb{font-size:13px;color:var(--muted);line-height:1.58}
+
+/* ── S8 ALTERNATIVE ── */
+#s8{background:var(--bg)}
+.alt-divider{margin-top:16px;padding-top:14px;border-top:.5px solid rgba(204,102,51,0.28)}
+.alt-why-head{font-family:'Syne',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);margin-bottom:10px;font-weight:600}
+.alt-pref{background:rgba(204,102,51,0.06);border:.5px solid rgba(204,102,51,0.2);border-left:2px solid var(--orange);padding:11px 14px;border-radius:2px;margin-bottom:8px}
+.alt-pref-h{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--text);margin-bottom:3px}
+.alt-pref-b{font-size:13px;color:var(--muted);line-height:1.58}
+.alt-who{background:var(--gold-faint);border:.5px solid var(--border);padding:10px 14px;border-radius:2px;font-size:13px;color:var(--muted);line-height:1.58;margin-top:4px}
+.alt-who strong{color:var(--text);font-weight:500}
+.score-pill{display:inline-flex;align-items:center;gap:8px;background:var(--card-bg);border:.5px solid var(--border-f);padding:6px 14px;border-radius:2px;margin-top:10px}
+.score-pill-n{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:var(--text)}
+.score-pill-l{font-size:12px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+
+/* ── S9 RISK ── */
+.risk-g{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.rsk{background:var(--card-bg);border:.5px solid var(--border-f);padding:18px;border-radius:2px;position:relative;overflow:hidden}
+.rsk::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.rsk.hi::before{background:#e84444}
+.rsk.md::before{background:var(--gold)}
+.rsk.lo::before{background:#44aa66}
+.rlv{font-family:'Syne',sans-serif;font-size:11px;letter-spacing:.13em;text-transform:uppercase;margin-bottom:8px;font-weight:600}
+.rsk.hi .rlv{color:#e84444}
+.rsk.md .rlv{color:var(--gold)}
+.rsk.lo .rlv{color:#55cc77}
+.rtt{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:6px}
+.rbd{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:8px}
+.rmt{font-size:13px;color:var(--text);background:rgba(255,255,255,0.03);padding:7px 9px;border-radius:2px;line-height:1.52}
+.rmt strong{display:block;font-family:'Syne',sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:2px;font-weight:600}
+
+/* ── S10 PROTOCOL ── */
+.proto-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:2px}
+.proto-col{display:flex;flex-direction:column;gap:10px}
+.proto-head{font-family:'Syne',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:6px}
+table.proto-t{width:100%;border-collapse:collapse}
+table.proto-t th{font-family:'Syne',sans-serif;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:5px 8px;text-align:left;border-bottom:.5px solid var(--border-f);font-weight:500}
+table.proto-t td{font-size:12px;padding:7px 8px;border-bottom:.5px solid var(--border-f);color:var(--muted)}
+table.proto-t td:first-child{color:var(--text);font-weight:500;font-family:'Syne',sans-serif}
+.threshold-card{background:var(--card-bg);border:.5px solid var(--border-f);padding:12px 14px;border-radius:2px}
+.threshold-card.lo{border-left:2px solid #44aa66}
+.threshold-card.hi{border-left:2px solid #e84444}
+.thr-head{font-family:'Syne',sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-bottom:8px}
+.thr-head.lo{color:#55cc77}
+.thr-head.hi{color:#e84444}
+.thr-item{font-size:12px;color:var(--muted);line-height:1.6;padding:4px 0;border-bottom:.5px solid var(--border-f)}
+.thr-item:last-child{border-bottom:none}
+.thr-item strong{color:var(--text);font-weight:500}
+
+/* ── S11 CLOSE ── */
+#s11{background:var(--bg);justify-content:center;align-items:center;text-align:center;overflow:hidden}
+.crings span{position:absolute;border-radius:50%;border:.5px solid rgba(200,169,110,0.065);transform:translate(-50%,-50%);top:50%;left:50%}
+.ci2{position:relative;z-index:2;max-width:550px}
+.cey2{font-family:'Syne',sans-serif;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;font-weight:600}
+.ctitle2{font-family:'Syne',sans-serif;font-size:clamp(34px,5.28vw,65px);font-weight:800;line-height:1.06;margin-bottom:16px}
+.ctitle2 em{font-style:italic;color:var(--gold);font-weight:400}
+.cbody{font-size:16px;color:var(--muted);line-height:1.72;margin-bottom:34px;max-width:420px;margin-left:auto;margin-right:auto}
+.ccta{display:inline-block;background:transparent;color:var(--gold);border:.5px solid var(--gold);font-family:'Syne',sans-serif;font-size:13px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;padding:12px 30px;border-radius:2px;text-decoration:none;transition:all .22s}
+.ccta:hover{background:var(--gold);color:var(--bg)}
+.cgemclose{font-size:19px;color:var(--gold);margin-bottom:10px;display:block}
+.cfoot2{position:absolute;bottom:76px;font-size:12px;color:rgba(232,228,220,0.09);letter-spacing:.13em;text-transform:uppercase}
+
+/* ── ANIMS ── */
+@keyframes fu{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.slide.active .a{animation:fu .46s ease forwards;opacity:0}
+.slide.active .a:nth-child(1){animation-delay:.04s}
+.slide.active .a:nth-child(2){animation-delay:.13s}
+.slide.active .a:nth-child(3){animation-delay:.21s}
+.slide.active .a:nth-child(4){animation-delay:.29s}
+.slide.active .a:nth-child(5){animation-delay:.37s}
+.slide.active .a:nth-child(6){animation-delay:.44s}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  html,body{overflow:auto;height:auto}
+  .deck{height:auto;min-height:100svh}
+  .slide{position:static;display:none;opacity:1;pointer-events:all;transition:none}
+  .slide.active{display:flex}
+  .inner{overflow:visible;padding:20px 5% 88px}
+  #s1,#s11{position:relative}
+  #s1{padding:24px 5% 88px;min-height:100svh;overflow:visible;justify-content:flex-start}
+  .clogo{position:static;margin-bottom:20px}
+  .ctitle,.csub,.cmeta{max-width:100%;flex-wrap:wrap}
+  .cfoot,.cfoot2{display:none}
+  .sh{flex-direction:column;gap:8px}
+  .st{max-width:100%}
+  .ss-grid,.fg,.yg,.rg,.mx-wrap,.pillars,.risk-g,.proto-grid{grid-template-columns:1fr}
+  table.mx{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:nowrap}
+  #s7{flex-direction:column}
+  .rl{width:100%;padding:24px 5% 20px;border-right:none;border-bottom:.5px solid var(--border);flex-shrink:1}
+  .rright{padding:20px 5% 0}
+  #s8 .inner{flex-direction:column!important}
+  #s8 .rl{flex:none!important;border-right:none!important;border-bottom:.5px solid var(--border);padding-right:0!important}
+  .crings span:nth-child(1){width:200px!important;height:200px!important}
+  .crings span:nth-child(2){width:300px!important;height:300px!important}
+  .crings span:nth-child(3){width:400px!important;height:400px!important}
+  .controls{max-width:calc(100vw - 24px);gap:8px;padding:8px 14px;bottom:12px}
+}
+@media(max-width:480px){
+  .btn{padding:5px 10px;font-size:11px}
+  .dots{gap:4px}
+  .d{width:4px;height:4px}
+  .ctr{min-width:32px;font-size:10px}
+  .controls{gap:6px;padding:7px 10px}
+}
+</style>
+</head>
+<body>
+<div class="deck">
+
+<!-- ── S1 COVER ── -->
+<div class="slide active" id="s1">
+  <div class="gold-rule"></div>
+  <div class="cgrain"></div><div class="cglow"></div><div class="cline"></div>
+  <div class="clogo">
+    <img src="https://beta.anthonybest.com/ALB_Logo_White_Transparent.png" alt="Anthony Best" onerror="this.style.display='none'">
+    <div class="cbrand">Anthony Best<span>Golf Performance Advisory</span></div>
+  </div>
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
+    <div class="cey a">Iron Shaft Advisory · Performance Analysis · 2026</div>
+    <div class="ctitle a">The Case for Better<br><em>Iron Shafts</em></div>
+    <div class="csub a">A data-driven analysis of the Fujikura Axiom 105 as a replacement for the UST Mamiya Recoil Dart 94g — for a player operating at the ceiling of his current shaft's speed range.</div>
+    <div class="cmeta a">
+      <div><div class="ml">Prepared for</div><div class="mv">Anthony Best</div></div>
+      <div><div class="ml">Reference</div><div class="mv">SHAFT-2026-001</div></div>
+      <div><div class="ml">Classification</div><div class="mv">Confidential</div></div>
+    </div>
+  </div>
+  <div class="cfoot">anthonybest.com · Iron Shaft Advisory Series · 2026</div>
+</div>
+
+<!-- ── S2 CURRENT WEAPON ── -->
+<div class="slide" id="s2">
+  <div class="gold-rule"></div>
+  <div class="inner">
+    <div class="sh">
+      <div class="sn a">02 · The Existing Weapon</div>
+      <div class="st a">The shaft that built<br>the current game.</div>
+    </div>
+    <div class="ss-grid">
+      <div class="ss-left a">
+        <div class="ss-badge">✦ UST Mamiya · Single Blank Design</div>
+        <div class="ss-name">Recoil Dart<em>94 gram</em></div>
+        <div class="ss-era">UST Mamiya's Recoil Dart series brought high-performance graphite iron shafts into the mainstream — offering a mid-launch, mid-spin profile with a stabilized tip designed to reduce face angle variability for players transitioning from steel. At 94g, it targets the 75–90 mph iron speed window with a parallel single-blank construction that delivers consistent feel across the set.</div>
+        <div class="spec-grid" style="margin-top:8px">
+          <div class="spec"><div class="spec-l">Weight</div><div class="spec-v">94g</div></div>
+          <div class="spec"><div class="spec-l">Launch</div><div class="spec-v">Mid</div></div>
+          <div class="spec"><div class="spec-l">Spin</div><div class="spec-v">Mid</div></div>
+          <div class="spec"><div class="spec-l">Tip</div><div class="spec-v">Stabilized</div></div>
+          <div class="spec"><div class="spec-l">Torque</div><div class="spec-v">~3.5–4.0°</div></div>
+          <div class="spec"><div class="spec-l">Segment</div><div class="spec-v">Single blank</div></div>
+          <div class="spec"><div class="spec-l">Speed range</div><div class="spec-v">75–90 mph</div></div>
+          <div class="spec"><div class="spec-l">Anthony at</div><div class="spec-v">87 mph 7i ⚠️</div></div>
+        </div>
+        <div style="margin-top:8px;background:var(--gold-faint);border:.5px solid var(--border);padding:10px 13px;border-radius:2px">
+          <div class="spec-l" style="margin-bottom:4px">Bag context</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.6">Installed in Mizuno JPX 923 Forged (5–PW), set 1° weak and 1° flat. The JPX 923 uses Chromoly 4120 steel in the 4–7 irons and softer 1025E mild carbon steel in the 8i–PW — two materially different compression zones across the same set of shafts.</div>
+        </div>
+      </div>
+      <div class="ss-right a">
+        <div class="why-card">
+          <div class="why-head">Why the Recoil Dart 94g was the right shaft at the right time</div>
+          <div class="why-body">The Dart's single-blank construction delivers a consistent flex profile from long irons through wedges. Its stabilized tip reduces the face-angle variability that causes misses in mid-speed players, and the mid-launch, mid-spin tuning suits a player building iron game patterns. <strong>At 75–85 mph, this shaft performs exactly as designed.</strong> It is not a compromised shaft — it is a well-engineered one that has been doing its job effectively.</div>
+        </div>
+        <div class="why-card">
+          <div class="why-head">Why "stabilized" tip is meaningful — within its design window</div>
+          <div class="why-body">The Dart's stabilized tip section is stiffer than a raw graphite tip, reducing the oscillation that produces unpredictable face-angle timing at impact. This is why the shaft produces relatively tight miss patterns for mid-speed players. <strong>However, "stabilized" is not the same as "stiffened."</strong> At 87 mph — the ceiling of its intended range — the tip is being loaded beyond its design parameters on every swing. The stabilization system is operating beyond its operating window.</div>
+        </div>
+        <div class="why-card">
+          <div class="why-head">Why 94 grams was a deliberate, thoughtful choice</div>
+          <div class="why-body">Lighter graphite shafts reduce cumulative joint load across thousands of swings — a legitimate consideration for any player who is in the game for the long term. The Dart 94g represents a real performance-versus-longevity trade-off. <strong>It is not a wrong choice to make.</strong> The question is whether the performance ceiling that comes with that weight is still the right trade-off at 87 mph.</div>
+        </div>
+        <div class="upgrade-bar">
+          <strong>The constraint:</strong> At 87 mph, Anthony is operating at the top of the Dart's intended speed range. The shaft is not broken. It has been outgrown. The miss pattern — pulls, weak cuts, and thin contact — is consistent with a shaft being asked to do more than it was built to handle. This is not a shaft that failed. It is a shaft that has been maximized.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── S3 EXECUTIVE SUMMARY ── -->
+<div class="slide" id="s3">
+  <div class="gold-rule"></div>
+  <div class="inner">
+    <div class="sh">
+      <div class="sn a">03 · Executive Summary</div>
+      <div class="st a">The verdict,<br>before the evidence.</div>
+    </div>
+    <div class="insight a">
+      <div class="iey">Primary finding</div>
+      <div class="itxt">Anthony's 87 mph 7-iron speed places him at the ceiling of the Recoil Dart's designed range — and the miss pattern is exactly what that looks like. The Fujikura Axiom 105 is not a luxury upgrade. It is a speed-range correction. One primary recommendation. The data that follows is the proof — with the caveat that a fitting session is required before committing $700.</div>
+    </div>
+    <div class="fg">
+      <div class="fc a">
+        <div class="fn">FINDING 01</div>
+        <div class="ft">87 mph is the ceiling of the Dart's range — not the sweet spot.</div>
+        <div class="fb">The Recoil Dart 94g is designed for 75–90 mph. Anthony's 7-iron speed of 87 mph puts him within 3 mph of the top of that window. The shaft is being loaded at a level that exceeds its optimal operating range on every swing — producing inconsistent tip timing, variable face angle at impact, and the three-miss pattern that follows.</div>
+      </div>
+      <div class="fc a">
+        <div class="fn">FINDING 02</div>
+        <div class="ft">Low spin and excess roll-out are symptoms, not causes.</div>
+        <div class="fb">A measured spin rate of 5,500 rpm is roughly 1,000–1,700 rpm below optimal for 87 mph at 32° effective loft. Excess roll-out of ~25 yards confirms the descent angle is too shallow. These numbers point to a shaft that is stripping dynamic loft through inconsistent tip behavior — but the hypothesis requires LM validation before a financial commitment.</div>
+      </div>
+      <div class="fc a">
+        <div class="fn">FINDING 03</div>
+        <div class="ft">The Axiom 105's 3-part design is built for exactly this equipment.</div>
+        <div class="fb">The Fujikura Axiom 105's LP/MP/SP segment architecture isn't a generic shaft upgrade — it directly addresses the JPX 923 Forged's dual-material construction. The MP profile covers the Chromoly 5–7 irons; the SP profile covers the softer 1025E 8i–PW. No other shaft in this evaluation is purpose-matched to this specific iron set the way the Axiom is.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── S4 PLAYER PROFILE ── -->
+<div class="slide" id="s4">
+  <div class="gold-rule"></div>
+  <div class="inner">
+    <div class="sh">
+      <div class="sn a">04 · Player Profile</div>
+      <div class="st a">The numbers that<br>frame the decision.</div>
+    </div>
+    <div class="yg">
+      <div class="yc a">
+        <div class="yt">7-Iron Club Speed</div>
+        <div class="yn">87 mph</div>
+        <div style="font-size:11px;color:var(--orange);font-family:'Syne',sans-serif;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;font-weight:600">⚠️ At ceiling of Dart's design range</div>
+        <div class="yb">Confirmed on FlightScope Mevo+ with Face &amp; Path premium features. This is the anchor number for the entire analysis. The Dart 94g is rated for 75–90 mph — Anthony's 87 mph is 3 mph from the top of that window, meaning the shaft is operating at maximum load on every 7-iron swing.</div>
+      </div>
+      <div class="yc a">
+        <div class="yt">Driver / 7-Iron Speed Ratio</div>
+        <div class="yn" style="color:#e84444">1.16×</div>
+        <div style="font-size:11px;color:#e84444;font-family:'Syne',sans-serif;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;font-weight:600">⚠️ Flagged — expected 1.25–1.30×</div>
+        <div class="yb">Driver speed confirmed at 101 mph. The ratio of 1.16× against an expected 1.25–1.30× suggests the iron speed may be conservative — either the 7-iron measurement is slightly low, or driver speed is running high. If true 7i speed is closer to 84–85 mph, the Dart's case weakens. This ratio must be resolved at the fitting session.</div>
+      </div>
+      <div class="yc a">
+        <div class="yt">7-Iron Spin Rate</div>
+        <div class="yn" style="font-size:34px;line-height:1.2">5,500<br><span style="font-size:14px;color:var(--muted);font-weight:400">rpm</span></div>
+        <div style="font-size:11px;color:var(--orange);font-family:'Syne',sans-serif;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;font-weight:600">⚠️ Range ball — Pro V1 may read higher</div>
+        <div class="yb">Optimal spin at 87 mph / 32° effective loft is 6,500–7,200 rpm. The 5,500 rpm reading was taken on a range ball — Pro V1 Left Dots typically read 300–700 rpm higher, which would place Anthony at roughly 5,800–6,200 rpm. Still below optimal, but the gap narrows. Spin confirmation with real Pro V1s is the critical data point.</div>
+      </div>
+      <div class="yc a">
+        <div class="yt">Handicap Index</div>
+        <div class="yn">2.0</div>
+        <div style="font-size:11px;color:var(--gold);font-family:'Syne',sans-serif;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;font-weight:600">Elite amateur baseline</div>
+        <div class="yb">A 2.0 handicap with a confirmed 72 on a par 70 (5 birdies) demonstrates that the current equipment is performing. This is not a player whose equipment is holding him back across the board. The shaft question is about ceiling and consistency — converting the good rounds into every round, and the misses into near-misses.</div>
+        <div style="margin-top:10px;background:rgba(200,169,110,0.05);border:.5px solid var(--border);border-left:2px solid var(--gold);padding:8px 11px;border-radius:2px">
+          <div style="font-family:'Syne',sans-serif;font-size:10px;color:var(--gold);letter-spacing:.14em;text-transform:uppercase;margin-bottom:3px;font-weight:600">Miss pattern</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.55">Long pull · Weak cut · Thin / low on face — all three share a common mechanism: inconsistent shaft tip timing through the impact zone. A shaft operating at its speed ceiling produces variable tip kick — early release → pull, late release → weak cut, inconsistent arc bottom → thin.</div>
+        </div>
+      </div>
+    </div>
+    <div class="yq a">"A 72 on a par 70 with 5 birdies is not a player whose equipment is broken. It is a player <strong>whose equipment has reached its ceiling.</strong> The shaft change isn't corrective — it's expansive."</div>
+  </div>
+</div>
+
+<!-- ── S5 THE DATA GAP ── -->
+<div class="slide" id="s5">
+  <div class="gold-rule"></div>
+  <div class="inner">
+    <div class="sh">
+      <div class="sn a">05 · The Numbers</div>
+      <div class="st a">What the data shows —<br>and what it doesn't yet.</div>
+    </div>
+    <div class="insight a">
+      <div class="iey">Data quality note</div>
+      <div class="itxt">Not all of this data is equal. Two numbers are LM-confirmed. Four are anecdotal or inferred. The case for the Axiom is directionally sound — but the magnitude of the expected gain is unknown until a proper fitting session is run with real Pro V1s.</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px" class="a">
+      <div>
+        <div style="font-family:'Syne',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:10px">Actual vs optimal — 7-iron at 87 mph / 32° effective loft</div>
+        <div style="border:.5px solid var(--border-f);border-radius:2px;overflow:hidden">
+          <div style="display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr">
+            <div style="padding:7px 10px;font-family:'Syne',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border-bottom:.5px solid var(--border-f);font-weight:500">Metric</div>
+            <div style="padding:7px 10px;font-family:'Syne',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border-bottom:.5px solid var(--border-f);font-weight:500;text-align:center">Actual</div>
+            <div style="padding:7px 10px;font-family:'Syne',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border-bottom:.5px solid var(--border-f);font-weight:500;text-align:center">Optimal</div>
+            <div style="padding:7px 10px;font-family:'Syne',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border-bottom:.5px solid var(--border-f);font-weight:500;text-align:center">Gap</div>
+
+            <div style="padding:7px 10px;font-size:12px;color:var(--text);border-bottom:.5px solid var(--border-f)">Spin rate</div>
+            <div style="padding:7px 10px;font-size:12px;color:var(--orange);text-align:center;border-bottom:.5px solid var(--border-f)">5,500 rpm ⚠️</div>
+            <div style="padding:7px 10px;font-size:12px;color:var(--muted);text-align:center;border-bottom:.5px solid var(--border-f)">6,500–7,200</div>
+            <div style="padding:7px 10px;font-size:12px;color:#e84444;text-align:center;border-bottom:.5px solid var(--border-f)">−1,000–1,700</div>
+
+            <div style="padding:7px 10px;font-size:12px;color:var(--text);border-bottom:.5px solid var(--border-f)">Smash factor</div>
+            <div style="padding:7px 10px;font-size:12px;color:var(--orange);text-align:center;border-bottom:.5px solid var(--border-f)">~1.27 ⚠️</div>
+            <div style="padding:7px 10px;font-size:12px;color:var(--muted);text-align:center;border-bottom:.5px solid var(--border-f)">1.33–1.38</div>
+            <div style="padding:7px 10px;font-size:12px;color:#e84444;text-align:center;border-bottom:.5px solid var(--border-f)">−0.06–0.11</div>
+
+            <div style="padding:7px 10px;font-size:12px;color:var(--text);border-bottom:.5px solid var(--border-f)">Descent angle</div>
+            <div style="padding:7px 10px;font-size:12px;color:var(--orange);text-align:center;border-bottom:.5px solid var(--border-f)">~38° ⚠️</div>
+            <div style="padding:7px 10px;font-size:12px;color:var(--muted);text-align:center;border-bottom:.5px solid var(--border-f)">43–47°</div>
+            <div style="padding:7px 10px;font-size:12px;color:#e84444;text-align:center;border-bottom:.5px solid var(--border-f)">~5–9° shallow</div>
+
+            <div style="padding:7px 10px;font-size:12px;color:var(--text);border-bottom:.5px solid var(--border-f)">Roll-out (7i)</div>
+            <div style="padding:7px 10px;font-size:12px;color:var(--orange);text-align:center;border-bottom:.5px solid var(--border-f)">~25 yds ⚠️</div>
+            <div style="padding:7px 10px;font-size:12px;color:var(--muted);text-align:center;border-bottom:.5px solid var(--border-f)">8–12 yds</div>
+            <div style="padding:7px 10px;font-size:12px;color:#e84444;text-align:center;border-bottom:.5px solid var(--border-f)">+13–17 excess</div>
+
+            <div style="padding:7px 10px;font-size:12px;color:var(--text)">Carry (7i)</div>
+            <div style="padding:7px 10px;font-size:12px;color:var(--gold);text-align:center">145 yds ✅</div>
+            <div style="padding:7px 10px;font-size:12px;color:var(--muted);text-align:center">160–167 yds</div>
+            <div style="padding:7px 10px;font-size:12px;color:var(--orange);text-align:center">−15–22 yds</div>
+          </div>
+        </div>
+        <div style="margin-top:8px;font-size:11px;color:rgba(232,228,220,0.3);line-height:1.6">✅ LM confirmed &nbsp;·&nbsp; ⚠️ Anecdotal or range ball — pending Pro V1 / fitting session confirmation</div>
+      </div>
+      <div>
+        <div style="font-family:'Syne',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:10px">Expected gains — Axiom 105 vs Recoil Dart 94g</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="background:var(--card-bg);border:.5px solid var(--border-f);border-left:2px solid var(--gold);padding:12px 14px;border-radius:2px">
+            <div style="font-family:'Syne',sans-serif;font-size:10px;color:var(--gold);letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-bottom:4px">Spin rate</div>
+            <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--text)">+700–1,300 rpm</div>
+            <div style="font-size:12px;color:var(--muted);margin-top:2px">5,500 → 6,200–6,800 rpm expected. Stiffer tip preserves dynamic loft — less spin-stripping through impact.</div>
+          </div>
+          <div style="background:var(--card-bg);border:.5px solid var(--border-f);border-left:2px solid var(--gold);padding:12px 14px;border-radius:2px">
+            <div style="font-family:'Syne',sans-serif;font-size:10px;color:var(--gold);letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-bottom:4px">Smash factor</div>
+            <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--text)">1.27 → 1.33–1.35</div>
+            <div style="font-size:12px;color:var(--muted);margin-top:2px">Tighter tip timing = more consistent sweet-spot contact. +6–8 mph ball speed on average strike.</div>
+          </div>
+          <div style="background:var(--card-bg);border:.5px solid var(--border-f);border-left:2px solid var(--gold);padding:12px 14px;border-radius:2px">
+            <div style="font-family:'Syne',sans-serif;font-size:10px;color:var(--gold);letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-bottom:4px">Carry distance</div>
+            <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--text)">+15–22 yards (7i)</div>
+            <div style="font-size:12px;color:var(--muted);margin-top:2px">Compounded effect of smash + spin + descent angle improvement. Low confidence — depends on all three moving together.</div>
+          </div>
+          <div style="background:rgba(204,102,51,0.05);border:.5px solid rgba(204,102,51,0.18);padding:10px 13px;border-radius:2px">
+            <div style="font-family:'Syne',sans-serif;font-size:10px;color:var(--orange);letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-bottom:3px">Confidence caveat</div>
+            <div style="font-size:12px;color:var(--muted);line-height:1.55">These projections are directionally sound but magnitude-uncertain. A fitting session comparing both shafts on a launch monitor — standard deviation, not just averages — is the final gate before any purchase.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── S6 DECISION MATRIX ── -->
+<div class="slide" id="s6">
+  <div class="gold-rule"></div>
+  <div class="inner">
+    <div class="sh">
+      <div class="sn a">06 · Decision Matrix</div>
+      <div class="st a">Three options scored<br>across five criteria.</div>
+    </div>
+    <div class="mx-wrap a">
+      <div class="crit">
+        <div class="ch">Criteria weights</div>
+        <div class="ci"><span class="cw">30%</span> Speed range fit</div>
+        <div class="ci"><span class="cw">25%</span> Tip / torque stability</div>
+        <div class="ci"><span class="cw">20%</span> Segment optimization</div>
+        <div class="ci"><span class="cw">15%</span> Feel / transition</div>
+        <div class="ci"><span class="cw">10%</span> Price vs gain</div>
+        <div style="margin-top:14px;padding-top:12px;border-top:.5px solid var(--border-f);font-size:12px;color:var(--muted);line-height:1.7">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><span class="pc pc-full"></span> Dominant advantage</div>
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><span class="pc pc-hi"></span> Strong advantage</div>
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><span class="pc pc-mid"></span> Moderate / partial</div>
+          <div style="display:flex;align-items:center;gap:6px"><span class="pc pc-lo"></span> Eliminated / minimal</div>
+        </div>
+        <div style="margin-top:12px;padding-top:10px;border-top:.5px solid var(--border-f);font-size:11px;color:rgba(232,228,220,0.3);line-height:1.55">Scores based on published shaft specifications and independent launch monitor data. Speed range fit scored relative to Anthony's confirmed 87 mph 7-iron club speed.</div>
+      </div>
+      <table class="mx">
+        <thead><tr>
+          <th style="width:150px">Shaft</th>
+          <th>Speed fit</th><th>Tip stability</th><th>Segment</th><th>Feel</th><th>Price/gain</th><th>Score</th>
+        </tr></thead>
+        <tbody>
+          <tr class="win">
+            <td>Fujikura Axiom 105 <span class="wp">SELECTED</span></td>
+            <td><span class="pc pc-full"></span><span class="pv pv-g">100%</span></td>
+            <td><span class="pc pc-full"></span><span class="pv pv-g">100%</span></td>
+            <td><span class="pc pc-full"></span><span class="pv pv-g">100%</span></td>
+            <td><span class="pc pc-hi"></span><span class="pv pv-g">85%</span></td>
+            <td><span class="pc pc-mid"></span><span class="pv pv-g">50%</span></td>
+            <td><span class="sc sw">93</span></td>
+          </tr>
+          <tr>
+            <td>UST Dart V 105</td>
+            <td><span class="pc pc-hi"></span><span class="pv pv-d">88%</span></td>
+            <td><span class="pc pc-hi"></span><span class="pv pv-d">75%</span></td>
+            <td><span class="pc pc-mid"></span><span class="pv pv-d">35%</span></td>
+            <td><span class="pc pc-full"></span><span class="pv pv-d">90%</span></td>
+            <td><span class="pc pc-hi"></span><span class="pv pv-d">80%</span></td>
+            <td><span class="sc">74</span></td>
+          </tr>
+          <tr style="border-top:.5px solid rgba(255,255,255,0.07)">
+            <td style="color:rgba(232,228,220,0.25);font-style:italic">Recoil Dart 94g (status quo)</td>
+            <td><span class="pc pc-lo"></span><span class="pv pv-l">25%</span></td>
+            <td><span class="pc pc-mid"></span><span class="pv pv-l">40%</span></td>
+            <td><span class="pc pc-lo"></span><span class="pv pv-l">10%</span></td>
+            <td><span class="pc pc-full" style="opacity:0.35"></span><span class="pv pv-l">100%</span></td>
+            <td><span class="pc pc-full" style="opacity:0.35"></span><span class="pv pv-l">100%</span></td>
+            <td><span class="sc" style="color:rgba(255,255,255,0.15)">39</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:14px;padding-top:12px;border-top:.5px solid rgba(255,255,255,0.06);font-size:11px;color:rgba(232,228,220,0.28);line-height:1.7" class="a">
+      <span style="color:rgba(200,169,110,0.5);font-family:'Syne',sans-serif;font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-size:10px">Scoring methodology — </span>
+      <strong style="color:rgba(232,228,220,0.38)">Speed range fit</strong> scores the shaft's optimal speed range against Anthony's confirmed 87 mph 7-iron speed. A score of 100% indicates the player sits in the middle of the design window; lower scores indicate he approaches or exceeds the design ceiling.
+      &nbsp;·&nbsp;
+      <strong style="color:rgba(232,228,220,0.38)">Tip / torque stability</strong> reflects published torque rating and tip construction technology relative to each other — VeloCore (Axiom) rated dominant, TSPX (Dart V) rated strong, stabilized tip (Dart 94g) rated moderate at 87 mph.
+      &nbsp;·&nbsp;
+      <strong style="color:rgba(232,228,220,0.38)">Segment optimization</strong> scores per-iron profile tuning: 3-part LP/MP/SP (Axiom 105) rated dominant; single-blank designs rated minimal. Recoil Dart status quo rated minimal given no segmentation across JPX 923's dual-material construction.
+    </div>
+  </div>
+</div>
+
+<!-- ── S7 PRIMARY RECOMMENDATION ── -->
+<div class="slide" id="s7">
+  <div class="gold-rule" style="position:absolute;top:0;left:0;right:0;z-index:2"></div>
+  <div class="rl">
+    <div class="rey a">07 · Primary recommendation</div>
+    <div class="rmod a">Fujikura<br><em>Axiom 105</em></div>
+    <div class="rsub a">The only shaft in this evaluation purpose-built for an 87 mph player with a matched segment design for the JPX 923 Forged's dual-material construction.</div>
+    <div class="a"><span class="rprice">~$105–115 per shaft · ~$630–690 set</span></div>
+    <div style="margin-top:18px" class="a">
+      <div style="font-family:'Syne',sans-serif;font-size:11px;color:var(--orange);letter-spacing:.1em;text-transform:uppercase;font-weight:600">⚠️ Fitting session required before purchase</div>
+    </div>
+    <div style="margin-top:auto;padding-top:24px" class="a">
+      <div style="background:var(--card-bg);border:.5px solid var(--border-f);padding:14px 16px;border-radius:2px">
+        <div style="font-family:'Syne',sans-serif;font-size:10px;color:var(--gold);letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-bottom:8px">Full bag context</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+          <div style="font-size:11px;color:var(--muted)">Driver</div><div style="font-size:11px;color:var(--text)">Ping G430 Max · 9.5°</div>
+          <div style="font-size:11px;color:var(--muted)">5W / 7W</div><div style="font-size:11px;color:var(--text)">Ping G430 Max</div>
+          <div style="font-size:11px;color:var(--muted)">4 Hybrid</div><div style="font-size:11px;color:var(--text)">Ping G430 · +1.5°</div>
+          <div style="font-size:11px;color:var(--muted)">5–PW</div><div style="font-size:11px;color:var(--text)">JPX 923 Forged · 1° weak</div>
+          <div style="font-size:11px;color:var(--muted)">Wedges</div><div style="font-size:11px;color:var(--text)">Mizuno T24 · 48/53/58°</div>
+          <div style="font-size:11px;color:var(--muted)">Putter</div><div style="font-size:11px;color:var(--text)">Putter Lab OZ.1i</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="rright">
+    <div class="rlbl a">Why the Axiom 105 wins on every technical dimension</div>
+    <div class="rttl a">Four compounding advantages<br>that close the case.</div>
+    <div class="pillars">
+      <div class="pill a">
+        <div class="pi">🎯</div>
+        <div class="pt">Perfect speed range fit</div>
+        <div class="pb">Designed for 80–106 mph. Anthony at 87 mph sits at the optimal center of this range — not the ceiling. Every swing benefits from the shaft operating within its design window for the first time.</div>
+      </div>
+      <div class="pill a">
+        <div class="pi">⚙️</div>
+        <div class="pt">VeloCore tip stability</div>
+        <div class="pb">Proprietary stiffened tip derived from Ventus technology delivers sub-2° progressive torque. Variable face-angle timing — the mechanism behind all three of Anthony's misses — is the specific problem this technology addresses.</div>
+      </div>
+      <div class="pill a">
+        <div class="pi">📐</div>
+        <div class="pt">3-part segment design</div>
+        <div class="pb">LP profile for 2–4i, MP for 5–7i (Chromoly), SP for 8i–W (1025E mild steel). The segment boundaries align directly with the JPX 923's material transition. No other shaft in this evaluation is matched this precisely to this iron set.</div>
+      </div>
+      <div class="pill a">
+        <div class="pi">📊</div>
+        <div class="pt">Dispersion improvement</div>
+        <div class="pb">Sub-2° progressive torque means off-center mishits hold line better than any single-blank design can. Tighter face-to-path spread eliminates the pull/cut pattern — without requiring any change to the swing itself.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── S8 ALTERNATIVE: DART V 105 ── -->
+<div class="slide" id="s8">
+  <div class="gold-rule"></div>
+  <div class="inner" style="flex-direction:row;gap:32px;align-items:stretch">
+    <div class="rl a" style="flex:0 0 38%;min-width:0;display:flex;flex-direction:column;justify-content:flex-start;padding-right:20px;border-right:.5px solid var(--border)">
+      <div class="sn" style="margin-bottom:6px">08 · Alternative Option</div>
+      <div style="font-family:'Syne',sans-serif;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Middle-ground option — worth fitting</div>
+      <div style="font-family:'Syne',sans-serif;font-size:29px;font-weight:800;color:var(--text);line-height:1.1;margin-bottom:2px">UST Mamiya <span style="color:var(--gold)">Dart V 105</span></div>
+      <div style="font-family:'Syne',sans-serif;font-size:12px;letter-spacing:.1em;color:var(--muted);margin-bottom:14px;text-transform:uppercase">TSPX Construction · Lower, Penetrating Profile</div>
+      <div class="spec-grid">
+        <div class="spec"><div class="spec-l">Weight</div><div class="spec-v">105g</div></div>
+        <div class="spec"><div class="spec-l">Launch</div><div class="spec-v">Low-Mid</div></div>
+        <div class="spec"><div class="spec-l">Spin</div><div class="spec-v">Low-Mid</div></div>
+        <div class="spec"><div class="spec-l">Tip</div><div class="spec-v">TSPX stiffened</div></div>
+        <div class="spec"><div class="spec-l">Torque</div><div class="spec-v">~2.5–3.0°</div></div>
+        <div class="spec"><div class="spec-l">Segment</div><div class="spec-v">Single blank</div></div>
+        <div class="spec"><div class="spec-l">Speed range</div><div class="spec-v">~80–100 mph</div></div>
+        <div class="spec"><div class="spec-l">Per shaft</div><div class="spec-v">~$70–80</div></div>
+        <div class="spec"><div class="spec-l">Set cost</div><div class="spec-v">~$420–480</div></div>
+      </div>
+      <div class="score-pill" style="margin-top:12px">
+        <div><div class="score-pill-n">74</div></div>
+        <div><div class="score-pill-l">Composite<br>Score / 100</div></div>
+        <div style="width:.5px;background:var(--border);height:30px;margin:0 6px"></div>
+        <div><div class="score-pill-n" style="font-size:17px;color:var(--gold)">vs 93</div></div>
+        <div><div class="score-pill-l">Axiom 105<br>score</div></div>
+      </div>
+    </div>
+    <div class="rright a" style="flex:1;min-width:0;display:flex;flex-direction:column;gap:10px">
+      <div style="font-family:'Syne',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:2px;font-weight:600">Why it's a strong option</div>
+      <div class="pill" style="margin-bottom:0">
+        <div class="pt">Same Dart family — familiar flex profile and transition</div>
+        <div class="pb">The Dart V 105 shares the Recoil Dart's general feel and flex pattern — the loading and kick timing will be familiar from day one. For a player who values a consistent stroke feel, this is the lowest-disruption upgrade path. No re-calibration required. The TSPX tip brings a meaningfully stiffer tip section than the standard Dart's stabilized construction.</div>
+      </div>
+      <div class="pill" style="margin-bottom:0">
+        <div class="pt">Lower, more penetrating ball flight vs standard Dart</div>
+        <div class="pb">The Dart V's TSPX construction produces a distinctly more penetrating trajectory than the standard Recoil Dart — lower peak height, better wind performance, tighter shape. For a player whose current 7-iron has excess roll-out from a too-shallow descent angle, a lower, more driven flight is the right direction.</div>
+      </div>
+      <div class="pill" style="margin-bottom:0">
+        <div class="pt">Meaningful cost saving over the Axiom</div>
+        <div class="pb">At ~$420–480 for a set of six, the Dart V 105 sits approximately $200 below the Axiom 105. If fitting data shows the TSPX construction closes the spin gap adequately — even without VeloCore stability — this is a legitimate outcome. The fitting session should compare both shafts directly before any decision is made.</div>
+      </div>
+      <div class="alt-divider">
+        <div class="alt-why-head">WHY THE AXIOM 105 IS PREFERRED</div>
+        <div class="alt-pref">
+          <div class="alt-pref-h">Single-blank construction doesn't address the JPX 923's material transition</div>
+          <div class="alt-pref-b">The Dart V 105's single-blank design gives every iron in the set the same flex profile — 5-iron through PW receive identical shaft behavior. The JPX 923 Forged uses two different materials with different compression characteristics at the 7i/8i boundary. A single-blank shaft treats a 5i and a PW identically; the Axiom's 3-part segmentation does not. This is the structural advantage that separates the two shafts.</div>
+        </div>
+        <div class="alt-pref">
+          <div class="alt-pref-h">TSPX tip is a better Dart — VeloCore is a different technology class</div>
+          <div class="alt-pref-b">TSPX is an improved tip construction within the same design family as the standard Dart. VeloCore is Fujikura's iron-specific adaptation of the technology used in the Ventus driver shaft line — engineered specifically to address face-angle variability at the tip. The Dart V is a meaningful upgrade from the Dart 94g. The Axiom is a step-change in tip behavior. At 87 mph with a documented pull/cut miss pattern, the Axiom's technology class is the more targeted intervention.</div>
+        </div>
+        <div class="alt-who"><strong>Best for:</strong> Players who want a meaningful upgrade from the Dart 94g at a lower cost, with minimum transition disruption. Worth including in any fitting session as the middle option — data will confirm whether TSPX closes the gap adequately, or whether VeloCore's performance justifies the price premium.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── S9 RISK REGISTER ── -->
+<div class="slide" id="s9">
+  <div class="gold-rule"></div>
+  <div class="inner">
+    <div class="sh">
+      <div class="sn a">09 · Risk Register</div>
+      <div class="st a">What could go wrong —<br>and what to do about it.</div>
+    </div>
+    <div class="risk-g">
+      <div class="rsk hi a">
+        <div class="rlv">High Risk</div>
+        <div class="rtt">Key metrics are unconfirmed — the miss may be mechanical, not shaft-related</div>
+        <div class="rbd">Spin (range ball), smash factor (inferred), carry (anecdotal), and descent angle (estimated) are all unconfirmed. More critically: the thin miss and low spin could be caused by shallow angle of attack or early extension — swing mechanics issues that no shaft change will fix. Spending $700 without resolving this question is premature.</div>
+        <div class="rmt"><strong>Mitigation</strong> Run the full LM protocol (see S10) before purchasing. Gate the decision on: confirmed smash factor below 1.30 consistently, real Pro V1 spin below 5,800 rpm, face-to-path spread above 3° shot-to-shot, and AoA between −3° and −5°. If any of these thresholds are not met, the shaft case weakens.</div>
+      </div>
+      <div class="rsk md a">
+        <div class="rlv">Medium Risk</div>
+        <div class="rtt">$630–690 investment on directional logic without back-to-back fitting data</div>
+        <div class="rbd">The analysis is built on sound physics and accurate speed data — but projected gains in carry distance and spin improvement are theoretical. Magnitude is unknown. The Axiom could underperform expectations if swing mechanics are a contributing factor, or if Pro V1 spin is already adequate at 5,800–6,200 rpm.</div>
+        <div class="rmt"><strong>Mitigation</strong> Include a shaft fitting session as the final gate — not optional. Hit both the Dart 94g and Axiom 105 back-to-back on a launch monitor. Compare standard deviation of spin, smash factor, and face-to-path across a minimum of 10 shots per shaft. Look at dispersion, not averages. The Dart V 105 should also be included as the middle option.</div>
+      </div>
+      <div class="rsk lo a">
+        <div class="rlv">Low Risk</div>
+        <div class="rtt">Transition period — new shaft feel and load profile</div>
+        <div class="rbd">Moving from a 94g single-blank graphite shaft to a 105g segmented shaft with stiffer tip behavior will feel different, particularly in the 8i–PW where the SP segment profile is most distinct from the current Dart. A 1–2 round calibration period should be expected before the new shaft's consistency advantage becomes apparent in scoring.</div>
+        <div class="rmt"><strong>Mitigation</strong> Retain the Recoil Dart 94g set for at least one round post-installation as a fallback. If feel is significantly disrupted, an additional fitting session with the re-grip technician can adjust tip trim length to fine-tune flex profile. Standard transition risk — manageable with an expectation-setting period.</div>
+      </div>
+    </div>
+    <div style="margin-top:14px;background:var(--gold-faint);border:.5px solid var(--border);padding:12px 16px;border-radius:2px;font-size:13px;color:var(--muted);line-height:1.6" class="a">
+      <strong style="color:var(--text);font-family:'Syne',sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600">Overall decision confidence: Medium.</strong> The directional logic is sound. The speed-range case is clear. The data is insufficient to commit $700 without a proper fitting session. The protocol on the next slide exists to resolve this.
+    </div>
+  </div>
+</div>
+
+<!-- ── S10 DATA COLLECTION PROTOCOL ── -->
+<div class="slide" id="s10">
+  <div class="gold-rule"></div>
+  <div class="inner">
+    <div class="sh">
+      <div class="sn a">10 · Data Collection Protocol</div>
+      <div class="st a">One session separates<br>hypothesis from conviction.</div>
+    </div>
+    <div class="proto-grid">
+      <div class="proto-col a">
+        <div style="background:var(--card-bg);border:.5px solid var(--border-f);border-left:2px solid var(--gold);padding:14px 16px;border-radius:2px;margin-bottom:4px">
+          <div class="proto-head">Recommended session order</div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div style="font-size:12px;color:var(--muted);padding:6px 0;border-bottom:.5px solid var(--border-f)"><strong style="color:var(--text)">1. Outdoor range</strong> · Real Pro V1 Left Dots + Mevo+. Primary data. Spin directional only but most representative.</div>
+            <div style="font-size:12px;color:var(--muted);padding:6px 0;border-bottom:.5px solid var(--border-f)"><strong style="color:var(--text)">2. Indoor Mevo+</strong> · Metallic dots on range balls. Better spin repeatability than outdoor range balls.</div>
+            <div style="font-size:12px;color:var(--muted);padding:6px 0;border-bottom:.5px solid var(--border-f)"><strong style="color:var(--text)">3. Instructor session</strong> · Qualified eye on AoA and impact position — rule out mechanical cause before buying.</div>
+            <div style="font-size:12px;color:var(--muted);padding:6px 0"><strong style="color:var(--text)">4. Fitting session</strong> · Hit Dart 94g / Dart V 105 / Axiom 105 back-to-back on LM. Look at dispersion, not averages.</div>
+          </div>
+        </div>
+        <div>
+          <div class="proto-head">Shot requirements</div>
+          <table class="proto-t">
+            <thead><tr><th>Club</th><th>Shots</th><th>Purpose</th></tr></thead>
+            <tbody>
+              <tr><td>7-iron</td><td>20 min.</td><td style="font-size:11px;color:var(--muted)">Primary anchor — all key metrics</td></tr>
+              <tr><td>PW (44°)</td><td>15</td><td style="font-size:11px;color:var(--muted)">1025E smash / spin vs Chromoly</td></tr>
+              <tr><td>9-iron</td><td>12</td><td style="font-size:11px;color:var(--muted)">Validate anecdotal 150 total</td></tr>
+              <tr><td>5-iron</td><td>12</td><td style="font-size:11px;color:var(--muted)">Long iron spin, LP/MP boundary</td></tr>
+              <tr><td>Driver</td><td>10</td><td style="font-size:11px;color:var(--muted)">Explain low D/i speed ratio</td></tr>
+              <tr><td>48° wedge</td><td>8</td><td style="font-size:11px;color:var(--muted)">Validate 115 total anecdotal</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="background:var(--gold-faint);border:.5px solid var(--border);padding:10px 13px;border-radius:2px">
+          <div class="proto-head" style="margin-bottom:4px">7-iron tagging protocol</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.6">For each of the 20 shots, note: (1) felt contact location (center / low / toe / heel), (2) miss shape (straight / pull / cut). Cross-reference against Mevo+ data to correlate felt contact against spin, smash, and AoA — the critical diagnostic link.</div>
+        </div>
+      </div>
+      <div class="proto-col a">
+        <div class="threshold-card lo">
+          <div class="thr-head lo">If any of these are true — shaft case weakens</div>
+          <div class="thr-item"><strong>AoA shallower than −1°</strong> → thin miss is mechanical, not shaft-related. An instructor session and swing fix should precede any shaft purchase.</div>
+          <div class="thr-item"><strong>Real Pro V1 spin on 7i is 6,200+ rpm</strong> → range ball was suppressing the number. The spin problem may not exist with the actual ball.</div>
+          <div class="thr-item"><strong>Smash factor consistently 1.32+</strong> → contact quality is not the problem. The carry deficit has another cause.</div>
+          <div class="thr-item"><strong>Face-to-path spread across 20 shots is &lt; 3°</strong> → face timing is actually consistent. The pull/cut pattern has a different root cause.</div>
+        </div>
+        <div class="threshold-card hi" style="margin-top:8px">
+          <div class="thr-head hi">If all of these are true — shaft case is confirmed</div>
+          <div class="thr-item"><strong>Spin stays below 5,800 rpm with real Pro V1</strong> → spin stripping is real and persistent, not range ball suppression.</div>
+          <div class="thr-item"><strong>Smash factor remains below 1.30 consistently</strong> → contact quality is degraded by inconsistent tip behavior, not face alignment.</div>
+          <div class="thr-item"><strong>Descent angle is below 40°</strong> → trajectory is too shallow for the effective loft and speed. Shaft-induced dynamic loft stripping is confirmed.</div>
+          <div class="thr-item"><strong>Face-to-path spread &gt; 3° shot-to-shot</strong> → face timing is inconsistent. Tip torque is the most likely cause at 87 mph.</div>
+          <div class="thr-item"><strong>AoA is between −3° and −5°</strong> → correct mechanics confirmed; performance gap is equipment, not swing.</div>
+        </div>
+        <div style="background:rgba(204,102,51,0.05);border:.5px solid rgba(204,102,51,0.2);padding:12px 14px;border-radius:2px;margin-top:8px">
+          <div style="font-family:'Syne',sans-serif;font-size:10px;color:var(--orange);letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-bottom:5px">Indoor Mevo+ setup requirements</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.6">Metallic dots applied to range balls · Indoor mode enabled · RCT/metallic dot mode on · Device exactly 8 feet behind ball · Minimum 8 feet ball flight before net (13 ft preferred) · Replace dots every 3–4 shots. Spin with metallic dots is directionally reliable but not equivalent to real Pro V1 outdoors.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── S11 CLOSE ── -->
+<div class="slide" id="s11">
+  <div class="gold-rule" style="position:absolute;top:0;left:0;right:0;z-index:2"></div>
+  <div class="crings">
+    <span style="width:480px;height:480px"></span>
+    <span style="width:680px;height:680px"></span>
+    <span style="width:900px;height:900px"></span>
+  </div>
+  <div class="ci2">
+    <span class="cgemclose a">✦</span>
+    <div class="cey2 a">Iron Shaft Advisory · Next Steps</div>
+    <div class="ctitle2 a">The data is ready.<br>The <em>fitting</em> is next.</div>
+    <div class="cbody a">The directional case for the Fujikura Axiom 105 is sound. One LM session with real Pro V1s and a back-to-back shaft comparison will confirm or revise the hypothesis — and protect the investment.</div>
+    <div class="a" style="display:flex;flex-direction:column;gap:10px;max-width:400px;margin:0 auto 32px;text-align:left">
+      <div style="background:var(--card-bg);border:.5px solid var(--border-f);padding:10px 14px;border-radius:2px;font-size:13px;color:var(--muted);line-height:1.55"><strong style="color:var(--text);font-family:'Syne',sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:3px">Step 1</strong>Outdoor LM session — Pro V1 Left Dots, Mevo+, 20 × 7-iron with shot tagging.</div>
+      <div style="background:var(--card-bg);border:.5px solid var(--border-f);padding:10px 14px;border-radius:2px;font-size:13px;color:var(--muted);line-height:1.55"><strong style="color:var(--text);font-family:'Syne',sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:3px">Step 2</strong>Instructor session — AoA and impact position audit. Rule out mechanics.</div>
+      <div style="background:var(--card-bg);border:.5px solid var(--border-f);padding:10px 14px;border-radius:2px;font-size:13px;color:var(--muted);line-height:1.55"><strong style="color:var(--text);font-family:'Syne',sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:3px">Step 3</strong>Fitting session — hit Dart 94g, Dart V 105, and Axiom 105 back-to-back. Compare dispersion, not averages.</div>
+      <div style="background:rgba(200,169,110,0.07);border:.5px solid var(--border);border-left:2px solid var(--gold);padding:10px 14px;border-radius:2px;font-size:13px;color:var(--text);line-height:1.55"><strong style="font-family:'Syne',sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:3px;color:var(--gold)">Step 4</strong>Decision — buy and install Axiom 105 if fitting data confirms the hypothesis. Keep Dart 94g for one round as fallback.</div>
+    </div>
+  </div>
+  <div class="cfoot2">anthonybest.com · Iron Shaft Advisory Series · 2026</div>
+</div>
+
+</div><!-- /deck -->
+
+<div class="controls">
+  <button class="btn" onclick="go(-1)">← Prev</button>
+  <div class="dots" id="dts"></div>
+  <div class="ctr" id="ctr"></div>
+  <button class="btn" onclick="go(1)">Next →</button>
+</div>
+
+<script>
+const sl = document.querySelectorAll('.slide');
+const dEl = document.getElementById('dts');
+const ct  = document.getElementById('ctr');
+let c = 0, n = sl.length;
+ct.textContent = `1 / ${n}`;
+sl.forEach((_,i) => {
+  const d = document.createElement('div');
+  d.className = 'd' + (i===0 ? ' on' : '');
+  d.onclick = () => gt(i);
+  dEl.appendChild(d);
+});
+function gt(i) {
+  sl[c].classList.remove('active'); dEl.children[c].classList.remove('on');
+  c = Math.max(0, Math.min(i, n-1));
+  sl[c].classList.add('active'); dEl.children[c].classList.add('on');
+  ct.textContent = `${c+1} / ${n}`;
+  sl[c].querySelectorAll('.a').forEach(e => { e.style.animation='none'; e.offsetHeight; e.style.animation='' });
+  if (window.innerWidth <= 768) window.scrollTo({ top:0, behavior:'instant' });
+}
+function go(d) { gt(c+d) }
+document.addEventListener('keydown', e => {
+  if (e.key==='ArrowRight'||e.key==='ArrowDown') go(1);
+  if (e.key==='ArrowLeft' ||e.key==='ArrowUp')   go(-1);
+});
+let tx=0, ty=0;
+document.addEventListener('touchstart', e => { tx=e.touches[0].clientX; ty=e.touches[0].clientY }, { passive:true });
+document.addEventListener('touchend',   e => {
+  const dx = e.changedTouches[0].clientX - tx;
+  const dy = e.changedTouches[0].clientY - ty;
+  if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) go(dx < 0 ? 1 : -1);
+});
+</script>
+</body>
+</html>
