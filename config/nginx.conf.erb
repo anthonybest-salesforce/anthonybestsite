@@ -45,10 +45,11 @@ http {
     add_header X-Frame-Options "SAMEORIGIN" always;
     add_header Referrer-Policy "strict-origin-when-cross-origin" always;
 
-    # Clean URLs — try file, then file.html, then directory
+    # Clean URLs — try file, then file.html, then directory index directly
+    # (avoids nginx issuing an external trailing-slash redirect that breaks the HTTPS check)
     location / {
       add_header Cache-Control "public, max-age=3600";
-      try_files $uri $uri.html $uri/ =404;
+      try_files $uri $uri.html $uri/index.html =404;
     }
 
     # CSS and JS — cache 1 week; Cloudflare will also cache at edge
