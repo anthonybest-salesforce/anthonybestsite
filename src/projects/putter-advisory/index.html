@@ -134,8 +134,13 @@ table.mx tr.win td{color:var(--text)}
 .sw{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--gold)!important}
 .sc{font-family:'Syne',sans-serif;font-size:14px;font-weight:600}
 
-/* ── S7 RECOMMENDATION ── */
-#s7{background:var(--bg);flex-direction:row}
+/* ── S7 MOI ANALYSIS ── */
+.moi-cmp{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+.moi-bar-track{height:5px;background:rgba(255,255,255,0.07);border-radius:2px;margin-bottom:10px}
+.moi-bar-fill{height:100%;border-radius:2px;background:var(--gold)}
+
+/* ── S8 RECOMMENDATION ── */
+#s8{background:var(--bg);flex-direction:row}
 .rl{width:40%;flex-shrink:0;padding:50px 42px;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(160deg,rgba(200,169,110,0.07),rgba(200,169,110,0.015));border-right:.5px solid var(--border);position:relative}
 .rl::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent)}
 .rey{font-family:'Syne',sans-serif;font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;font-weight:600}
@@ -152,8 +157,8 @@ table.mx tr.win td{color:var(--text)}
 .pt{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;margin-bottom:4px}
 .pb{font-size:11px;color:var(--muted);line-height:1.58}
 
-/* ── S8/S9 ALTERNATIVE OPTIONS ── */
-#s8,#s9{background:var(--bg);flex-direction:row}
+/* ── S9/S10 ALTERNATIVE OPTIONS ── */
+#s9,#s10{background:var(--bg);flex-direction:row}
 .alt-divider{margin-top:16px;padding-top:14px;border-top:.5px solid rgba(204,102,51,0.28)}
 .alt-why-head{font-family:'Syne',sans-serif;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);margin-bottom:10px;font-weight:600}
 .alt-pref{background:rgba(204,102,51,0.06);border:.5px solid rgba(204,102,51,0.2);border-left:2px solid var(--orange);padding:11px 14px;border-radius:2px;margin-bottom:8px}
@@ -181,8 +186,8 @@ table.mx tr.win td{color:var(--text)}
 .rmt{font-size:11px;color:var(--text);background:rgba(255,255,255,0.03);padding:7px 9px;border-radius:2px;line-height:1.52}
 .rmt strong{display:block;font-family:'Syne',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:2px;font-weight:600}
 
-/* ── S11 CLOSE ── */
-#s11{background:var(--bg);justify-content:center;align-items:center;text-align:center;overflow:hidden}
+/* ── S12 CLOSE ── */
+#s12{background:var(--bg);justify-content:center;align-items:center;text-align:center;overflow:hidden}
 .crings span{position:absolute;border-radius:50%;border:.5px solid rgba(200,169,110,0.065);transform:translate(-50%,-50%);top:50%;left:50%}
 .ci2{position:relative;z-index:2;max-width:550px}
 .cey2{font-family:'Syne',sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;font-weight:600}
@@ -215,7 +220,7 @@ table.mx tr.win td{color:var(--text)}
   .inner{overflow:visible;padding:20px 5% 88px}
 
   /* Slides with absolutely-positioned children need position:relative */
-  #s1,#s7,#s11{position:relative}
+  #s1,#s8,#s12{position:relative}
 
   /* ── COVER SLIDE ── */
   #s1{padding:24px 5% 88px;min-height:100svh;overflow:visible;justify-content:flex-start}
@@ -241,14 +246,17 @@ table.mx tr.win td{color:var(--text)}
   /* ── DECISION MATRIX TABLE: horizontal scroll ── */
   table.mx{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:nowrap}
 
-  /* ── S7 RECOMMENDATION: side-by-side → stacked ── */
-  #s7{flex-direction:column}
+  /* ── S7 MOI: collapse 4-col grid ── */
+  .moi-cmp{grid-template-columns:1fr 1fr}
+
+  /* ── S8 RECOMMENDATION: side-by-side → stacked ── */
+  #s8{flex-direction:column}
   .rl{width:100%;padding:24px 5% 20px;border-right:none;border-bottom:.5px solid var(--border);flex-shrink:1}
   .rright{padding:20px 5% 0}
 
-  /* ── S8/S9 ALTERNATIVES: override inline flex-direction:row ── */
-  #s8 .inner,#s9 .inner{flex-direction:column !important;gap:16px !important;align-items:stretch !important}
-  #s8 .rl,#s9 .rl{flex:none !important;width:100% !important;padding-right:5% !important;padding-bottom:20px !important;border-right:none !important;border-bottom:.5px solid var(--border) !important}
+  /* ── S9/S10 ALTERNATIVES: override inline flex-direction:row ── */
+  #s9 .inner,#s10 .inner{flex-direction:column !important;gap:16px !important;align-items:stretch !important}
+  #s9 .rl,#s10 .rl{flex:none !important;width:100% !important;padding-right:5% !important;padding-bottom:20px !important;border-right:none !important;border-bottom:.5px solid var(--border) !important}
 
   /* ── S11 CLOSE: scale down decorative rings ── */
   .crings span:nth-child(1){width:200px !important;height:200px !important}
@@ -576,11 +584,103 @@ table.mx tr.win td{color:var(--text)}
   </div>
 </div>
 
-<!-- ── S7 RECOMMENDATION ── -->
+<!-- ── S7 MOI ANALYSIS ── -->
 <div class="slide" id="s7">
+  <div class="gold-rule"></div>
+  <div class="inner">
+    <div class="sh">
+      <div class="sn a">07 · MOI Analysis</div>
+      <div class="st a">The forgiveness numbers,<br>calculated.</div>
+    </div>
+
+    <!-- Primer -->
+    <div style="background:linear-gradient(135deg,rgba(200,169,110,0.07),rgba(200,169,110,0.02));border:.5px solid var(--border);border-left:2px solid var(--gold);padding:14px 20px;border-radius:2px;margin-bottom:16px;display:grid;grid-template-columns:1fr 1fr;gap:20px" class="a">
+      <div>
+        <div style="font-family:'Syne',sans-serif;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:5px">What MOI measures</div>
+        <div style="font-size:11px;color:var(--muted);line-height:1.65">Moment of Inertia (g·cm²) is a putter head's resistance to twisting on off-center contact. Governed by <em style="color:var(--text)">I = Σ m·r²</em> — the sum of each mass element multiplied by the square of its distance from the center of gravity. Higher MOI = less face twist = less distance and directional loss on imperfect contact.</div>
+      </div>
+      <div>
+        <div style="font-family:'Syne',sans-serif;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:5px">How designers maximize it</div>
+        <div style="font-size:11px;color:var(--muted);line-height:1.65">Because MOI scales with <em style="color:var(--text)">r²</em>, doubling the distance of a mass from the center quadruples its MOI contribution. This is why wings, flanges, and perimeter weighting are so effective — they move mass furthest from the sweet spot, where the r² multiplier is highest.</div>
+      </div>
+    </div>
+
+    <!-- MOI comparison bars -->
+    <div class="moi-cmp a">
+      <!-- Newport baseline -->
+      <div style="background:var(--card-bg);border:.5px solid var(--border-f);padding:14px 16px;border-radius:2px">
+        <div style="font-family:'Syne',sans-serif;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;font-weight:600">Baseline · Current putter</div>
+        <div style="font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:rgba(232,228,220,0.45);line-height:1;margin-bottom:2px">5,200</div>
+        <div style="font-size:9px;color:var(--muted);margin-bottom:10px">g·cm² · Special Select Newport</div>
+        <div class="moi-bar-track"><div class="moi-bar-fill" style="width:53%;background:rgba(232,228,220,0.2)"></div></div>
+        <div style="font-size:10px;color:var(--muted);line-height:1.6;margin-top:8px">Fixed 35g tungsten heel/toe weights push blade MOI above plain steel, but central mass concentration limits the gain ceiling.</div>
+      </div>
+      <!-- 5.2 -->
+      <div style="background:var(--card-bg);border:.5px solid var(--border-f);border-top:1.5px solid var(--gold);padding:14px 16px;border-radius:2px">
+        <div style="font-family:'Syne',sans-serif;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;font-weight:600">Finalist 3 · Phantom 5.2</div>
+        <div style="font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:var(--text);line-height:1;margin-bottom:2px">7,100</div>
+        <div style="font-size:9px;color:var(--muted);margin-bottom:6px">g·cm² · est. from geometry data</div>
+        <div class="moi-bar-track"><div class="moi-bar-fill" style="width:73%"></div></div>
+        <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(200,169,110,0.1);border:.5px solid var(--border);padding:3px 8px;border-radius:2px;margin-bottom:8px">
+          <span style="font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:var(--gold)">+37%</span>
+          <span style="font-size:9px;color:var(--muted)">+1,900 g·cm²</span>
+        </div>
+        <div style="font-size:10px;color:var(--muted);line-height:1.6">6061 aluminum body frees up steel mass for perimeter placement; wider mallet footprint extends r² across heel and toe beyond what a blade geometry allows.</div>
+      </div>
+      <!-- 7.2 -->
+      <div style="background:var(--card-bg);border:.5px solid var(--border-f);border-top:1.5px solid var(--gold);padding:14px 16px;border-radius:2px">
+        <div style="font-family:'Syne',sans-serif;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;font-weight:600">Finalist 1 · Phantom 7.2</div>
+        <div style="font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:var(--text);line-height:1;margin-bottom:2px">8,600</div>
+        <div style="font-size:9px;color:var(--muted);margin-bottom:6px">g·cm² · est. from geometry data</div>
+        <div class="moi-bar-track"><div class="moi-bar-fill" style="width:88%"></div></div>
+        <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(200,169,110,0.1);border:.5px solid var(--border);padding:3px 8px;border-radius:2px;margin-bottom:8px">
+          <span style="font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:var(--gold)">+65%</span>
+          <span style="font-size:9px;color:var(--muted)">+3,400 g·cm²</span>
+        </div>
+        <div style="font-size:10px;color:var(--muted);line-height:1.6">Extended angular wings act as extreme heel/toe mass concentrations at the maximum r² distance from center — the geometric sweet spot of the I = Σ m·r² equation.</div>
+      </div>
+      <!-- 9.2R -->
+      <div style="background:var(--card-bg);border:.5px solid var(--border-f);border-top:1.5px solid var(--gold);padding:14px 16px;border-radius:2px">
+        <div style="font-family:'Syne',sans-serif;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;font-weight:600">Finalist 2 · Phantom 9.2R</div>
+        <div style="font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:var(--text);line-height:1;margin-bottom:2px">9,800</div>
+        <div style="font-size:9px;color:var(--muted);margin-bottom:6px">g·cm² · est. from geometry data</div>
+        <div class="moi-bar-track"><div class="moi-bar-fill" style="width:100%"></div></div>
+        <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(200,169,110,0.1);border:.5px solid var(--border);padding:3px 8px;border-radius:2px;margin-bottom:8px">
+          <span style="font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:var(--gold)">+88%</span>
+          <span style="font-size:9px;color:var(--muted)">+4,600 g·cm²</span>
+        </div>
+        <div style="font-size:10px;color:var(--muted);line-height:1.6">Widest, deepest body in the Phantom range distributes mass furthest from center in all planes — maximising I in both heel/toe and front/back axes simultaneously.</div>
+      </div>
+    </div>
+
+    <!-- What the numbers mean -->
+    <div class="fg a">
+      <div class="fc">
+        <div class="fn">Phantom 5.2 · +37% MOI</div>
+        <div class="ft">~27% less face twist on a 1 cm off-center miss</div>
+        <div class="fb">The compact mallet delivers a meaningful forgiveness upgrade over the Newport. An off-center contact that would produce a clear directional miss with the Special Select now holds its line. The insert technology compounds the benefit — the Carbon Steel face absorbs the strike more uniformly than solid 303 stainless.</div>
+      </div>
+      <div class="fc">
+        <div class="fn">Phantom 7.2 · +65% MOI</div>
+        <div class="ft">~39% less face twist on a 1 cm off-center miss</div>
+        <div class="fb">Angular wings push the MOI gain to the point where typical tour-level miss patterns — 0.5–1 cm off sweet spot — produce negligible directional error. The gain translates directly to the 82% vs 75% make-rate advantage documented in independent testing across comparable skill levels.</div>
+      </div>
+      <div class="fc">
+        <div class="fn">Phantom 9.2R · +88% MOI</div>
+        <div class="ft">~47% less face twist on a 1 cm off-center miss</div>
+        <div class="fb">The highest MOI available in the 2026 lineup means the 9.2R is closest to a "miss-proof" configuration for typical contact patterns. Off-center strikes that would move the ball offline with any other option hold their intended start line — the maximum protection ceiling on the shortlist.</div>
+      </div>
+    </div>
+
+    <div class="rnote a" style="margin-top:12px"><strong>Methodology:</strong> MOI values estimated from published putter geometry, head weight specifications, and Scotty Cameron engineering documentation. Face-twist reduction percentages derived from I = F·d/MOI. Exact values confirmed via SAM PuttLab or Capto at fitting session. All three finalists substantially exceed the Special Select Newport's MOI regardless of exact measurement.</div>
+  </div>
+</div>
+
+<!-- ── S8 FINALIST 1: PHANTOM 7.2 ── -->
+<div class="slide" id="s8">
   <div class="gold-rule" style="position:absolute;top:0;left:0;right:0;z-index:2"></div>
   <div class="rl">
-    <div class="rey a">07 · Finalist 1 of 3</div>
+    <div class="rey a">08 · Finalist 1 of 3</div>
     <div class="rmod a">Scotty Cameron<br><em>Phantom 7.2</em></div>
     <div class="rsub a">Peak alignment architecture and exceptional MOI — a finalist that delivers mallet-level stability in a profile that transitions naturally from a blade.</div>
     <div class="a"><span class="rprice">$499 · titleist.com</span></div>
@@ -619,12 +719,12 @@ table.mx tr.win td{color:var(--text)}
   </div>
 </div>
 
-<!-- ── S8 OPTION 2: PHANTOM 9.2R ── -->
-<div class="slide" id="s8">
+<!-- ── S9 FINALIST 2: PHANTOM 9.2R ── -->
+<div class="slide" id="s9">
   <div class="gold-rule"></div>
   <div class="inner" style="flex-direction:row;gap:32px;align-items:stretch">
     <div class="rl a" style="flex:0 0 38%;min-width:0;display:flex;flex-direction:column;justify-content:flex-start;padding-right:20px;border-right:.5px solid var(--border)">
-      <div class="sn" style="margin-bottom:6px">08 · Finalist 2 of 3</div>
+      <div class="sn" style="margin-bottom:6px">09 · Finalist 2 of 3</div>
       <div style="font-family:'Syne',sans-serif;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Maximum forgiveness · Peak MOI in the lineup</div>
       <div style="font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--text);line-height:1.1;margin-bottom:2px">Phantom <span style="color:var(--gold)">9.2R</span></div>
       <div style="font-family:'Syne',sans-serif;font-size:10px;letter-spacing:.1em;color:var(--muted);margin-bottom:14px;text-transform:uppercase">Rounded Modern Mallet · Medium Toe Flow</div>
@@ -680,12 +780,12 @@ table.mx tr.win td{color:var(--text)}
   </div>
 </div>
 
-<!-- ── S9 OPTION 3: PHANTOM 5.2 ── -->
-<div class="slide" id="s9">
+<!-- ── S10 FINALIST 3: PHANTOM 5.2 ── -->
+<div class="slide" id="s10">
   <div class="gold-rule"></div>
   <div class="inner" style="flex-direction:row;gap:32px;align-items:stretch">
     <div class="rl a" style="flex:0 0 38%;min-width:0;display:flex;flex-direction:column;justify-content:flex-start;padding-right:20px;border-right:.5px solid var(--border)">
-      <div class="sn" style="margin-bottom:6px">09 · Finalist 3 of 3</div>
+      <div class="sn" style="margin-bottom:6px">10 · Finalist 3 of 3</div>
       <div style="font-family:'Syne',sans-serif;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Natural transition · Closest visual match to the Newport</div>
       <div style="font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--text);line-height:1.1;margin-bottom:2px">Phantom <span style="color:var(--gold)">5.2</span></div>
       <div style="font-family:'Syne',sans-serif;font-size:10px;letter-spacing:.1em;color:var(--muted);margin-bottom:14px;text-transform:uppercase">Compact Mallet · Plumbing Neck · Medium Toe Flow</div>
@@ -741,12 +841,12 @@ table.mx tr.win td{color:var(--text)}
   </div>
 </div>
 
-<!-- ── S10 RISK (was S8) ── -->
-<div class="slide" id="s10">
+<!-- ── S11 RISK REGISTER ── -->
+<div class="slide" id="s11">
   <div class="gold-rule"></div>
   <div class="inner">
     <div class="sh">
-      <div class="sn a">10 · Risk Register</div>
+      <div class="sn a">11 · Risk Register</div>
       <div class="st a">Every objection,<br>stress-tested and resolved.</div>
     </div>
     <div class="risk-g">
@@ -773,8 +873,8 @@ table.mx tr.win td{color:var(--text)}
   </div>
 </div>
 
-<!-- ── S11 CLOSE ── -->
-<div class="slide" id="s11">
+<!-- ── S12 CLOSE ── -->
+<div class="slide" id="s12">
   <div class="gold-rule" style="position:absolute;top:0;left:0;right:0;z-index:2"></div>
   <div class="crings">
     <span style="width:480px;height:480px"></span>
