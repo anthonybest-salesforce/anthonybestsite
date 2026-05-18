@@ -28,13 +28,41 @@ Every DNS record on anthonybest.com has been documented in [`docs/dns-backup.md`
 Repo: `github.com/anthonybest/anthonybestsite`
 
 ### ✅ Putter Advisory project page — `/projects/putter-advisory/`
-`src/projects/putter-advisory/index.html` is a 9-slide interactive presentation deck:
+`src/projects/putter-advisory/index.html` is a 9-slide interactive presentation deck (handoff copy at `handoff/anthony_best_putter_deck_v2.html`):
 - **Topic:** Data-driven Scotty Cameron Phantom 7.2 recommendation, upgrading from Studio Select Newport 2
 - **Format:** Full-screen slide deck with keyboard/button navigation and dot indicators
 - **Slides:** Cover · Existing weapon profile · Executive summary · Putting profile · Research data · Decision matrix · Recommendation · Risk register · Close
 - **Design:** Dark `#0c0c0d` background, gold (`#c8a96e`) and orange (`#cc6633`) accents, Syne + DM Sans typography, staggered fade-up entry animations
 - **Key finding:** Phantom 7.2 scores 94/100 in the decision matrix — highest MOI gain among the three stroke-compatible Phantom models, zero stroke disruption
 - **Reference:** PUTT-2026-001 · Classification: Confidential
+
+#### Updated May 18, 2026 — corrected putter data, top-3 expansion, research additions, and product images
+
+**Existing weapon corrected (slide 2):** The "existing weapon" was corrected from Studio Select Newport 2 to **Special Select Newport (2022)**. All changes:
+- Badge updated to "✦ Special Select · 2022"; model name corrected throughout
+- Specs corrected: Loft 3.5° (was 4°), Lie 70° (was 71°), Weights 2×35g fixed tungsten sole, Grip Pistolini Plus, Neck "Plumbing neck", Toe flow "Mid"
+- Hero image updated to `/media/17447/product_pages__0000_2020-select-newport-hero.jpg` (Special Select Newport CDN)
+- All three why-cards rewritten around the Special Select's actual design features: cascading concave sole, revamped plumbing neck, fixed tungsten sole weights vs. adjustable screws
+- Quote and design lineage box updated to reflect Special Select Newport context
+- All 12 occurrences of "Studio Select Newport 2" / "Studio Select" across slides 1, 3, 4, 5, 7, 10, and 11 replaced with "Special Select Newport"
+
+**Deck expanded from 9 to 11 slides — top 3 options added:**
+- **New slide 8 — Option 2: Phantom 9.2R** · Left panel: full specs, product image (`/media/2cmlwtyp/2026-sc-phantom-9-2r-hero.jpg`), score pill (81 vs 94). Right panel: 3 strength cards (identical plumbing neck geometry, highest MOI in range, same Carbon Steel insert) + "Why the 7.2 is preferred" section with 2 orange-accented boxes (head too large for blade-trained transition; diminishing forgiveness returns above this caliber threshold)
+- **New slide 9 — Option 3: Phantom 5.2** · Left panel: full specs, product image (`/media/sicf0u3k/2026-sc-phantom-5-2-hero.jpg`), score pill (76 vs 94). Right panel: 3 strength cards (smallest head, same insert, lightest feel) + "Why the 7.2 is preferred" section with 2 orange-accented boxes (critical neck difference — short slant neck vs. plumbing neck means different toe flow and requires motor re-learning; lower MOI than the 7.2)
+- Risk Register renumbered to slide 10, Close to slide 11
+- JS slide counter now initializes dynamically (`ct.textContent = \`1 / ${n}\``) so total always reflects actual slide count
+- Executive Summary (slide 3) Finding 02 updated to reference slides 7–9 explicitly; insight text updated to note top-3 structure; slide 7 eyebrow updated to "07 · Primary recommendation"
+
+**Recommendation slide images:** Both primary product slides now carry official Scotty Cameron photography with `onerror` fallbacks:
+- Slide 2: Special Select Newport hero (`/media/17447/product_pages__0000_2020-select-newport-hero.jpg`)
+- Slide 7: Phantom 7.2 hero (`/media/ptag021j/2026-sc-phantom-7-2-hero.jpg`)
+- Slides 8 & 9: Phantom 9.2R and 5.2 heroes respectively
+
+**Research data enriched (slide 5, card 4):** "Consistency gap, quantified" card expanded with cited independent data:
+- Mini data table: 82% vs 75% make rate inside 6 ft (mallet vs blade); 2.3 vs 2.6 three-putts per round (Shot Scope tracking)
+- SAM PuttLab callout: mallets outperformed blades 62% of the time; face-to-path consistency higher for 100% of players tested (+15% advantage)
+- Body copy explicitly attributes the 7-point make-rate gap to equipment and compounds to a 20-stroke seasonal gain
+- Source footer: Shot Scope via MyGolfSpy (June 2025), Golf Digest / Club Champion SAM PuttLab (March 2024), MyGolfSpy Golf Lab (46,000+ putts, 2024)
 
 ---
 
