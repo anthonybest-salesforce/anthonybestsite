@@ -1,6 +1,6 @@
 # anthonybest.com — Migration Project Summary
 
-**Date:** March 26, 2026 · **Last updated:** May 18, 2026
+**Date:** March 26, 2026 · **Last updated:** May 18, 2026 (11:56 AM)
 **Goal:** Move anthonybest.com from Squarespace to a static site on Heroku, managed via GitHub.
 
 ---
@@ -36,6 +36,26 @@ Repo: `github.com/anthonybest/anthonybestsite`
 - **Key finding:** Phantom 7.2 scores 94/100 in the decision matrix — highest MOI gain among the three stroke-compatible Phantom models, zero stroke disruption
 - **Reference:** PUTT-2026-001 · Classification: Confidential
 
+#### Updated May 18, 2026 (second pass) — pie chart decision matrix, font size increase, and spec corrections
+
+**Decision matrix (slide 6) — all symbols replaced with pie charts:**
+- Replaced every mixed checkmark / half-circle symbol (✓, ✓✓, ◑, ✗, —) with CSS conic-gradient pie charts in four visually distinct tiers: full gold (dominant advantage), 83% fill (strong), 50% fill (moderate), empty ring (eliminated)
+- Percentage values displayed inline next to each pie for immediate quantitative reading (e.g. Phantom 7.2 Alignment: 100%, MOI: 100%; 9.2R Alignment: 45%)
+- Legend added to the criteria panel — four rows with live mini-pie and label (Dominant / Strong / Moderate / Eliminated)
+- Source note added to criteria panel: "Neck geometry confirmed via scottycameron.com official specifications. Plumbing-neck models screened first; all others eliminated in round one."
+- OC models row retains high MOI pie (95%, full but opacity-dimmed) to show that forgiveness alone cannot rescue a neck-incompatible model — telling the right story visually
+- Removed obsolete `.ck`, `.hf`, `.no` CSS classes; added `.pc`, `.pc-full`, `.pc-hi`, `.pc-mid`, `.pc-lo`, `.pc-na`, `.pv`, `.pv-g`, `.pv-d`, `.pv-l` pie chart classes
+
+**Typography — all font sizes increased ~20% for legibility:**
+- Every CSS class `font-size` value scaled up by 20% (e.g. body copy 11px → 13px, slide titles clamp lower bounds 19px → 23px, stat numbers 28px → 34px, cover title clamp 32px → 38px)
+- All inline `font-size` values in HTML updated to match (data table labels, source footnotes, slide 8/9 model names, score pill secondary values, etc.)
+
+**Phantom 5.2 spec correction (slide 9) — research-backed fix:**
+- Official scottycameron.com specs confirmed: the 5.2 uses a **plumbing neck with medium toe flow**, identical to the 7.2 — not a "short slant neck" as previously stated
+- Spec table corrected: Neck "Short slant neck" → "Plumbing neck"; Toe flow "Medium-low" → "Medium"
+- Subtitle line corrected: "Compact Mallet · Medium-Low Toe Flow" → "Compact Mallet · Medium Toe Flow"
+- First "WHY THE PHANTOM 7.2 IS PREFERRED" box rewritten: removed the false neck-difference argument; now accurately cites **head size and MOI** as the true differentiator — the 7.2's larger angular wings push mass further to the perimeter, producing meaningfully higher MOI than the 5.2's compact wingback design
+
 #### Updated May 18, 2026 — corrected putter data, top-3 expansion, research additions, and product images
 
 **Existing weapon corrected (slide 2):** The "existing weapon" was corrected from Studio Select Newport 2 to **Special Select Newport (2022)**. All changes:
@@ -48,7 +68,7 @@ Repo: `github.com/anthonybest/anthonybestsite`
 
 **Deck expanded from 9 to 11 slides — top 3 options added:**
 - **New slide 8 — Option 2: Phantom 9.2R** · Left panel: full specs, product image (`/media/2cmlwtyp/2026-sc-phantom-9-2r-hero.jpg`), score pill (81 vs 94). Right panel: 3 strength cards (identical plumbing neck geometry, highest MOI in range, same Carbon Steel insert) + "Why the 7.2 is preferred" section with 2 orange-accented boxes (head too large for blade-trained transition; diminishing forgiveness returns above this caliber threshold)
-- **New slide 9 — Option 3: Phantom 5.2** · Left panel: full specs, product image (`/media/sicf0u3k/2026-sc-phantom-5-2-hero.jpg`), score pill (76 vs 94). Right panel: 3 strength cards (smallest head, same insert, lightest feel) + "Why the 7.2 is preferred" section with 2 orange-accented boxes (critical neck difference — short slant neck vs. plumbing neck means different toe flow and requires motor re-learning; lower MOI than the 7.2)
+- **New slide 9 — Option 3: Phantom 5.2** · Left panel: full specs, product image (`/media/sicf0u3k/2026-sc-phantom-5-2-hero.jpg`), score pill (76 vs 94). Right panel: 3 strength cards (smallest head, same insert, lightest feel) + "Why the 7.2 is preferred" section with 2 orange-accented boxes (smaller head = significantly less perimeter MOI despite identical plumbing neck; lower MOI penalises off-centre contact more than the 7.2)
 - Risk Register renumbered to slide 10, Close to slide 11
 - JS slide counter now initializes dynamically (`ct.textContent = \`1 / ${n}\``) so total always reflects actual slide count
 - Executive Summary (slide 3) Finding 02 updated to reference slides 7–9 explicitly; insight text updated to note top-3 structure; slide 7 eyebrow updated to "07 · Primary recommendation"
@@ -79,7 +99,7 @@ anthonybestsite/
 │   ├── ALB_Logo_White_Transparent.png
 │   ├── projects/
 │   │   └── putter-advisory/
-│   │       └── index.html        ← 9-slide Phantom 7.2 advisory deck (PUTT-2026-001)
+│   │       └── index.html        ← 11-slide Phantom 7.2 advisory deck (PUTT-2026-001)
 │   └── assets/
 │       ├── images/
 │       │   ├── favicon.ico
