@@ -228,7 +228,7 @@ table.mx tr.win td{color:var(--text)}
   .inner{overflow:visible;padding:20px 5% 88px}
 
   /* Slides with absolutely-positioned children need position:relative */
-  #s1,#s12,#s16{position:relative}
+  #s1,#s12,#s13,#s14,#s16{position:relative}
 
   /* ── COVER SLIDE ── */
   #s1{padding:24px 5% 88px;min-height:100svh;overflow:visible;justify-content:flex-start}
@@ -258,14 +258,10 @@ table.mx tr.win td{color:var(--text)}
   .moi-cmp{grid-template-columns:1fr 1fr}
   .neck-grid{grid-template-columns:1fr 1fr !important}
 
-  /* ── S12 RECOMMENDATION: side-by-side → stacked ── */
-  #s12{flex-direction:column}
+  /* ── S12/S13/S14 FINALISTS: side-by-side → stacked ── */
+  #s12,#s13,#s14{flex-direction:column}
   .rl{width:100%;padding:24px 5% 20px;border-right:none;border-bottom:.5px solid var(--border);flex-shrink:1}
   .rright{padding:20px 5% 0}
-
-  /* ── S13/S14 ALTERNATIVES: override inline flex-direction:row ── */
-  #s13 .inner,#s14 .inner{flex-direction:column !important;gap:16px !important;align-items:stretch !important}
-  #s13 .rl,#s14 .rl{flex:none !important;width:100% !important;padding-right:5% !important;padding-bottom:20px !important;border-right:none !important;border-bottom:.5px solid var(--border) !important}
 
   /* ── S16 CLOSE: scale down decorative rings ── */
   .crings span:nth-child(1){width:200px !important;height:200px !important}
@@ -999,60 +995,42 @@ table.mx tr.win td{color:var(--text)}
 
 <!-- ── S13 FINALIST 2: PHANTOM 9.2R ── -->
 <div class="slide" id="s13">
-  <div class="gold-rule"></div>
-  <div class="inner" style="flex-direction:row;gap:32px;align-items:stretch">
-    <div class="rl a" style="flex:0 0 38%;min-width:0;display:flex;flex-direction:column;justify-content:flex-start;padding-right:20px;border-right:.5px solid var(--border)">
-      <div class="sn" style="margin-bottom:6px">13 · Finalist 2 of 3</div>
-      <div style="font-family:'Syne',sans-serif;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Maximum forgiveness · Peak MOI in the lineup</div>
-      <div style="font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--text);line-height:1.1;margin-bottom:2px">Phantom <span style="color:var(--gold)">9.2R</span></div>
-      <div style="font-family:'Syne',sans-serif;font-size:10px;letter-spacing:.1em;color:var(--muted);margin-bottom:14px;text-transform:uppercase">Rounded Modern Mallet · Medium Toe Flow</div>
-      <div style="background:rgba(0,0,0,0.35);border:.5px solid var(--border);border-radius:2px;overflow:hidden;height:160px;display:flex;align-items:center;justify-content:center;margin-bottom:14px">
-        <img src="https://www.scottycameron.com/media/2cmlwtyp/2026-sc-phantom-9-2r-hero.jpg" alt="Scotty Cameron Phantom 9.2R" style="max-height:156px;max-width:100%;object-fit:contain;opacity:0.92" onerror="this.parentElement.style.display='none'">
-      </div>
-      <div class="spec-grid">
-        <div class="spec"><div class="spec-l">Head</div><div class="spec-v">303 SS face + 6061 aluminum</div></div>
-        <div class="spec"><div class="spec-l">Insert</div><div class="spec-v">Full-face Carbon Steel chain-link</div></div>
-        <div class="spec"><div class="spec-l">Loft</div><div class="spec-v">3.5°</div></div>
-        <div class="spec"><div class="spec-l">Lie</div><div class="spec-v">70°</div></div>
-        <div class="spec"><div class="spec-l">Offset</div><div class="spec-v">Full shaft</div></div>
-        <div class="spec"><div class="spec-l">Neck</div><div class="spec-v">Plumbing neck</div></div>
-        <div class="spec"><div class="spec-l">Toe flow</div><div class="spec-v">Medium</div></div>
-        <div class="spec"><div class="spec-l">Grip</div><div class="spec-v">Gray Full Contact</div></div>
-        <div class="spec"><div class="spec-l">Weights</div><div class="spec-v">2×15g (34")</div></div>
-      </div>
-      <div class="score-pill" style="margin-top:12px">
-        <div><div class="score-pill-n">81</div></div>
-        <div><div class="score-pill-l">Composite<br>Score / 100</div></div>
-        <div style="width:.5px;background:var(--border);height:30px;margin:0 6px"></div>
-        <div><div class="score-pill-n" style="font-size:14px;color:var(--gold)">Finalist</div></div>
-        <div><div class="score-pill-l">Advances to<br>testing</div></div>
-      </div>
+  <div class="gold-rule" style="position:absolute;top:0;left:0;right:0;z-index:2"></div>
+  <div class="rl">
+    <div class="rey a">13 · Finalist 2 of 3</div>
+    <div class="rmod a">Scotty Cameron<br><em>Phantom 9.2R</em></div>
+    <div class="rsub a">Maximum forgiveness ceiling — the highest MOI in the entire 2026 Phantom lineup, in a rounded modern mallet built for a plumbing-neck stroke.</div>
+    <div class="a"><span class="rprice">$499 · titleist.com</span></div>
+    <div style="margin-top:18px" class="a">
+      <a href="https://www.titleist.com/product/phantom-9.2r/758C%3ACP-E793.html" target="_blank" style="font-family:'Syne',sans-serif;font-size:10px;color:var(--gold);letter-spacing:.1em;text-decoration:none;border-bottom:.5px solid var(--border)">View on Titleist.com →</a>
     </div>
-    <div class="rright a" style="flex:1;min-width:0;display:flex;flex-direction:column;gap:10px">
-      <div style="font-family:'Syne',sans-serif;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:2px;font-weight:600">Why the 9.2R is an exceptional fit</div>
-      <div class="pill" style="margin-bottom:0">
-        <div class="ph">Plumbing neck — identical stroke geometry</div>
-        <div class="pb">Like the 7.2, the 9.2R uses a plumbing neck that produces the same medium toe hang your stroke is built around. Zero retraining required. The muscle memory from the Special Select Newport carries over on day one.</div>
+    <div style="margin-top:auto;padding-top:24px;display:flex;align-items:flex-end;justify-content:center" class="a">
+      <img src="https://www.scottycameron.com/media/2cmlwtyp/2026-sc-phantom-9-2r-hero.jpg" alt="Scotty Cameron Phantom 9.2R" style="max-height:200px;max-width:100%;object-fit:contain;opacity:0.92" onerror="this.parentElement.style.display='none'">
+    </div>
+  </div>
+  <div class="rright">
+    <div class="rlbl a">Why the 9.2R is an exceptional fit</div>
+    <div class="rttl a">Four compounding strengths<br>that define this finalist.</div>
+    <div class="pillars">
+      <div class="pill a">
+        <div class="pi">🎯</div>
+        <div class="pt">Zero stroke disruption</div>
+        <div class="pb">Plumbing neck mirrors the Special Select Newport's geometry exactly. The same toe hang, the same shaft plane — established muscle memory becomes an immediate day-one advantage.</div>
       </div>
-      <div class="pill" style="margin-bottom:0">
-        <div class="ph">Highest MOI in the Phantom range — maximum forgiveness</div>
-        <div class="pb">The 9.2R is the widest, deepest mallet in the Phantom lineup. Its aerospace-inspired body delivers the highest Moment of Inertia of any model in the range — meaning off-center strikes lose less distance and hold line better than any other option.</div>
+      <div class="pill a">
+        <div class="pi">🏋️</div>
+        <div class="pt">Highest MOI in the lineup</div>
+        <div class="pb">The 9.2R's widest, deepest body pushes mass to the extreme perimeter — delivering more MOI than any other model in the 2026 Phantom range. The maximum protection ceiling on the shortlist.</div>
       </div>
-      <div class="pill" style="margin-bottom:0">
-        <div class="ph">Same full-face Carbon Steel chain-link insert</div>
-        <div class="pb">The 9.2R shares the 7.2's re-engineered full-face Studio Carbon Steel insert with the proprietary chain-link milling pattern. Softer sound, precise distance control, sharper feedback than traditional blade construction.</div>
+      <div class="pill a">
+        <div class="pi">🔭</div>
+        <div class="pt">Maximum off-center recovery</div>
+        <div class="pb">At +88% MOI over the Special Select Newport, off-center strikes that would cost distance and direction with any other option hold their intended line. The most forgiving instrument on the shortlist.</div>
       </div>
-      <div class="alt-divider" style="border-color:rgba(200,169,110,0.28)">
-        <div class="alt-why-head" style="color:var(--gold)">WHAT MAKES THE 9.2R UNIQUELY COMPELLING</div>
-        <div class="alt-pref" style="background:rgba(200,169,110,0.06);border-color:rgba(200,169,110,0.2);border-left-color:var(--gold)">
-          <div class="alt-pref-h">The absolute ceiling on forgiveness — highest MOI in the entire Phantom lineup</div>
-          <div class="alt-pref-b">No other Phantom protects off-center contact more. The 9.2R's aerospace-inspired deep-flange body delivers the highest Moment of Inertia of any model in the 2026 range — meaning missed strikes lose less distance, hold their line better, and recover more consistently than with any other option on the shortlist. If you want the maximum protection available, this is it.</div>
-        </div>
-        <div class="alt-pref" style="background:rgba(200,169,110,0.06);border-color:rgba(200,169,110,0.2);border-left-color:var(--gold)">
-          <div class="alt-pref-h">Testing will answer: does the larger profile feel commanding or unfamiliar?</div>
-          <div class="alt-pref-b">The 9.2R's deeper, wider body is the most visually authoritative head in the shortlist. Many blade-trained players find this visual weight immediately decisive and confidence-building — the putter looks like it cannot miss. Testing will confirm whether that authority translates into your best putting. If it does, the 9.2R offers the highest forgiveness ceiling available.</div>
-        </div>
-        <div class="alt-who" style="background:rgba(200,169,110,0.04);border-color:rgba(200,169,110,0.16)"><strong style="color:var(--text)">Ideal profile:</strong> A player who wants the absolute maximum protection against off-center contact — and finds the larger, visually dominant head commanding rather than unfamiliar at address. If the 9.2R feels right, it is the most protective instrument on the shortlist.</div>
+      <div class="pill a">
+        <div class="pi">⚙️</div>
+        <div class="pt">Studio Carbon Steel insert</div>
+        <div class="pb">Full-face chain-link milling delivers the same softer feel and precise distance control as the 7.2 — a significant advancement over the Special Select Newport's insert-free foundation.</div>
       </div>
     </div>
   </div>
@@ -1060,60 +1038,42 @@ table.mx tr.win td{color:var(--text)}
 
 <!-- ── S14 FINALIST 3: PHANTOM 5.2 ── -->
 <div class="slide" id="s14">
-  <div class="gold-rule"></div>
-  <div class="inner" style="flex-direction:row;gap:32px;align-items:stretch">
-    <div class="rl a" style="flex:0 0 38%;min-width:0;display:flex;flex-direction:column;justify-content:flex-start;padding-right:20px;border-right:.5px solid var(--border)">
-      <div class="sn" style="margin-bottom:6px">14 · Finalist 3 of 3</div>
-      <div style="font-family:'Syne',sans-serif;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Natural transition · Closest visual match to the Newport</div>
-      <div style="font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--text);line-height:1.1;margin-bottom:2px">Phantom <span style="color:var(--gold)">5.2</span></div>
-      <div style="font-family:'Syne',sans-serif;font-size:10px;letter-spacing:.1em;color:var(--muted);margin-bottom:14px;text-transform:uppercase">Compact Mallet · Plumbing Neck · Medium Toe Flow</div>
-      <div style="background:rgba(0,0,0,0.35);border:.5px solid var(--border);border-radius:2px;overflow:hidden;height:160px;display:flex;align-items:center;justify-content:center;margin-bottom:14px">
-        <img src="https://www.scottycameron.com/media/sicf0u3k/2026-sc-phantom-5-2-hero.jpg" alt="Scotty Cameron Phantom 5.2" style="max-height:156px;max-width:100%;object-fit:contain;opacity:0.92" onerror="this.parentElement.style.display='none'">
-      </div>
-      <div class="spec-grid">
-        <div class="spec"><div class="spec-l">Head</div><div class="spec-v">303 SS face + 6061 aluminum</div></div>
-        <div class="spec"><div class="spec-l">Insert</div><div class="spec-v">Full-face Carbon Steel chain-link</div></div>
-        <div class="spec"><div class="spec-l">Loft</div><div class="spec-v">3.5°</div></div>
-        <div class="spec"><div class="spec-l">Lie</div><div class="spec-v">70°</div></div>
-        <div class="spec"><div class="spec-l">Offset</div><div class="spec-v">Full shaft</div></div>
-        <div class="spec"><div class="spec-l">Neck</div><div class="spec-v">Plumbing neck</div></div>
-        <div class="spec"><div class="spec-l">Toe flow</div><div class="spec-v">Medium</div></div>
-        <div class="spec"><div class="spec-l">Grip</div><div class="spec-v">Gray Full Contact</div></div>
-        <div class="spec"><div class="spec-l">Shape</div><div class="spec-v">Compact blade-mallet hybrid</div></div>
-      </div>
-      <div class="score-pill" style="margin-top:12px">
-        <div><div class="score-pill-n">76</div></div>
-        <div><div class="score-pill-l">Composite<br>Score / 100</div></div>
-        <div style="width:.5px;background:var(--border);height:30px;margin:0 6px"></div>
-        <div><div class="score-pill-n" style="font-size:14px;color:var(--gold)">Finalist</div></div>
-        <div><div class="score-pill-l">Advances to<br>testing</div></div>
-      </div>
+  <div class="gold-rule" style="position:absolute;top:0;left:0;right:0;z-index:2"></div>
+  <div class="rl">
+    <div class="rey a">14 · Finalist 3 of 3</div>
+    <div class="rmod a">Scotty Cameron<br><em>Phantom 5.2</em></div>
+    <div class="rsub a">Natural transition — the most compact Phantom and the closest visual match to the Special Select Newport in the entire lineup.</div>
+    <div class="a"><span class="rprice">$499 · titleist.com</span></div>
+    <div style="margin-top:18px" class="a">
+      <a href="https://www.titleist.com/product/phantom-5.2/758C%3ACP-E757.html" target="_blank" style="font-family:'Syne',sans-serif;font-size:10px;color:var(--gold);letter-spacing:.1em;text-decoration:none;border-bottom:.5px solid var(--border)">View on Titleist.com →</a>
     </div>
-    <div class="rright a" style="flex:1;min-width:0;display:flex;flex-direction:column;gap:10px">
-      <div style="font-family:'Syne',sans-serif;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:2px;font-weight:600">Why the 5.2 is an exceptional fit</div>
-      <div class="pill" style="margin-bottom:0">
-        <div class="ph">Smallest head in the Phantom range — closest visual match to a blade</div>
-        <div class="pb">The 5.2 is the most compact Phantom model. Its narrower profile at address is the closest any current Scotty Cameron mallet gets to the blade look of the Special Select Newport — a meaningful psychological comfort for players with a long history in blade-format putters.</div>
+    <div style="margin-top:auto;padding-top:24px;display:flex;align-items:flex-end;justify-content:center" class="a">
+      <img src="https://www.scottycameron.com/media/sicf0u3k/2026-sc-phantom-5-2-hero.jpg" alt="Scotty Cameron Phantom 5.2" style="max-height:200px;max-width:100%;object-fit:contain;opacity:0.92" onerror="this.parentElement.style.display='none'">
+    </div>
+  </div>
+  <div class="rright">
+    <div class="rlbl a">Why the 5.2 is an exceptional fit</div>
+    <div class="rttl a">Four compounding strengths<br>that define this finalist.</div>
+    <div class="pillars">
+      <div class="pill a">
+        <div class="pi">🎯</div>
+        <div class="pt">Zero stroke disruption</div>
+        <div class="pb">Plumbing neck mirrors the Special Select Newport's geometry exactly. Same toe hang, same shaft plane — the muscle memory already built carries over immediately on day one.</div>
       </div>
-      <div class="pill" style="margin-bottom:0">
-        <div class="ph">Carbon Steel insert — same forgiveness technology as the 7.2</div>
-        <div class="pb">The 5.2 carries the same full-face Studio Carbon Steel chain-link insert as the 7.2 and 9.2R. The insert-driven forgiveness and soft feel are identical across all three models — the differences come from head geometry, MOI, and neck style, not the face technology.</div>
+      <div class="pill a">
+        <div class="pi">👁️</div>
+        <div class="pt">Most blade-like Phantom profile</div>
+        <div class="pb">The 5.2 is the smallest head in the Phantom range — the closest any current Scotty Cameron mallet gets to the visual footprint of a blade. For a Newport player, this is the fastest confidence path of the three finalists.</div>
       </div>
-      <div class="pill" style="margin-bottom:0">
-        <div class="ph">Lightest feel — fastest tempo response</div>
-        <div class="pb">The 5.2's compact aluminum-and-steel construction produces a lighter swing weight than the larger Phantom models. Players who prefer a quicker, more responsive tempo sometimes favor this characteristic on faster greens or for shorter putts.</div>
+      <div class="pill a">
+        <div class="pi">📈</div>
+        <div class="pt">Meaningful MOI upgrade</div>
+        <div class="pb">At +37% MOI over the Special Select Newport, the 5.2 delivers a significant forgiveness gain — converting misses that would have drifted offline into putts that hold their line. A genuine step forward without a dramatic shape change.</div>
       </div>
-      <div class="alt-divider" style="border-color:rgba(200,169,110,0.28)">
-        <div class="alt-why-head" style="color:var(--gold)">WHAT MAKES THE 5.2 UNIQUELY COMPELLING</div>
-        <div class="alt-pref" style="background:rgba(200,169,110,0.06);border-color:rgba(200,169,110,0.2);border-left-color:var(--gold)">
-          <div class="alt-pref-h">The most natural visual transition from the Special Select Newport</div>
-          <div class="alt-pref-b">The 5.2 is the closest visual match to your current putter in the entire Phantom lineup — the narrowest profile, the smallest footprint, the most blade-adjacent appearance at address. For a player with years of visual familiarity with a blade, this can be the decisive factor. If you settle over the 5.2 and feel immediately at home, that confidence compounds on every pressure putt.</div>
-        </div>
-        <div class="alt-pref" style="background:rgba(200,169,110,0.06);border-color:rgba(200,169,110,0.2);border-left-color:var(--gold)">
-          <div class="alt-pref-h">Testing will answer: does the compact profile plus insert feel like the upgrade?</div>
-          <div class="alt-pref-b">The fitting will confirm whether the 5.2's compact, blade-like silhouette combined with the Carbon Steel chain-link insert creates your optimal putting experience — or whether the added visual mass of the 7.2 or 9.2R provides a more settled, authoritative foundation. Both outcomes are valid. Testing makes the answer clear.</div>
-        </div>
-        <div class="alt-who" style="background:rgba(200,169,110,0.04);border-color:rgba(200,169,110,0.16)"><strong style="color:var(--text)">Ideal profile:</strong> A player for whom visual comfort and a familiar footprint are the decisive factors — who wants the smallest, most blade-like Phantom profile at address, with the full benefit of Carbon Steel insert technology and a meaningful forgiveness upgrade over the Special Select Newport.</div>
+      <div class="pill a">
+        <div class="pi">⚙️</div>
+        <div class="pt">Studio Carbon Steel insert</div>
+        <div class="pb">Full-face chain-link milling delivers the same softer feel and sharper distance control as the 7.2 and 9.2R — a significant advancement over the Special Select Newport's insert-free, solid-steel construction.</div>
       </div>
     </div>
   </div>
