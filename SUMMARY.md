@@ -1,6 +1,6 @@
 # anthonybest.com — Migration Project Summary
 
-**Date:** March 26, 2026
+**Date:** March 26, 2026 · **Last updated:** May 18, 2026
 **Goal:** Move anthonybest.com from Squarespace to a static site on Heroku, managed via GitHub.
 
 ---
@@ -27,6 +27,15 @@ Every DNS record on anthonybest.com has been documented in [`docs/dns-backup.md`
 ### ✅ GitHub repo live
 Repo: `github.com/anthonybest/anthonybestsite`
 
+### ✅ Putter Advisory project page — `/projects/putter-advisory/`
+`src/projects/putter-advisory/index.html` is a 9-slide interactive presentation deck:
+- **Topic:** Data-driven Scotty Cameron Phantom 7.2 recommendation, upgrading from Studio Select Newport 2
+- **Format:** Full-screen slide deck with keyboard/button navigation and dot indicators
+- **Slides:** Cover · Existing weapon profile · Executive summary · Putting profile · Research data · Decision matrix · Recommendation · Risk register · Close
+- **Design:** Dark `#0c0c0d` background, gold (`#c8a96e`) and orange (`#cc6633`) accents, Syne + DM Sans typography, staggered fade-up entry animations
+- **Key finding:** Phantom 7.2 scores 94/100 in the decision matrix — highest MOI gain among the three stroke-compatible Phantom models, zero stroke disruption
+- **Reference:** PUTT-2026-001 · Classification: Confidential
+
 ---
 
 ## Project structure
@@ -40,6 +49,9 @@ anthonybestsite/
 ├── src/                          ← deployed web root
 │   ├── index.html                ← link-in-bio homepage
 │   ├── ALB_Logo_White_Transparent.png
+│   ├── projects/
+│   │   └── putter-advisory/
+│   │       └── index.html        ← 9-slide Phantom 7.2 advisory deck (PUTT-2026-001)
 │   └── assets/
 │       ├── images/
 │       │   ├── favicon.ico
