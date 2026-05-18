@@ -15,9 +15,21 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Stamp version badge
+        run: |
+          COUNT=$(git rev-list --count HEAD)
+          SHA=$(git rev-parse --short HEAD)
+          VERSION="v${COUNT} · ${SHA}"
+          sed -i "s|<div class=\"version-badge\">.*</div>|<div class=\"version-badge\">${VERSION}</div>|g" src/index.html
+          echo "Stamped: ${VERSION}"
+
       - name: Deploy to Heroku via git push
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: |
           git remote add heroku https://heroku:${HEROKU_API_KEY}@git.heroku.com/anthonybest.git
-          git push heroku main --force
+          git add src/index.html
+          git config user.email "deploy@github-actions"
+          git config user.name "GitHub Actions"
+          git commit -m "chore: stamp version badge [skip ci]" || true
+          git push heroku HEAD:main --force
