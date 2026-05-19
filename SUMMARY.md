@@ -1,6 +1,6 @@
 # anthonybest.com — Migration Project Summary
 
-**Date:** March 26, 2026 · **Last updated:** May 18, 2026 (5:15 PM)
+**Date:** March 26, 2026 · **Last updated:** May 18, 2026 (8:21 PM)
 **Goal:** Move anthonybest.com from Squarespace to a static site on Heroku, managed via GitHub.
 
 ---
@@ -29,12 +29,11 @@ Repo: `github.com/anthonybest/anthonybestsite`
 
 ### ✅ Putter Advisory project page — `/projects/putter-advisory/`
 `src/projects/putter-advisory/index.html` is a 9-slide interactive presentation deck (handoff copy at `handoff/anthony_best_putter_deck_v2.html`):
-- **Topic:** Data-driven Scotty Cameron Phantom 7.2 recommendation, upgrading from Studio Select Newport 2
+- **Topic:** Case for replacing the Special Select Newport with a Scotty Cameron Phantom — framed as a replacement for a good player playing twice a week without dedicated putting practice
 - **Format:** Full-screen slide deck with keyboard/button navigation and dot indicators
-- **Slides:** Cover · Existing weapon profile · Executive summary · Putting profile · Research data · Decision matrix · Recommendation · Risk register · Close
+- **Slides:** Cover · Existing weapon profile · The case for a change · Putting profile · Research · Decision matrix · Forgiveness analysis · Stroke compatibility · Neck architecture · Alignment · Confidence · Phantom 5.2 · Phantom 9.2R · Phantom 7.2 · What to expect · Close
 - **Design:** Dark `#0c0c0d` background, gold (`#c8a96e`) and orange (`#cc6633`) accents, Syne + DM Sans typography, staggered fade-up entry animations
-- **Key finding:** Phantom 7.2 scores 94/100 in the decision matrix — highest MOI gain among the three stroke-compatible Phantom models, zero stroke disruption
-- **Reference:** PUTT-2026-001 · Classification: Confidential
+- **Key finding:** Phantom 7.2 scores 94/100 in the decision matrix — best balance of forgiveness and alignment for the player's stroke profile
 
 #### Updated May 18, 2026 (second pass) — pie chart decision matrix, font size increase, and spec corrections
 
@@ -84,6 +83,68 @@ Repo: `github.com/anthonybest/anthonybestsite`
 - Body copy explicitly attributes the 7-point make-rate gap to equipment and compounds to a 20-stroke seasonal gain
 - Source footer: Shot Scope via MyGolfSpy (June 2025), Golf Digest / Club Champion SAM PuttLab (March 2024), MyGolfSpy Golf Lab (46,000+ putts, 2024)
 
+#### Updated May 18, 2026 (8:21 PM) — narrative reframe, AI slop removal, infrequent-player research added
+
+**Core narrative reframe — replacement, not upgrade:**
+The deck's central argument was rebuilt. The previous framing ("graduation from a great putter") was replaced with a direct case for replacement: the Newport 2 is a good putter best suited to golfers who practice frequently enough to guarantee center contact. A player who plays two rounds a week without dedicated putting practice cannot reliably do that — and the Newport punishes every off-center strike that results. The Phantom finalists give the same stroke geometry with a forgiveness window that fits a real schedule.
+
+**Slide 1 — Cover:**
+- Title changed from "The Case for Your Next Weapon on the Green" to "Your Newport Is Holding You Back."
+- Subtitle rewritten to frame the deck as a replacement decision, not an upgrade
+- Removed `PUTT-2026-001` reference code and `Classification: Confidential` metadata (AI-generated scaffolding with no functional purpose)
+- Objective field now reads "Putter Replacement"
+
+**Slide 2 — The Existing Weapon:**
+- Section title changed from "The putter that built an elite stroke" to "A great putter that demands perfection every time"
+- All three praise cards ("master class in feedback," "deeply ingrained competitive asset," "deliberate advantage") removed and replaced with three honest limitation cards: the solid face tax on off-center contact; what playing twice a week means for a blade; and why the Newport demands consistency the player can't guarantee without regular practice
+- Scotty Cameron self-quote removed
+- Upgrade bar rewritten from "This is not a replacement. It is a graduation." to explicit replacement framing
+- "Why another brand is the wrong move" section (three dense bullet points) removed entirely
+
+**Slide 3 — Renamed and reframed:**
+- Section renamed from "Executive Summary" to "The Case for a Change"
+- Primary finding rewritten to lead with the Newport's limitation rather than complimenting the player's stroke
+- Finding 01 reframed: "Your stroke is the asset" → "Your stroke transfers immediately. What changes is what happens on the putts you slightly miss."
+- Finding 03 reframed to emphasize benefit for players with limited practice time
+
+**Slide 4 — Putting Profile:**
+- Five-star Newport rating card removed; replaced with a card explaining what playing 2x/week without practice means for center contact and stroke consistency
+- "The Newport is not your problem" header removed
+- "What elite putters actually miss" → "What good putters pay for on a blade"
+- Consistency gap header updated; source note corrected to Shot Scope / MyGolfSpy June 2025
+- Body text reframed to connect the data gap to infrequent play, not generic skill variance
+- Closing quote rewritten from inspirational-sounding AI language to direct 2x/week framing
+
+**Slide 5 — Research:**
+- Section renamed from "Independent Research" to "The Research"
+- "3 of 4 majors" card (Golf.com 2023) replaced with a new card on motor learning research: putting precision requires thousands of consistent reps to stay grooved; high-forgiveness equipment compensates for the variance introduced by infrequent play (source: *Cognitive, Neurophysiological, and Behavioral Adaptations in Golf Putting Motor Learning*, Psychological Research, 2025)
+- All six card bodies shortened and jargon removed
+- "The professionals who compete for their livelihoods have decisively migrated — this is not trend-following, it is performance optimization" removed
+- Sources footnote updated to correctly attribute Shot Scope on-course data and the 2025 motor learning study
+
+**Slide 7 — Renamed and simplified:**
+- Section renamed from "MOI Analysis" to "Forgiveness"
+- Physics formula `I = Σ m·r²` removed from both primer cards
+- Both primers rewritten in plain golf language: MOI described as "how much a putter head resists twisting when you miss the center" with no equation
+- Newport baseline card reframed: "the limitation" rather than neutral baseline
+- Three "what the numbers mean" cards at the bottom: jargon removed ("tour-level miss patterns," "geometric sweet spot of the equation"); rewritten to connect forgiveness directly to the experience of warming up in the first few holes
+- "Extended angular wings act as extreme heel/toe mass concentrations at the maximum r² distance from center — the geometric sweet spot of the I = Σ m·r² equation" rewritten in plain language
+
+**Slides 12–14 — Finalist profiles:**
+- "Why the X is an exceptional fit" → "Why the X works for you"
+- "Four compounding strengths that define this finalist" → "What this finalist actually delivers"
+
+**Slide 15 — Renamed and shortened:**
+- "Risk Register" renamed to "What to Expect"
+- "Every objection, stress-tested and resolved" → "The first few rounds with a new putter"
+- Risk level labels changed from corporate project-management format ("Risk: High · Probability: Low") to plain duration framing ("Adjustment: Visual · Duration: A few holes")
+- All three card bodies cut by roughly half; mitigation language simplified to practical advice ("give it 3–5 rounds")
+- Closing quote changed from "The only real risk in this decision is not making it" to "The adjustment period is short. The gain — on every round you play for the next several years — is not."
+
+**Slide 16 — Close:**
+- Title changed from "Three exceptional instruments. One will reveal itself." to "Your Newport built your stroke. Time to use it better."
+- Body copy rewritten with conviction: acknowledges the Newport's role, frames the change as outgrowing the equipment's limitations, directs to a fitting session without hedging
+
 ---
 
 ## Project structure
@@ -99,7 +160,7 @@ anthonybestsite/
 │   ├── ALB_Logo_White_Transparent.png
 │   ├── projects/
 │   │   └── putter-advisory/
-│   │       └── index.html        ← 11-slide Phantom 7.2 advisory deck (PUTT-2026-001)
+│   │       └── index.html        ← 16-slide Phantom replacement advisory deck
 │   └── assets/
 │       ├── images/
 │       │   ├── favicon.ico
