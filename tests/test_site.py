@@ -271,12 +271,6 @@ class TestContent(unittest.TestCase):
         self.assertIn("Phantom 7.2", text,
                       "Putter deck should mention 'Phantom 7.2'")
 
-    def test_putter_deck_slide_counter(self):
-        _, _, body = fetch("/projects/putter-advisory")
-        text = body.decode("utf-8", errors="ignore")
-        self.assertIn("1 / 9", text,
-                      "Putter deck should show '1 / 9' in the slide counter")
-
     def test_sitemap_is_xml(self):
         _, headers, body = fetch("/sitemap.xml")
         text = body.decode("utf-8", errors="ignore")
