@@ -43,23 +43,14 @@ Then open [http://localhost:3000](http://localhost:3000).
 
 ## Deploy
 
-Push to `main` — Heroku auto-deploys from GitHub.
+The Heroku app is configured to auto-deploy from GitHub on every push to `main`. Open a PR, merge to `main`, and Heroku ships it automatically — no GitHub Action is involved in the deploy itself.
 
 ```bash
-git push origin main
+git push origin main          # only if working directly on main (use a PR normally)
+gh pr merge --merge --delete-branch   # standard merge-to-main flow
 ```
 
-A GitHub Action (`.github/workflows/deploy.yml`) runs a post-deploy smoke test against the live URL.
-
-## Version stamping
-
-Every commit triggers a local `post-commit` hook (`.githooks/post-commit`) that stamps the `<div class="version-badge">` in `src/index.html` with `v{rev-count} · {short-sha}` of that commit, then makes a follow-up `chore: stamp version badge ... [skip-stamp]` commit. Heroku auto-deploys the stamped version.
-
-One-time setup after cloning:
-
-```bash
-git config core.hooksPath .githooks
-```
+The `.github/workflows/deploy.yml` workflow runs a post-deploy smoke test after each push — it polls the live URL with a content-hash compare against the source file, and only runs the test suite once the deploy has actually landed. Heroku does not gate on the smoke test; it's purely diagnostic.
 
 ## Social links (on the homepage)
 

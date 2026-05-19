@@ -1,6 +1,6 @@
 # anthonybest.com — Migration Project Summary
 
-**Date:** March 26, 2026 · **Last updated:** May 18, 2026 (9:47 PM)
+**Date:** March 26, 2026 · **Last updated:** May 18, 2026 (10:05 PM)
 **Goal:** Move anthonybest.com from Squarespace to a static site on Heroku, managed via GitHub.
 
 ---
@@ -239,6 +239,28 @@ Active tree after cleanup:
 - `src/projects/putter-advisory/index.html` — deployed putter deck (6 slides, 628 lines) — only canonical copy
 - `src/projects/shaft-advisory/index.html` — deployed shaft deck — only canonical copy
 - `src/projects/index.html` — project index page
+
+#### Updated May 18, 2026 (10:05 PM) — deploy pipeline cleanup
+
+The deployment process had multiple sharp edges that were breaking every commit:
+
+1. **Heroku auto-deploy from GitHub was never actually enabled.** The Heroku app was connected to GitHub but the `auto_deploy` flag was `false` on the integration. Every prior deploy was being done by a now-deleted GitHub Actions workflow that pushed to the Heroku git remote (`akhileshns/heroku-deploy@v3.12.12`). When that workflow was removed, deploys silently stopped firing. Fixed by PATCHing the Heroku GitHub integration via the kolkrabbi API to `auto_deploy: true, wait_for_ci: false, branch: main`. A one-shot manual deploy was triggered to ship the backlog. **Future merges to `main` now auto-deploy without any GHA involvement.**
+
+2. **Local `post-commit` hook was creating noisy follow-up commits.** Every logical commit was producing a paired `chore: stamp version badge ... [skip-stamp]` commit. The system relied on every contributor running `git config core.hooksPath .githooks` after cloning — and PR-merge commits made via the GitHub UI were never stamped at all, so the version badge never accurately reflected what was actually deployed. **The hook (`.githooks/post-commit`) was deleted along with the version badge itself (CSS block + `<div class="version-badge">` in `src/index.html`).** The deployed commit is visible via Heroku's Activity feed and GitHub's commit history — that's sufficient.
+
+3. **Smoke test had a hard-coded stale assertion.** `tests/test_site.py::test_putter_deck_slide_counter` asserted `"1 / 9"` in the response body, which had been wrong since the deck went to 16 slides (and stayed wrong when it went to 6). Every push to `main` showed a red X on the workflow. Test removed.
+
+4. **Smoke test had a race condition with deploy.** The workflow triggered on `push: main` and ran tests against the live URL — but Heroku's deploy was happening in parallel, so the tests often ran against the *previous* deploy's content. Fixed by rewriting `tests/run_tests.sh` to do a deploy-aware wait: compute sha256 of `src/index.html` from the checked-out repo, poll the live URL response, and only proceed to tests when the hashes match. nginx serves static files byte-for-byte through Heroku's static buildpack so the comparison is exact. No `HEROKU_API_KEY` needed in the workflow.
+
+5. **`README.md` was rewritten** to reflect the new flow: PRs merge to `main`, Heroku auto-deploys, the smoke-test workflow only verifies the result. The version-stamping section was removed entirely.
+
+After this cleanup:
+- One PR-merge to `main` = one deploy, no `[skip-stamp]` follow-up commits cluttering history
+- Smoke test reliably waits for the new deploy before running, and has no brittle content assertions left
+- No local git hooks for contributors to configure
+- No misleading "deploy" workflow that doesn't actually deploy
+
+Note: the local repo's `.git/config` still has `core.hooksPath = .githooks` set from earlier (per safety rules I don't modify git config). With the hook directory and file removed, this is a harmless no-op — git just finds no hooks and continues. Run `git config --unset core.hooksPath` if you want it cleaned up.
 
 ### ✅ Putter Decision canvas — `putter-decision-ballance.canvas.tsx`
 
