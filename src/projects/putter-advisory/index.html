@@ -84,11 +84,19 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-seri
 .data-card.alt h3{color:var(--orange)}
 
 /* ──────────── SLIDE 3 — FULL FIELD MATRIX ──────────── */
-.weights{display:flex;flex-direction:column;gap:7px;margin-top:18px;flex-shrink:0}
-.weight-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;font-size:12px;color:var(--muted)}
-.weight-row .wt-bar{height:3px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden;margin-top:4px;grid-column:1 / span 2}
-.weight-row .wt-fill{height:100%;background:var(--gold)}
-.weight-row .wt-val{color:var(--gold);font-family:'Syne',sans-serif;font-size:11px;font-weight:600;letter-spacing:.04em}
+.weights{display:flex;flex-direction:column;gap:9px;margin-top:18px;flex-shrink:0}
+.weights-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:2px}
+.weights-ttl{font-family:'Syne',sans-serif;font-size:10.5px;color:var(--gold);letter-spacing:.13em;text-transform:uppercase;font-weight:600}
+.weights-reset{background:none;border:.5px solid var(--gold-soft);color:var(--gold);font-family:'Syne',sans-serif;font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;font-weight:600;padding:3px 9px;border-radius:2px;cursor:pointer;transition:all .2s}
+.weights-reset:hover{background:var(--gold);color:var(--bg)}
+.weight-row{display:grid;grid-template-columns:1fr auto;gap:6px;align-items:center;font-size:12px;color:var(--muted);padding:2px 0}
+.weight-row .wt-val{color:var(--gold);font-family:'Syne',sans-serif;font-size:11px;font-weight:600;letter-spacing:.04em;min-width:38px;text-align:right;font-variant-numeric:tabular-nums}
+.wt-slider{appearance:none;-webkit-appearance:none;width:100%;height:3px;background:rgba(255,255,255,0.06);border-radius:2px;outline:none;cursor:pointer;grid-column:1 / span 2;margin-top:3px;transition:background .15s;padding:0}
+.wt-slider:hover{background:rgba(255,255,255,0.11)}
+.wt-slider::-webkit-slider-thumb{-webkit-appearance:none;width:13px;height:13px;background:var(--gold);border-radius:50%;cursor:pointer;border:2px solid var(--bg);box-shadow:0 0 0 1px var(--gold-dim);transition:transform .12s}
+.wt-slider::-webkit-slider-thumb:hover{transform:scale(1.18)}
+.wt-slider::-moz-range-thumb{width:13px;height:13px;background:var(--gold);border-radius:50%;cursor:pointer;border:2px solid var(--bg);box-shadow:0 0 0 1px var(--gold-dim)}
+.wt-slider:focus-visible{outline:2px solid var(--gold-soft);outline-offset:2px}
 .matrix-wrap{flex:1;min-height:0;overflow:auto;border:.5px solid var(--border-f);border-radius:2px;background:rgba(0,0,0,0.18)}
 table.matrix{width:100%;border-collapse:collapse;font-size:13px}
 table.matrix th{font-family:'Syne',sans-serif;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);padding:11px 8px;text-align:center;background:rgba(8,8,10,0.6);border-bottom:.5px solid var(--border);font-weight:600;position:sticky;top:0;z-index:2}
@@ -246,11 +254,11 @@ table.matrix tbody tr.rec td:first-child::before{content:'';display:inline-block
   <div class="cwrap">
     <div class="cey a">Putter Replacement Report · May 2026</div>
     <h1 class="ctitle a">Your <em>Newport</em> is holding you back.</h1>
-    <p class="csub a">Seven mallet candidates evaluated against your Special Select Newport. Each scored across five criteria that actually predict putting outcomes for a player at your stroke profile and frequency.</p>
+    <p class="csub a">Thirteen mallet candidates evaluated against your Special Select Newport — the entire 2026 Scotty Cameron Phantom range plus the four most-cited non-Scotty alternatives. Each scored across five criteria that actually predict putting outcomes for a player at your stroke profile and frequency.</p>
     <div class="cmeta a">
       <div><div class="ml">Subject</div><div class="mv">Special Select Newport · 2022</div></div>
       <div><div class="ml">Decision</div><div class="mv">Mallet Replacement</div></div>
-      <div><div class="ml">Field Scored</div><div class="mv">7 putters · 5 criteria</div></div>
+      <div><div class="ml">Field Scored</div><div class="mv">13 putters · 5 criteria</div></div>
     </div>
   </div>
   <div class="cfoot">Independent research · No retailer affiliation</div>
@@ -312,116 +320,67 @@ table.matrix tbody tr.rec td:first-child::before{content:'';display:inline-block
     <div class="sl-l">
       <div>
         <div class="sl-num a">03 · The full field</div>
-        <h2 class="sl-ttl a" style="margin-top:16px">All seven, <em>scored.</em></h2>
-        <p class="sl-sup a">Each putter rated 0–100 in five criteria, weighted to a composite total. Scored specifically for a Newport 2 player with a moderate-arc stroke.</p>
+        <h2 class="sl-ttl a" style="margin-top:16px">The full field, <em>scored.</em></h2>
+        <p class="sl-sup a">Every Phantom in the 2026 lineup plus the four most-cited non-Scotty alternatives — 13 candidates, rated 0–100 across five criteria. Drag the sliders to reweight categories; totals normalize and the table re-sorts in real time.</p>
         <div class="weights a">
-          <div class="weight-row"><span>Stroke compatibility</span><span class="wt-val">30%</span><span class="wt-bar"><span class="wt-fill" style="width:100%"></span></span></div>
-          <div class="weight-row"><span>MOI forgiveness</span><span class="wt-val">25%</span><span class="wt-bar"><span class="wt-fill" style="width:83%"></span></span></div>
-          <div class="weight-row"><span>Neck architecture</span><span class="wt-val">20%</span><span class="wt-bar"><span class="wt-fill" style="width:67%"></span></span></div>
-          <div class="weight-row"><span>Alignment utility</span><span class="wt-val">15%</span><span class="wt-bar"><span class="wt-fill" style="width:50%"></span></span></div>
-          <div class="weight-row"><span>Address confidence</span><span class="wt-val">10%</span><span class="wt-bar"><span class="wt-fill" style="width:33%"></span></span></div>
+          <div class="weights-head">
+            <span class="weights-ttl">Weighting · drag to recalculate</span>
+            <button class="weights-reset" id="wt-reset" type="button">Reset</button>
+          </div>
+          <div class="weight-row" data-cat="stroke">
+            <span class="wt-lbl">Stroke compatibility</span>
+            <span class="wt-val">30%</span>
+            <input type="range" class="wt-slider" min="1" max="100" step="1" value="30" data-cat="stroke" aria-label="Stroke compatibility weight">
+          </div>
+          <div class="weight-row" data-cat="moi">
+            <span class="wt-lbl">MOI forgiveness</span>
+            <span class="wt-val">25%</span>
+            <input type="range" class="wt-slider" min="1" max="100" step="1" value="25" data-cat="moi" aria-label="MOI forgiveness weight">
+          </div>
+          <div class="weight-row" data-cat="neck">
+            <span class="wt-lbl">Neck architecture</span>
+            <span class="wt-val">20%</span>
+            <input type="range" class="wt-slider" min="1" max="100" step="1" value="20" data-cat="neck" aria-label="Neck architecture weight">
+          </div>
+          <div class="weight-row" data-cat="align">
+            <span class="wt-lbl">Alignment utility</span>
+            <span class="wt-val">15%</span>
+            <input type="range" class="wt-slider" min="1" max="100" step="1" value="15" data-cat="align" aria-label="Alignment utility weight">
+          </div>
+          <div class="weight-row" data-cat="conf">
+            <span class="wt-lbl">Address confidence</span>
+            <span class="wt-val">10%</span>
+            <input type="range" class="wt-slider" min="1" max="100" step="1" value="10" data-cat="conf" aria-label="Address confidence weight">
+          </div>
         </div>
       </div>
       <div class="sl-rule a"></div>
     </div>
     <div class="sl-r">
       <div class="matrix-wrap a">
-        <table class="matrix">
+        <table class="matrix" id="field-matrix">
           <thead>
             <tr>
               <th>Putter</th>
-              <th>Stroke<span class="th-wt">30%</span></th>
-              <th>MOI<span class="th-wt">25%</span></th>
-              <th>Neck<span class="th-wt">20%</span></th>
-              <th>Align<span class="th-wt">15%</span></th>
-              <th>Conf.<span class="th-wt">10%</span></th>
+              <th>Stroke<span class="th-wt" data-cat="stroke">30%</span></th>
+              <th>MOI<span class="th-wt" data-cat="moi">25%</span></th>
+              <th>Neck<span class="th-wt" data-cat="neck">20%</span></th>
+              <th>Align<span class="th-wt" data-cat="align">15%</span></th>
+              <th>Conf.<span class="th-wt" data-cat="conf">10%</span></th>
               <th>Total<span class="th-wt">/ 100</span></th>
               <th>Status</th>
             </tr>
           </thead>
-          <tbody>
-            <!-- 1. Phantom 7.2 -->
-            <tr class="rec">
-              <td><span class="rk">01</span><span class="pname" style="display:inline">Scotty Cameron Phantom 7.2</span><span class="pmeta">Angular wingback · Plumbing neck · $499</span></td>
-              <td><div class="score-cell"><span class="sv">100</span><span class="sb-track"><span class="sb-fill" style="width:100%"></span></span></div></td>
-              <td><div class="score-cell"><span class="sv">85</span><span class="sb-track"><span class="sb-fill" style="width:85%"></span></span></div></td>
-              <td><div class="score-cell"><span class="sv">100</span><span class="sb-track"><span class="sb-fill" style="width:100%"></span></span></div></td>
-              <td><div class="score-cell"><span class="sv">100</span><span class="sb-track"><span class="sb-fill" style="width:100%"></span></span></div></td>
-              <td><div class="score-cell"><span class="sv">90</span><span class="sb-track"><span class="sb-fill" style="width:90%"></span></span></div></td>
-              <td><span class="tot-cell rec">95</span></td>
-              <td><span class="status-pill rec">Primary</span></td>
-            </tr>
-            <!-- 2. Phantom 9.2R -->
-            <tr>
-              <td><span class="rk">02</span><span class="pname" style="display:inline">Scotty Cameron Phantom 9.2R</span><span class="pmeta">Round mallet · Plumbing neck · $499</span></td>
-              <td><div class="score-cell"><span class="sv">100</span><span class="sb-track"><span class="sb-fill" style="width:100%"></span></span></div></td>
-              <td><div class="score-cell"><span class="sv">100</span><span class="sb-track"><span class="sb-fill" style="width:100%"></span></span></div></td>
-              <td><div class="score-cell"><span class="sv">100</span><span class="sb-track"><span class="sb-fill" style="width:100%"></span></span></div></td>
-              <td><div class="score-cell"><span class="sv mid">45</span><span class="sb-track"><span class="sb-fill mid" style="width:45%"></span></span></div></td>
-              <td><div class="score-cell"><span class="sv mid">50</span><span class="sb-track"><span class="sb-fill mid" style="width:50%"></span></span></div></td>
-              <td><span class="tot-cell">87</span></td>
-              <td><span class="status-pill alt">Conditional</span></td>
-            </tr>
-            <!-- 3. Phantom 5.2 -->
-            <tr>
-              <td><span class="rk">03</span><span class="pname" style="display:inline">Scotty Cameron Phantom 5.2</span><span class="pmeta">Compact wingback · Plumbing neck · $499</span></td>
-              <td><div class="score-cell"><span class="sv">100</span><span class="sb-track"><span class="sb-fill" style="width:100%"></span></span></div></td>
-              <td><div class="score-cell"><span class="sv mid">60</span><span class="sb-track"><span class="sb-fill mid" style="width:60%"></span></span></div></td>
-              <td><div class="score-cell"><span class="sv">100</span><span class="sb-track"><span class="sb-fill" style="width:100%"></span></span></div></td>
-              <td><div class="score-cell"><span class="sv mid">55</span><span class="sb-track"><span class="sb-fill mid" style="width:55%"></span></span></div></td>
-              <td><div class="score-cell"><span class="sv">95</span><span class="sb-track"><span class="sb-fill" style="width:95%"></span></span></div></td>
-              <td><span class="tot-cell">83</span></td>
-              <td><span class="status-pill fin">Fallback</span></td>
-            </tr>
-            <!-- 4. LAB Golf OZ.1i -->
-            <tr>
-              <td><span class="rk dim">04</span><span class="pname" style="display:inline">L.A.B. Golf OZ.1i</span><span class="pmeta">Mid-mallet · Lie Angle Balanced · $500</span></td>
-              <td><div class="score-cell"><span class="sv mid">60</span><span class="sb-track"><span class="sb-fill mid" style="width:60%"></span></span></div></td>
-              <td><div class="score-cell"><span class="sv">95</span><span class="sb-track"><span class="sb-fill" style="width:95%"></span></span></div></td>
-              <td><div class="score-cell"><span class="sv lo">25</span><span class="sb-track"><span class="sb-fill lo" style="width:25%"></span></span></div></td>
-              <td><div class="score-cell"><span class="sv">85</span><span class="sb-track"><span class="sb-fill" style="width:85%"></span></span></div></td>
-              <td><div class="score-cell"><span class="sv lo">35</span><span class="sb-track"><span class="sb-fill lo" style="width:35%"></span></span></div></td>
-              <td><span class="tot-cell alt">63</span></td>
-              <td><span class="status-pill elim">Eliminated</span></td>
-            </tr>
-            <!-- 5. Evnroll ER8 -->
-            <tr>
-              <td><span class="rk dim">05</span><span class="pname" style="display:inline">Evnroll Origin ER8</span><span class="pmeta">SweetFace 2.0 · Single-bend · $399</span></td>
-              <td><div class="score-cell"><span class="sv lo">30</span><span class="sb-track"><span class="sb-fill lo" style="width:30%"></span></span></div></td>
-              <td><div class="score-cell"><span class="sv">80</span><span class="sb-track"><span class="sb-fill" style="width:80%"></span></span></div></td>
-              <td><div class="score-cell"><span class="sv lo">20</span><span class="sb-track"><span class="sb-fill lo" style="width:20%"></span></span></div></td>
-              <td><div class="score-cell"><span class="sv mid">70</span><span class="sb-track"><span class="sb-fill mid" style="width:70%"></span></span></div></td>
-              <td><div class="score-cell"><span class="sv lo">25</span><span class="sb-track"><span class="sb-fill lo" style="width:25%"></span></span></div></td>
-              <td><span class="tot-cell elim">46</span></td>
-              <td><span class="status-pill elim">Eliminated</span></td>
-            </tr>
-            <!-- 6. Odyssey Jailbird -->
-            <tr>
-              <td><span class="rk dim">06</span><span class="pname" style="display:inline">Odyssey Ai-ONE Jailbird</span><span class="pmeta">Center-shafted face-bal. · $350</span></td>
-              <td><div class="score-cell"><span class="sv lo">20</span><span class="sb-track"><span class="sb-fill lo" style="width:20%"></span></span></div></td>
-              <td><div class="score-cell"><span class="sv">80</span><span class="sb-track"><span class="sb-fill" style="width:80%"></span></span></div></td>
-              <td><div class="score-cell"><span class="sv lo">15</span><span class="sb-track"><span class="sb-fill lo" style="width:15%"></span></span></div></td>
-              <td><div class="score-cell"><span class="sv">80</span><span class="sb-track"><span class="sb-fill" style="width:80%"></span></span></div></td>
-              <td><div class="score-cell"><span class="sv lo">25</span><span class="sb-track"><span class="sb-fill lo" style="width:25%"></span></span></div></td>
-              <td><span class="tot-cell elim">44</span></td>
-              <td><span class="status-pill elim">Eliminated</span></td>
-            </tr>
-            <!-- 7. TaylorMade Spider Tour X -->
-            <tr>
-              <td><span class="rk dim">07</span><span class="pname" style="display:inline">TaylorMade Spider Tour X</span><span class="pmeta">Slant hosel · 30° toe hang · ~$430</span></td>
-              <td><div class="score-cell"><span class="sv lo">30</span><span class="sb-track"><span class="sb-fill lo" style="width:30%"></span></span></div></td>
-              <td><div class="score-cell"><span class="sv mid">55</span><span class="sb-track"><span class="sb-fill mid" style="width:55%"></span></span></div></td>
-              <td><div class="score-cell"><span class="sv lo">20</span><span class="sb-track"><span class="sb-fill lo" style="width:20%"></span></span></div></td>
-              <td><div class="score-cell"><span class="sv mid">75</span><span class="sb-track"><span class="sb-fill mid" style="width:75%"></span></span></div></td>
-              <td><div class="score-cell"><span class="sv lo">45</span><span class="sb-track"><span class="sb-fill lo" style="width:45%"></span></span></div></td>
-              <td><span class="tot-cell elim">43</span></td>
-              <td><span class="status-pill elim">Eliminated</span></td>
-            </tr>
-          </tbody>
+          <tbody><!-- rendered by JS; full putter names duplicated below for SEO/no-JS:
+            Scotty Cameron Phantom 7.2, Scotty Cameron Phantom 9.2R, Scotty Cameron Phantom 5.2,
+            Scotty Cameron Phantom 7.5, Scotty Cameron Phantom 7, Scotty Cameron Phantom 9.5,
+            Scotty Cameron Phantom 9, Scotty Cameron Phantom 5.5, Scotty Cameron Phantom 5,
+            L.A.B. Golf OZ.1i, Evnroll Origin ER8, Odyssey Ai-ONE Jailbird, TaylorMade Spider Tour X
+          --></tbody>
         </table>
       </div>
       <div class="matrix-foot a">
-        <b>Why four candidates were eliminated:</b> all three Phantoms preserve your plumbing-neck stroke architecture exactly. The OZ.1i has the strongest pure-performance technology in the field but ships with the highest brand- and geometry-transition cost. The other three carry incompatible neck geometries — re-grooving the stroke costs more than the technology gains.
+        <b>Ten eliminated, three advance.</b> The plumbing-neck filter is the firmest line. Every Phantom variant with a different neck — jet neck (<i>.5</i>) or mid-bend (face-balanced) — fails stroke compatibility for a moderate-arc Newport 2 player, even when the head shape and MOI ceiling match a finalist. The four non-Scotty competitors fail on incompatible neck geometries from the start. <b>Drag the sliders to test how rankings shift; the editorial labels stay glued to each putter so you can see how your priorities would have to weight to displace the recommendation.</b>
       </div>
     </div>
   </div>
@@ -434,7 +393,7 @@ table.matrix tbody tr.rec td:first-child::before{content:'';display:inline-block
       <div>
         <div class="sl-num a">04 · Inside the top three</div>
         <h2 class="sl-ttl a" style="margin-top:16px">Three Phantoms. <em>One clear winner.</em></h2>
-        <p class="sl-sup a">The plumbing-neck filter eliminated four candidates. These three preserve your stroke architecture exactly — the only differences are head shape, weighting, and the address picture.</p>
+        <p class="sl-sup a">The plumbing-neck filter eliminated ten candidates — including six other Scotty Phantoms with different neck geometries. These three preserve your stroke architecture exactly — the only differences are head shape, weighting, and the address picture.</p>
       </div>
       <div class="sl-rule a"></div>
     </div>
@@ -620,9 +579,136 @@ function go(k){
 document.getElementById('prev').onclick=()=>go(i-1);
 document.getElementById('next').onclick=()=>go(i+1);
 document.addEventListener('keydown',e=>{
+  const a=document.activeElement;
+  if(a&&a.tagName==='INPUT'&&a.type==='range')return;
   if(e.key==='ArrowRight'||e.key===' ')go(i+1);
   if(e.key==='ArrowLeft')go(i-1);
 });
+
+/* ═══════════════════ Slide 3 · interactive scoring matrix ═══════════════════
+   Editorial labels (Primary / Conditional / Fallback / Eliminated) stay glued
+   to each putter regardless of slider weights. The .rec row styling (gold bar
+   + tinted background) follows the Primary putter as it moves up/down the
+   ranking, so you can see how far you'd have to weight the categories to
+   displace the editorial recommendation. */
+const CATS=['stroke','moi','neck','align','conf'];
+const CAT_LBL={stroke:'Stroke',moi:'MOI',neck:'Neck',align:'Align',conf:'Conf.'};
+const DEFAULT_W={stroke:30,moi:25,neck:20,align:15,conf:10};
+const weights={...DEFAULT_W};
+
+/* Editorial classes:
+   rowClass:  '' or 'rec'        – applies the gold-bar row treatment
+   pill:      'rec'|'fin'|'alt'|'elim' – status-pill colour + label
+   pillLbl:   'Primary'|'Fallback'|'Conditional'|'Eliminated'
+   totClass:  ''|'rec'|'alt'|'elim' – tot-cell size + tone */
+const PUTTERS=[
+  {name:'Scotty Cameron Phantom 7.2', meta:'Angular wingback · Plumbing neck · $499',
+   s:{stroke:100,moi:85,neck:100,align:100,conf:90},
+   rowClass:'rec',pill:'rec', pillLbl:'Primary',     totClass:'rec'},
+  {name:'Scotty Cameron Phantom 9.2R',meta:'Round mallet · Plumbing neck · $499',
+   s:{stroke:100,moi:100,neck:100,align:45, conf:50},
+   rowClass:'',   pill:'alt', pillLbl:'Conditional', totClass:''},
+  {name:'Scotty Cameron Phantom 5.2', meta:'Compact wingback · Plumbing neck · $499',
+   s:{stroke:100,moi:60, neck:100,align:55, conf:95},
+   rowClass:'',   pill:'fin', pillLbl:'Fallback',    totClass:''},
+  /* Eliminated Scottys — jet-neck (.5) variants: same head geometry as the
+     finalists, but strong-arc neck breaks stroke compatibility. */
+  {name:'Scotty Cameron Phantom 7.5', meta:'Angular wingback · Jet neck · $499',
+   s:{stroke:30, moi:85, neck:30, align:100,conf:90},
+   rowClass:'',   pill:'elim',pillLbl:'Eliminated',  totClass:'elim'},
+  {name:'Scotty Cameron Phantom 9.5', meta:'Round mallet · Jet neck · $499',
+   s:{stroke:30, moi:100,neck:30, align:45, conf:50},
+   rowClass:'',   pill:'elim',pillLbl:'Eliminated',  totClass:'elim'},
+  {name:'Scotty Cameron Phantom 5.5', meta:'Compact wingback · Jet neck · $499',
+   s:{stroke:30, moi:60, neck:30, align:55, conf:95},
+   rowClass:'',   pill:'elim',pillLbl:'Eliminated',  totClass:'elim'},
+  /* Eliminated Scottys — mid-bend variants: face-balanced, designed for
+     straight-back-straight-through strokes. Wrong stroke profile for a
+     moderate-arc Newport 2 player. */
+  {name:'Scotty Cameron Phantom 7',   meta:'Angular wingback · Mid-bend (face-bal) · $499',
+   s:{stroke:20, moi:85, neck:25, align:100,conf:90},
+   rowClass:'',   pill:'elim',pillLbl:'Eliminated',  totClass:'elim'},
+  {name:'Scotty Cameron Phantom 9',   meta:'Round mallet · Mid-bend (face-bal) · $499',
+   s:{stroke:20, moi:100,neck:25, align:45, conf:50},
+   rowClass:'',   pill:'elim',pillLbl:'Eliminated',  totClass:'elim'},
+  {name:'Scotty Cameron Phantom 5',   meta:'Compact wingback · Mid-bend (face-bal) · $499',
+   s:{stroke:20, moi:60, neck:25, align:55, conf:95},
+   rowClass:'',   pill:'elim',pillLbl:'Eliminated',  totClass:'elim'},
+  /* Non-Scotty competitors */
+  {name:'L.A.B. Golf OZ.1i',          meta:'Mid-mallet · Lie Angle Balanced · $500',
+   s:{stroke:60, moi:95, neck:25, align:85, conf:35},
+   rowClass:'',   pill:'elim',pillLbl:'Eliminated',  totClass:'alt'},
+  {name:'Evnroll Origin ER8',         meta:'SweetFace 2.0 · Single-bend · $399',
+   s:{stroke:30, moi:80, neck:20, align:70, conf:25},
+   rowClass:'',   pill:'elim',pillLbl:'Eliminated',  totClass:'elim'},
+  {name:'Odyssey Ai-ONE Jailbird',    meta:'Center-shafted face-bal. · $350',
+   s:{stroke:20, moi:80, neck:15, align:80, conf:25},
+   rowClass:'',   pill:'elim',pillLbl:'Eliminated',  totClass:'elim'},
+  {name:'TaylorMade Spider Tour X',   meta:'Slant hosel · 30° toe hang · ~$430',
+   s:{stroke:30, moi:55, neck:20, align:75, conf:45},
+   rowClass:'',   pill:'elim',pillLbl:'Eliminated',  totClass:'elim'},
+];
+
+function tone(v){return v>=80?'':(v>=40?'mid':'lo')}
+function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+
+function rowHtml(p,idx){
+  const rank=String(idx+1).padStart(2,'0');
+  const rkClass=idx<3?'rk':'rk dim';
+  const cls=p.rowClass?` class="${p.rowClass}"`:'';
+  const cells=CATS.map(c=>{
+    const v=p.s[c],t=tone(v);
+    const svCls=t?`sv ${t}`:'sv';
+    const sbCls=t?`sb-fill ${t}`:'sb-fill';
+    return `<td><div class="score-cell"><span class="${svCls}">${v}</span><span class="sb-track"><span class="${sbCls}" style="width:${v}%"></span></span></div></td>`;
+  }).join('');
+  const totCls=p.totClass?`tot-cell ${p.totClass}`:'tot-cell';
+  return `<tr${cls}><td><span class="${rkClass}">${rank}</span><span class="pname" style="display:inline">${escapeHtml(p.name)}</span><span class="pmeta">${escapeHtml(p.meta)}</span></td>${cells}<td><span class="${totCls}">${p.total}</span></td><td><span class="status-pill ${p.pill}">${p.pillLbl}</span></td></tr>`;
+}
+
+function recalcAndRender(){
+  const sumW=CATS.reduce((s,c)=>s+weights[c],0)||1;
+  PUTTERS.forEach(p=>{
+    p.total=Math.round(CATS.reduce((s,c)=>s+p.s[c]*weights[c],0)/sumW);
+  });
+  PUTTERS.sort((a,b)=>b.total-a.total);
+  const tbody=document.querySelector('#field-matrix tbody');
+  if(tbody)tbody.innerHTML=PUTTERS.map(rowHtml).join('');
+  /* Both the slider label and the table header show the normalized
+     percentage (weight ÷ sum) so they always agree and the displayed
+     percentages always sum to 100%. The slider thumb position represents
+     the raw 0-100 weight; only the displayed number is normalized. */
+  CATS.forEach(c=>{
+    const pct=Math.round(weights[c]/sumW*100);
+    const row=document.querySelector(`.weight-row[data-cat="${c}"]`);
+    if(row){
+      const lbl=row.querySelector('.wt-val');
+      if(lbl)lbl.textContent=`${pct}%`;
+    }
+    const th=document.querySelector(`th .th-wt[data-cat="${c}"]`);
+    if(th)th.textContent=`${pct}%`;
+  });
+}
+
+document.querySelectorAll('.wt-slider').forEach(sl=>{
+  sl.addEventListener('input',()=>{
+    weights[sl.dataset.cat]=parseInt(sl.value,10)||1;
+    recalcAndRender();
+  });
+});
+
+const resetBtn=document.getElementById('wt-reset');
+if(resetBtn){
+  resetBtn.addEventListener('click',()=>{
+    Object.assign(weights,DEFAULT_W);
+    document.querySelectorAll('.wt-slider').forEach(sl=>{
+      sl.value=weights[sl.dataset.cat];
+    });
+    recalcAndRender();
+  });
+}
+
+recalcAndRender();
 </script>
 </body>
 </html>
