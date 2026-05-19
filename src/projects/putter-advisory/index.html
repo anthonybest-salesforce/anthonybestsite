@@ -11,22 +11,26 @@
   --card-bg:   rgba(8,8,10,0.52);
   --text:      #e8e4dc;
   --muted:     rgba(232,228,220,0.66);
+  --muted-2:   rgba(232,228,220,0.4);
   --gold:      #c8a96e;
   --gold-dim:  rgba(200,169,110,0.45);
+  --gold-soft: rgba(200,169,110,0.22);
   --gold-faint:rgba(200,169,110,0.08);
   --orange:    #cc6633;
   --orange-dim:rgba(204,102,51,0.14);
   --border:    rgba(200,169,110,0.16);
   --border-f:  rgba(255,255,255,0.055);
+  --row-rec:   rgba(200,169,110,0.07);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;height:100%;overflow:hidden}
+
+/* ──────────── DECK ──────────── */
 .deck{width:100vw;height:100vh;position:relative;overflow:hidden}
 .slide{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .5s ease}
 .slide.active{opacity:1;pointer-events:all}
-.gold-rule{height:2px;background:linear-gradient(90deg,var(--gold),rgba(200,169,110,0));flex-shrink:0}
 
-/* ── CONTROLS ── */
+/* ──────────── CONTROLS ──────────── */
 .controls{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:14px;z-index:100;background:rgba(8,8,10,0.9);border:.5px solid var(--border);padding:9px 20px;border-radius:40px;backdrop-filter:blur(12px)}
 .btn{background:none;border:.5px solid rgba(200,169,110,0.28);color:var(--text);font-family:'DM Sans',sans-serif;font-size:12px;padding:5px 15px;border-radius:20px;cursor:pointer;letter-spacing:.05em;transition:all .2s}
 .btn:hover{background:var(--orange);border-color:var(--orange)}
@@ -35,37 +39,18 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-seri
 .d{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.14);cursor:pointer;transition:background .2s}
 .d.on{background:var(--gold)}
 
-/* ══════════════════════════════════════════
-   SPLIT LAYOUT — slides 3–11, 15
-   Left panel (28%): slide ID + big title + optional hero stat
-   Right panel (72%): main content
-   ══════════════════════════════════════════ */
+/* ──────────── SPLIT LAYOUT (slides 2–4, 6) ──────────── */
 .sl{flex:1;display:grid;grid-template-columns:28% 1fr;min-height:0;overflow:hidden}
-.sl-l{padding:32px 28px 80px;display:flex;flex-direction:column;justify-content:space-between;border-right:.5px solid rgba(255,255,255,0.055);background:linear-gradient(155deg,rgba(200,169,110,0.07) 0%,transparent 55%)}
-.sl-r{padding:24px 34px 80px;display:flex;flex-direction:column;overflow:hidden;gap:12px}
+.sl-l{padding:32px 28px 80px;display:flex;flex-direction:column;justify-content:space-between;border-right:.5px solid rgba(255,255,255,0.055);background:linear-gradient(155deg,rgba(200,169,110,0.07) 0%,transparent 55%);overflow:hidden}
+.sl-r{padding:24px 34px 80px;display:flex;flex-direction:column;overflow:hidden;gap:14px}
 .sl-num{font-family:'Syne',sans-serif;font-size:11px;color:var(--gold);letter-spacing:.22em;text-transform:uppercase;font-weight:600;flex-shrink:0}
 .sl-ttl{font-family:'Syne',sans-serif;font-size:clamp(22px,3vw,42px);font-weight:800;line-height:1.1}
 .sl-ttl em{font-style:italic;color:var(--gold);font-weight:400}
 .sl-sup{font-size:clamp(13px,1.2vw,16px);color:var(--muted);line-height:1.65;margin-top:12px}
-.sl-big{font-family:'Syne',sans-serif;font-size:clamp(72px,10vw,124px);font-weight:800;color:var(--gold);line-height:.88}
-.sl-lbl{font-size:clamp(13px,1.2vw,17px);color:var(--muted);margin-top:10px;line-height:1.4}
-.sl-cmp{margin-top:16px}
-.sl-cmp-a{font-family:'Syne',sans-serif;font-size:clamp(32px,4.5vw,62px);font-weight:800;color:var(--gold);line-height:1;display:block}
-.sl-cmp-sep{font-size:12px;color:var(--muted);letter-spacing:.08em;display:block;margin:5px 0}
-.sl-cmp-b{font-family:'Syne',sans-serif;font-size:clamp(27px,3.8vw,52px);font-weight:800;color:rgba(232,228,220,0.2);line-height:1;display:block}
-.sl-cmp-cap{font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-top:10px;display:block}
-.sl-rule{height:.5px;background:linear-gradient(90deg,var(--gold-dim),transparent);margin-top:20px;width:50%;flex-shrink:0}
+.sl-rule{height:.5px;background:linear-gradient(90deg,var(--gold-dim),transparent);margin-top:18px;width:50%;flex-shrink:0}
 
-/* ── SHARED CARD STYLES ── */
-.fc{background:var(--card-bg);border:.5px solid var(--border-f);border-top:1.5px solid var(--gold);padding:22px 24px;border-radius:2px;display:flex;flex-direction:column}
-.fn{font-family:'Syne',sans-serif;font-size:11px;color:var(--gold);letter-spacing:.16em;text-transform:uppercase;margin-bottom:10px;font-weight:600;flex-shrink:0}
-.ft{font-family:'Syne',sans-serif;font-size:clamp(16px,1.8vw,24px);font-weight:700;margin-bottom:12px;line-height:1.25;flex-shrink:0}
-.fb{font-size:clamp(14px,1.4vw,18px);color:var(--muted);line-height:1.65;flex:1}
-.fg{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;flex:1;min-height:0}
-.fc-col{display:flex;flex-direction:column;gap:14px;flex:1;min-height:0}
-
-/* ── S1 COVER ── */
-#s1{background:var(--bg);justify-content:center;align-items:flex-start;padding:0 5%;overflow:hidden}
+/* ──────────── SLIDE 1 — COVER ──────────── */
+#s1{background:var(--bg);justify-content:center;align-items:flex-start;padding:0 5%;overflow:hidden;position:relative}
 .cgrain{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none}
 .cglow{position:absolute;right:-10%;top:20%;width:55%;height:60%;background:radial-gradient(ellipse,rgba(200,169,110,0.04),transparent 70%);pointer-events:none}
 .cline{position:absolute;right:0;top:0;width:38%;height:100%;border-left:.5px solid rgba(200,169,110,0.06);pointer-events:none}
@@ -73,142 +58,132 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-seri
 .clogo img{height:30px}
 .cbrand{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--text);letter-spacing:.1em;text-transform:uppercase}
 .cbrand span{display:block;font-size:9px;font-weight:400;color:var(--gold);letter-spacing:.12em;margin-top:1px}
+.cwrap{position:relative;z-index:2;max-width:600px}
 .cey{font-family:'Syne',sans-serif;font-size:10px;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;font-weight:600;margin-bottom:24px}
-.ctitle{font-family:'Syne',sans-serif;font-size:clamp(32px,5.2vw,64px);font-weight:800;line-height:1.06;margin-bottom:20px;max-width:540px}
+.ctitle{font-family:'Syne',sans-serif;font-size:clamp(32px,5.2vw,62px);font-weight:800;line-height:1.06;margin-bottom:20px;max-width:560px}
 .ctitle em{font-style:italic;color:var(--gold);font-weight:400}
-.csub{font-size:15px;color:var(--muted);max-width:420px;line-height:1.72;margin-bottom:48px}
-.cmeta{display:flex;gap:36px;border-top:.5px solid var(--border-f);padding-top:16px;max-width:500px}
-.ml{font-size:12px;color:var(--muted);letter-spacing:.09em;text-transform:uppercase;margin-bottom:3px}
-.mv{font-size:15px;font-weight:500}
-.cfoot{position:absolute;bottom:76px;left:9%;font-size:10px;color:rgba(232,228,220,0.1);letter-spacing:.13em;text-transform:uppercase}
+.csub{font-size:15px;color:var(--muted);max-width:480px;line-height:1.72;margin-bottom:42px}
+.cmeta{display:flex;gap:36px;border-top:.5px solid var(--border-f);padding-top:16px;max-width:560px;flex-wrap:wrap}
+.ml{font-size:11px;color:var(--muted);letter-spacing:.11em;text-transform:uppercase;margin-bottom:3px}
+.mv{font-size:14px;font-weight:500}
+.cfoot{position:absolute;bottom:76px;left:5%;font-size:10px;color:rgba(232,228,220,0.1);letter-spacing:.13em;text-transform:uppercase}
 
-/* ── S2 EXISTING WEAPON ── */
-#s2{background:var(--bg)}
-.ss-grid{display:grid;grid-template-columns:38% 1fr;min-height:0;flex:1;overflow:hidden}
-.ss-l{display:flex;flex-direction:column;padding:28px 24px 80px;border-right:.5px solid rgba(255,255,255,0.055);background:linear-gradient(160deg,rgba(200,169,110,0.06),transparent 60%);overflow:hidden}
-.ss-badge{display:inline-flex;align-items:center;gap:6px;background:var(--gold-faint);border:.5px solid var(--border);padding:5px 12px;border-radius:2px;font-family:'Syne',sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:600;width:fit-content;flex-shrink:0}
-.ss-name{font-family:'Syne',sans-serif;font-size:clamp(20px,2.8vw,36px);font-weight:800;line-height:1.1;margin-top:12px;flex-shrink:0}
-.ss-name em{display:block;font-style:italic;color:var(--gold);font-weight:400;font-size:0.68em}
-.ss-imgwrap{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;overflow:hidden;margin:14px 0}
-.ss-img{max-height:100%;max-width:100%;object-fit:contain}
-.spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;flex-shrink:0}
-.spec{background:var(--card-bg);border:.5px solid var(--border-f);padding:7px 11px;border-radius:2px}
-.spec-l{font-family:'Syne',sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:2px;font-weight:600}
-.spec-v{font-size:13px;font-weight:500}
-.ss-r{display:flex;flex-direction:column;gap:12px;padding:28px 28px 80px;overflow:hidden}
-.why-card{background:var(--card-bg);border:.5px solid var(--border-f);border-left:2px solid var(--gold);padding:20px 22px;border-radius:2px;flex:1;display:flex;flex-direction:column}
-.why-head{font-family:'Syne',sans-serif;font-size:clamp(14px,1.5vw,20px);font-weight:700;color:var(--text);margin-bottom:10px;flex-shrink:0}
-.why-body{font-size:clamp(13px,1.2vw,16px);color:var(--muted);line-height:1.65;flex:1}
-.why-body strong{color:var(--text);font-weight:500}
-.upgrade-bar{background:rgba(204,102,51,0.08);border:.5px solid rgba(204,102,51,0.2);border-left:2px solid var(--orange);padding:14px 18px;border-radius:2px;font-size:clamp(13px,1.2vw,16px);color:var(--text);line-height:1.65;flex-shrink:0}
-.upgrade-bar strong{color:var(--orange);font-weight:500}
+/* ──────────── SLIDE 2 — CASE FOR MALLET ──────────── */
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;flex-shrink:0}
+.stat-card{background:var(--card-bg);border:.5px solid var(--border-f);border-top:1.5px solid var(--gold);padding:22px 22px 20px;border-radius:2px;display:flex;flex-direction:column;gap:8px}
+.stat-num{font-family:'Syne',sans-serif;font-size:clamp(32px,4.4vw,56px);font-weight:800;color:var(--gold);line-height:.95}
+.stat-num small{font-size:.5em;color:var(--muted);font-weight:500;margin-left:6px;letter-spacing:.03em}
+.stat-lbl{font-size:clamp(12px,1.1vw,14px);color:var(--text);font-weight:500;line-height:1.45}
+.stat-src{font-size:11px;color:var(--muted);letter-spacing:.06em;margin-top:auto;padding-top:8px;border-top:.5px solid var(--border-f)}
+.data-strip{display:grid;grid-template-columns:1.2fr 1fr;gap:14px;flex:1;min-height:0}
+.data-card{background:rgba(200,169,110,0.04);border:.5px solid var(--border);padding:18px 20px;border-radius:2px;display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.data-card h3{font-family:'Syne',sans-serif;font-size:clamp(13px,1.3vw,17px);font-weight:700;color:var(--text);flex-shrink:0}
+.data-card .findings{display:flex;flex-direction:column;gap:8px;font-size:clamp(12px,1.1vw,14px);color:var(--muted);line-height:1.55}
+.data-card .findings b{color:var(--gold);font-weight:600}
+.data-card.alt{background:var(--orange-dim);border-color:rgba(204,102,51,0.28)}
+.data-card.alt h3{color:var(--orange)}
 
-/* ── S3 EXEC SUMMARY ── */
-.insight{background:linear-gradient(135deg,rgba(200,169,110,0.08),rgba(200,169,110,0.02));border:.5px solid var(--border);border-left:2px solid var(--gold);padding:18px 22px;border-radius:2px;flex-shrink:0}
-.iey{font-family:'Syne',sans-serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-weight:600}
-.itxt{font-family:'Syne',sans-serif;font-size:clamp(15px,1.8vw,22px);font-weight:600;line-height:1.45}
+/* ──────────── SLIDE 3 — FULL FIELD MATRIX ──────────── */
+.weights{display:flex;flex-direction:column;gap:7px;margin-top:18px;flex-shrink:0}
+.weight-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;font-size:12px;color:var(--muted)}
+.weight-row .wt-bar{height:3px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden;margin-top:4px;grid-column:1 / span 2}
+.weight-row .wt-fill{height:100%;background:var(--gold)}
+.weight-row .wt-val{color:var(--gold);font-family:'Syne',sans-serif;font-size:11px;font-weight:600;letter-spacing:.04em}
+.matrix-wrap{flex:1;min-height:0;overflow:auto;border:.5px solid var(--border-f);border-radius:2px;background:rgba(0,0,0,0.18)}
+table.matrix{width:100%;border-collapse:collapse;font-size:13px}
+table.matrix th{font-family:'Syne',sans-serif;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);padding:11px 8px;text-align:center;background:rgba(8,8,10,0.6);border-bottom:.5px solid var(--border);font-weight:600;position:sticky;top:0;z-index:2}
+table.matrix th:first-child{text-align:left;padding-left:14px}
+table.matrix th .th-wt{display:block;font-size:9px;color:var(--gold);font-weight:500;margin-top:2px;letter-spacing:.08em}
+table.matrix td{padding:11px 8px;border-bottom:.5px solid var(--border-f);text-align:center;vertical-align:middle;color:rgba(232,228,220,0.78)}
+table.matrix td:first-child{text-align:left;padding-left:14px;color:var(--text)}
+table.matrix tbody tr:hover{background:rgba(255,255,255,0.015)}
+table.matrix tbody tr.rec{background:var(--row-rec)}
+table.matrix tbody tr.rec td{color:var(--text)}
+table.matrix tbody tr.rec td:first-child::before{content:'';display:inline-block;width:3px;height:18px;background:var(--gold);margin-right:8px;vertical-align:-4px;border-radius:1px}
+.rk{font-family:'Syne',sans-serif;font-size:13px;color:var(--gold);font-weight:700;width:38px;text-align:center}
+.rk.dim{color:var(--muted-2)}
+.pname{font-family:'Syne',sans-serif;font-size:14px;font-weight:600;display:block}
+.pmeta{display:block;font-size:10.5px;color:var(--muted);letter-spacing:.05em;margin-top:1px}
+.score-cell{display:flex;flex-direction:column;align-items:center;gap:3px}
+.sv{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--text);line-height:1}
+.sv.lo{color:var(--muted-2)}
+.sv.mid{color:rgba(232,228,220,0.55)}
+.sb-track{width:46px;height:3px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden}
+.sb-fill{height:100%;background:var(--gold);border-radius:2px}
+.sb-fill.mid{background:var(--gold-soft)}
+.sb-fill.lo{background:rgba(255,255,255,0.15)}
+.tot-cell{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--text);width:54px}
+.tot-cell.rec{color:var(--gold);font-size:22px}
+.tot-cell.alt{color:rgba(232,228,220,0.85)}
+.tot-cell.elim{color:var(--muted)}
+.status-pill{display:inline-block;font-family:'Syne',sans-serif;font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;padding:3px 8px;border-radius:2px;font-weight:600;white-space:nowrap}
+.status-pill.rec{background:var(--gold);color:#0c0c0d}
+.status-pill.fin{background:var(--gold-faint);color:var(--gold);border:.5px solid var(--gold-soft)}
+.status-pill.alt{background:rgba(204,102,51,0.16);color:var(--orange);border:.5px solid rgba(204,102,51,0.32)}
+.status-pill.elim{background:rgba(255,255,255,0.04);color:var(--muted-2);border:.5px solid rgba(255,255,255,0.07)}
+.matrix-foot{font-size:11px;color:var(--muted);line-height:1.55;flex-shrink:0;margin-top:4px}
+.matrix-foot b{color:var(--gold);font-weight:500}
 
-/* ── S4 PUTTING PROFILE ── */
-.yc{background:var(--card-bg);border:.5px solid var(--border-f);padding:20px 22px;border-radius:2px;display:flex;flex-direction:column;flex:1}
-.yt{font-family:'Syne',sans-serif;font-size:clamp(13px,1.3vw,17px);font-weight:700;margin-bottom:8px;flex-shrink:0;color:var(--muted)}
-.yb{font-size:clamp(13px,1.2vw,16px);color:var(--muted);line-height:1.65;flex:1}
-.yq{background:rgba(200,169,110,0.04);border:.5px solid var(--border);border-left:2px solid var(--orange);padding:14px 18px;border-radius:2px;font-size:clamp(14px,1.3vw,17px);color:var(--text);line-height:1.7;font-style:italic;flex-shrink:0}
+/* ──────────── SLIDE 4 — FINALISTS ──────────── */
+.fin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;flex:1;min-height:0}
+.fin-card{background:var(--card-bg);border:.5px solid var(--border-f);border-top:1.5px solid var(--gold-soft);padding:20px 22px;border-radius:2px;display:flex;flex-direction:column;gap:14px;overflow:hidden}
+.fin-card.primary{border-top-color:var(--gold);background:rgba(200,169,110,0.05)}
+.fin-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-shrink:0}
+.fin-name{font-family:'Syne',sans-serif;font-size:clamp(15px,1.7vw,22px);font-weight:700;line-height:1.15}
+.fin-name em{display:block;font-style:normal;color:var(--muted);font-size:.7em;font-weight:500;margin-top:3px;letter-spacing:.02em}
+.fin-score{font-family:'Syne',sans-serif;font-size:clamp(32px,3.8vw,52px);font-weight:800;color:var(--gold);line-height:.9}
+.fin-score.dim{color:var(--gold-dim)}
+.fin-tag{display:inline-block;font-family:'Syne',sans-serif;font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;padding:3px 8px;border-radius:2px;font-weight:600;flex-shrink:0;width:fit-content}
+.fin-tag.primary{background:var(--gold);color:#0c0c0d}
+.fin-tag.fallback{background:var(--gold-faint);color:var(--gold);border:.5px solid var(--gold-soft)}
+.fin-tag.conditional{background:rgba(204,102,51,0.16);color:var(--orange);border:.5px solid rgba(204,102,51,0.32)}
+.fin-criteria{display:flex;flex-direction:column;gap:9px;flex-shrink:0}
+.fc-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;font-size:12px;color:var(--muted)}
+.fc-bar{height:3px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden;grid-column:1 / span 2;margin-top:3px}
+.fc-fill{height:100%;background:var(--gold);border-radius:2px}
+.fc-fill.lo{background:var(--gold-soft)}
+.fc-fill.veryLo{background:rgba(255,255,255,0.16)}
+.fc-val{font-family:'Syne',sans-serif;font-size:11.5px;font-weight:700;color:var(--text);letter-spacing:.02em}
+.fc-val.lo{color:var(--muted-2)}
+.fin-verdict{font-size:clamp(12px,1.1vw,14px);color:var(--muted);line-height:1.6;padding-top:12px;border-top:.5px solid var(--border-f);flex:1;min-height:0}
+.fin-verdict b{color:var(--text);font-weight:500}
 
-/* ── S5 RESEARCH ── */
-.rg{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:1fr 1fr;gap:12px;flex:1;min-height:0}
-.rc{background:var(--card-bg);border:.5px solid var(--border-f);padding:18px;border-radius:2px;display:flex;flex-direction:column}
-.rsrc{font-family:'Syne',sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:600;flex-shrink:0;margin-bottom:4px}
-.rn{font-family:'Syne',sans-serif;font-size:clamp(34px,4.8vw,62px);font-weight:800;line-height:1;flex-shrink:0;margin-bottom:4px}
-.rn span{color:var(--gold)}
-.rb{font-size:clamp(13px,1.2vw,15px);color:var(--muted);line-height:1.6;flex:1}
-.rnote{background:var(--gold-faint);border:.5px solid var(--border);padding:10px 14px;border-radius:2px;font-size:12px;color:var(--muted);line-height:1.6;flex-shrink:0}
-.rnote strong{color:var(--text);font-weight:500}
-
-/* ── S6 MATRIX ── */
-.mx-wrap{display:grid;grid-template-columns:160px 1fr;gap:16px;flex:1;min-height:0;align-items:start}
-.crit{background:var(--card-bg);border:.5px solid var(--border-f);padding:14px;border-radius:2px}
-.ch{font-family:'Syne',sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-weight:600}
-.ci{display:flex;align-items:center;gap:6px;margin-bottom:8px;font-size:13px;color:var(--muted)}
-.cw{font-size:11px;color:var(--orange);background:var(--orange-dim);padding:2px 5px;border-radius:2px;font-weight:500;flex-shrink:0}
-table.mx{width:100%;border-collapse:collapse}
-table.mx th{font-family:'Syne',sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:8px 9px;text-align:center;border-bottom:.5px solid var(--border-f);font-weight:500}
-table.mx th:first-child{text-align:left}
-table.mx td{font-size:13px;padding:10px 6px;border-bottom:.5px solid var(--border-f);color:rgba(232,228,220,0.7);text-align:center;vertical-align:middle;white-space:nowrap}
-table.mx td:first-child{text-align:left;color:var(--text);font-weight:500;font-size:13px;white-space:nowrap}
-table.mx tr.win{background:rgba(200,169,110,0.055)}
-table.mx tr.win td{color:var(--text)}
-.wp{display:inline-block;background:var(--gold);color:#0c0c0d;font-size:8px;padding:2px 5px;border-radius:2px;letter-spacing:.07em;font-weight:700;margin-left:4px;font-family:'Syne',sans-serif;vertical-align:middle}
-.pc{display:inline-block;width:16px;height:16px;border-radius:50%;vertical-align:middle;flex-shrink:0}
-.pc-full{background:var(--gold)}
-.pc-hi{background:conic-gradient(var(--gold) 83%,rgba(200,169,110,0.12) 0)}
-.pc-mid{background:conic-gradient(var(--gold) 50%,rgba(200,169,110,0.12) 0)}
-.pc-lo{background:none;border:1.5px solid rgba(200,169,110,0.2)}
-.pc-na{display:inline-block;width:12px;height:1.5px;background:rgba(255,255,255,0.12);vertical-align:middle;border-radius:1px;margin:0 2px}
-.pv{font-family:'Syne',sans-serif;font-size:12px;font-weight:600;margin-left:3px;vertical-align:middle}
-.pv-g{color:var(--gold)}
-.pv-d{color:var(--gold-dim)}
-.pv-l{color:rgba(255,255,255,0.2)}
-.sw{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--gold)!important}
-.sc{font-family:'Syne',sans-serif;font-size:16px;font-weight:600}
-
-/* ── S7 MOI ── */
-.moi-cmp{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;flex:1;min-height:0}
-.moi-bar-track{height:5px;background:rgba(255,255,255,0.07);border-radius:2px;margin-bottom:10px}
-.moi-bar-fill{height:100%;border-radius:2px;background:var(--gold)}
-.moi-num{font-family:'Syne',sans-serif;font-size:clamp(30px,4vw,54px);font-weight:800;line-height:1;margin-bottom:4px}
-.moi-lbl{font-size:13px;color:var(--muted);margin-bottom:10px}
-.moi-delta{display:inline-flex;align-items:center;gap:5px;background:rgba(200,169,110,0.1);border:.5px solid var(--border);padding:3px 8px;border-radius:2px;margin-bottom:10px}
-.moi-delta-n{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:var(--gold)}
-.moi-delta-l{font-size:13px;color:var(--muted)}
-.moi-body{font-size:clamp(12px,1.1vw,15px);color:var(--muted);line-height:1.6;flex:1}
-
-/* ── S15 RISK ── */
-.risk-g{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;flex:1;min-height:0}
-.rsk{background:var(--card-bg);border:.5px solid var(--border-f);padding:22px;border-radius:2px;position:relative;overflow:hidden;display:flex;flex-direction:column}
-.rsk::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
-.rsk.hi::before{background:#e84444}
-.rsk.md::before{background:var(--gold)}
-.rsk.lo::before{background:#44aa66}
-.rlv{font-family:'Syne',sans-serif;font-size:11px;letter-spacing:.13em;text-transform:uppercase;margin-bottom:8px;font-weight:600}
-.rsk.hi .rlv{color:#e84444}
-.rsk.md .rlv{color:var(--gold)}
-.rsk.lo .rlv{color:#55cc77}
-.rtt{font-family:'Syne',sans-serif;font-size:clamp(15px,1.5vw,21px);font-weight:700;margin-bottom:10px;flex-shrink:0}
-.rbd{font-size:clamp(13px,1.2vw,16px);color:var(--muted);line-height:1.65;margin-bottom:12px;flex:1}
-.rmt{font-size:clamp(12px,1.1vw,15px);color:var(--text);background:rgba(255,255,255,0.03);padding:10px 12px;border-radius:2px;line-height:1.6;flex-shrink:0}
-.rmt strong{display:block;font-family:'Syne',sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;font-weight:600}
-
-/* ── S12–S14 FINALISTS — full-height hero image ── */
-#s12,#s13,#s14{flex-direction:row}
-.fl{flex:1;display:flex;min-height:0;overflow:hidden}
-.fl-l{width:42%;flex-shrink:0;position:relative;overflow:hidden;background:#060608}
-.fl-img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:9% 7%}
-.fl-over{position:absolute;bottom:0;left:0;right:0;padding:28px 28px 32px;background:linear-gradient(to bottom,transparent,rgba(4,4,8,.97) 38%)}
-.fl-r{flex:1;padding:36px 36px 80px;display:flex;flex-direction:column;overflow:hidden}
-.rey{font-family:'Syne',sans-serif;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-weight:600}
-.rmod{font-family:'Syne',sans-serif;font-size:clamp(26px,3.6vw,46px);font-weight:800;line-height:1.07;margin-bottom:8px}
-.rmod em{display:block;font-style:italic;color:var(--gold);font-weight:400;font-size:.72em}
-.rprice{display:inline-block;border:.5px solid var(--border);padding:5px 12px;font-family:'Syne',sans-serif;font-size:13px;font-weight:600;letter-spacing:.06em;border-radius:2px;color:var(--gold)}
-.rttl{font-family:'Syne',sans-serif;font-size:clamp(16px,2vw,24px);font-weight:700;margin-bottom:14px;line-height:1.25}
+/* ──────────── SLIDE 5 — PRIMARY 7.2 ──────────── */
+#s5{flex-direction:row}
+.pr-l{width:42%;flex-shrink:0;position:relative;overflow:hidden;background:#060608;border-right:.5px solid var(--border-f)}
+.pr-img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:9% 7%}
+.pr-over{position:absolute;bottom:0;left:0;right:0;padding:24px 28px 30px;background:linear-gradient(to bottom,transparent,rgba(4,4,8,.97) 38%)}
+.pr-over .pr-mod{font-family:'Syne',sans-serif;font-size:clamp(22px,3vw,38px);font-weight:800;line-height:1.06}
+.pr-over .pr-mod em{display:block;font-style:italic;color:var(--gold);font-weight:400;font-size:.62em;margin-top:4px}
+.pr-over .pr-price{display:inline-block;margin-top:10px;font-family:'Syne',sans-serif;font-size:12px;font-weight:600;color:var(--gold);border:.5px solid var(--gold-soft);padding:4px 12px;border-radius:2px;letter-spacing:.06em}
+.pr-r{flex:1;padding:32px 36px 80px;display:flex;flex-direction:column;overflow:hidden;gap:14px}
+.pr-tag-row{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.pr-tag{font-family:'Syne',sans-serif;font-size:11px;letter-spacing:.22em;color:var(--gold);font-weight:600;text-transform:uppercase}
+.pr-score-pill{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:#0c0c0d;background:var(--gold);padding:3px 9px;border-radius:2px;letter-spacing:.04em}
+.pr-title{font-family:'Syne',sans-serif;font-size:clamp(18px,2.2vw,28px);font-weight:700;line-height:1.22;flex-shrink:0}
+.pr-title em{font-style:italic;color:var(--gold);font-weight:400}
+.pr-sub{font-size:clamp(13px,1.2vw,15px);color:var(--muted);line-height:1.6;flex-shrink:0}
 .pillars{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:12px;flex:1;min-height:0}
-.pill{background:var(--card-bg);border:.5px solid var(--border-f);border-top:1.5px solid var(--gold);padding:18px;border-radius:2px;display:flex;flex-direction:column}
-.pt{font-family:'Syne',sans-serif;font-size:clamp(13px,1.4vw,18px);font-weight:700;margin-bottom:8px;flex-shrink:0}
-.pb{font-size:clamp(12px,1.1vw,15px);color:var(--muted);line-height:1.6;flex:1}
+.pill-card{background:var(--card-bg);border:.5px solid var(--border-f);border-top:1.5px solid var(--gold);padding:18px 20px;border-radius:2px;display:flex;flex-direction:column;gap:8px;overflow:hidden}
+.pill-eyebrow{font-family:'Syne',sans-serif;font-size:10.5px;color:var(--gold);letter-spacing:.14em;text-transform:uppercase;font-weight:600}
+.pill-title{font-family:'Syne',sans-serif;font-size:clamp(13px,1.4vw,17px);font-weight:700;line-height:1.22}
+.pill-body{font-size:clamp(12px,1.1vw,14px);color:var(--muted);line-height:1.6;flex:1}
+.pill-body b{color:var(--text);font-weight:500}
 
-/* ── S16 CLOSE ── */
-#s16{background:var(--bg);justify-content:center;align-items:center;text-align:center;overflow:hidden}
-.crings span{position:absolute;border-radius:50%;border:.5px solid rgba(200,169,110,0.065);transform:translate(-50%,-50%);top:50%;left:50%}
-.ci2{position:relative;z-index:2;max-width:550px}
-.cey2{font-family:'Syne',sans-serif;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;font-weight:600}
-.ctitle2{font-family:'Syne',sans-serif;font-size:clamp(28px,4.4vw,54px);font-weight:800;line-height:1.06;margin-bottom:16px}
-.ctitle2 em{font-style:italic;color:var(--gold);font-weight:400}
-.cbody{font-size:15px;color:var(--muted);line-height:1.72;margin-bottom:34px;max-width:440px;margin-left:auto;margin-right:auto}
-.ccta{display:inline-block;background:transparent;color:var(--gold);border:.5px solid var(--gold);font-family:'Syne',sans-serif;font-size:13px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;padding:13px 32px;border-radius:2px;text-decoration:none;transition:all .22s}
-.ccta:hover{background:var(--gold);color:var(--bg)}
-.cgemclose{font-size:16px;color:var(--gold);margin-bottom:10px;display:block}
-.cfoot2{position:absolute;bottom:76px;font-size:10px;color:rgba(232,228,220,0.09);letter-spacing:.13em;text-transform:uppercase}
+/* ──────────── SLIDE 6 — TRANSITION & CLOSE ──────────── */
+.close-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;flex-shrink:0}
+.close-card{background:var(--card-bg);border:.5px solid var(--border-f);border-left:2px solid var(--gold);padding:20px 22px;border-radius:2px;display:flex;flex-direction:column;gap:8px}
+.close-eyebrow{font-family:'Syne',sans-serif;font-size:10.5px;color:var(--gold);letter-spacing:.14em;text-transform:uppercase;font-weight:600}
+.close-title{font-family:'Syne',sans-serif;font-size:clamp(14px,1.5vw,18px);font-weight:700;line-height:1.25}
+.close-body{font-size:clamp(12px,1.1vw,14px);color:var(--muted);line-height:1.6}
+.close-cta-row{display:flex;align-items:center;gap:24px;padding-top:14px;border-top:.5px solid var(--border-f);flex-wrap:wrap;flex-shrink:0;margin-top:auto}
+.close-quote{font-family:'Syne',sans-serif;font-size:clamp(14px,1.4vw,18px);font-style:italic;color:var(--text);line-height:1.45;max-width:60%}
+.close-quote em{color:var(--gold);font-style:italic;font-weight:400}
+.cta-btn{display:inline-block;background:transparent;color:var(--gold);border:.5px solid var(--gold);font-family:'Syne',sans-serif;font-size:12px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;padding:11px 26px;border-radius:2px;text-decoration:none;transition:all .22s;cursor:pointer}
+.cta-btn:hover{background:var(--gold);color:var(--bg)}
+.sources-line{font-size:10.5px;color:rgba(232,228,220,0.32);letter-spacing:.04em;line-height:1.6;flex-shrink:0;padding-top:10px}
 
-/* ── ANIMATIONS ── */
+/* ──────────── ANIMATIONS ──────────── */
 @keyframes fu{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 .slide.active .a{animation:fu .46s ease forwards;opacity:0}
 .slide.active .a:nth-child(1){animation-delay:.04s}
@@ -218,913 +193,435 @@ table.mx tr.win td{color:var(--text)}
 .slide.active .a:nth-child(5){animation-delay:.37s}
 .slide.active .a:nth-child(6){animation-delay:.44s}
 
-/* ── MOBILE ── */
+/* ──────────── MOBILE ──────────── */
 @media (max-width:768px){
   html,body{overflow:auto;height:auto}
   .deck{height:auto;min-height:100svh}
   .slide{position:static;display:none;opacity:1;pointer-events:all;transition:none}
   .slide.active{display:flex}
-  #s1,#s12,#s13,#s14,#s16{position:relative}
-  #s1{padding:24px 4% 88px;min-height:100svh;overflow:visible;justify-content:flex-start}
-  .clogo{position:static;margin-bottom:20px}
-  .ctitle{max-width:100%}
-  .csub{max-width:100%}
-  .cmeta{max-width:100%;gap:16px;flex-wrap:wrap}
-  .cfoot,.cfoot2{display:none}
+  #s1{position:relative;padding:24px 5% 88px;min-height:100svh;justify-content:flex-start}
+  .clogo{position:static;margin-bottom:24px}
+  .ctitle,.csub,.cmeta{max-width:100%}
+  .cmeta{gap:18px;flex-wrap:wrap}
+  .cfoot{display:none}
 
   .sl{grid-template-columns:1fr}
   .sl-l{padding:24px 5% 16px;border-right:none;border-bottom:.5px solid rgba(255,255,255,0.055)}
-  .sl-r{padding:16px 5% 88px}
-  .sl-ttl{margin-top:12px}
-  .sl-big{margin-top:12px;font-size:clamp(56px,12vw,80px)}
+  .sl-r{padding:18px 5% 88px}
+  .sl-rule{width:60%}
 
-  .ss-grid{grid-template-columns:1fr}
-  .ss-l{border-right:none;border-bottom:.5px solid rgba(255,255,255,0.055);padding:20px 5% 16px}
-  .ss-imgwrap{height:140px}
-  .ss-r{padding:16px 5% 88px}
+  .stat-row{grid-template-columns:1fr}
+  .data-strip{grid-template-columns:1fr}
 
-  .fg,.rg,.risk-g{grid-template-columns:1fr}
-  .moi-cmp{grid-template-columns:1fr 1fr}
-  table.mx{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:nowrap}
-  .mx-wrap{grid-template-columns:1fr}
+  .matrix-wrap{overflow:auto}
+  table.matrix{min-width:680px}
 
-  #s12,#s13,#s14{flex-direction:column}
-  .fl{flex-direction:column}
-  .fl-l{width:100%;height:220px}
-  .fl-r{padding:20px 5% 88px}
-  .pillars{grid-template-columns:1fr}
+  .fin-grid{grid-template-columns:1fr;gap:12px}
 
-  .crings span:nth-child(1){width:200px !important;height:200px !important}
-  .crings span:nth-child(2){width:300px !important;height:300px !important}
-  .crings span:nth-child(3){width:400px !important;height:400px !important}
-  .controls{max-width:calc(100vw - 24px);gap:8px;padding:8px 14px;bottom:12px}
-}
-@media (max-width:480px){
-  .btn{padding:5px 10px;font-size:11px}
-  .dots{gap:4px}
-  .d{width:4px;height:4px}
-  .ctr{min-width:32px;font-size:10px}
-  .controls{gap:6px;padding:7px 10px}
+  #s5{flex-direction:column}
+  .pr-l{width:100%;height:55vw;max-height:340px;border-right:none;border-bottom:.5px solid var(--border-f)}
+  .pr-r{padding:20px 5% 88px}
+  .pillars{grid-template-columns:1fr;grid-template-rows:repeat(4,auto)}
+
+  .close-grid{grid-template-columns:1fr}
+  .close-cta-row{flex-direction:column;align-items:flex-start;gap:18px}
+  .close-quote{max-width:100%}
+
+  .controls{padding:7px 14px;gap:10px}
+  .btn{font-size:11px;padding:4px 12px}
+  .dots{display:none}
 }
 </style>
 </head>
 <body>
 <div class="deck">
 
-<!-- ── S1 COVER ── -->
-<div class="slide active" id="s1">
-  <div class="gold-rule"></div>
+<!-- ═══════════════════ S1 · COVER ═══════════════════ -->
+<section class="slide active" id="s1">
   <div class="cgrain"></div><div class="cglow"></div><div class="cline"></div>
   <div class="clogo">
-    <img src="https://beta.anthonybest.com/ALB_Logo_White_Transparent.png" alt="Anthony Best" onerror="this.style.display='none'">
-    <div class="cbrand">Anthony Best<span>Golf Performance Advisory</span></div>
+    <img src="/ALB_Logo_White_Transparent.png" alt="ALB" onerror="this.style.display='none'">
+    <div class="cbrand">Anthony Best<span>Putter Advisory</span></div>
   </div>
-  <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
-    <div class="cey a">Putter Selection · Strategic Analysis · 2026</div>
-    <div class="ctitle a">Your Newport Is<br><em>Holding You Back.</em></div>
-    <div class="csub a">The Newport 2 is a great putter. It's also working against you. This is the case for replacing it — with something that protects your scores on the days your touch isn't perfectly dialed in from the first hole.</div>
+  <div class="cwrap">
+    <div class="cey a">Putter Replacement Report · May 2026</div>
+    <h1 class="ctitle a">Your <em>Newport</em> is holding you back.</h1>
+    <p class="csub a">Seven mallet candidates evaluated against your Special Select Newport. Each scored across five criteria that actually predict putting outcomes for a player at your stroke profile and frequency.</p>
     <div class="cmeta a">
-      <div><div class="ml">Prepared for</div><div class="mv">Anthony Best</div></div>
-      <div><div class="ml">Analysis</div><div class="mv">Scotty Cameron Phantom · 2026</div></div>
-      <div><div class="ml">Objective</div><div class="mv">Putter Replacement</div></div>
+      <div><div class="ml">Subject</div><div class="mv">Special Select Newport · 2022</div></div>
+      <div><div class="ml">Decision</div><div class="mv">Mallet Replacement</div></div>
+      <div><div class="ml">Field Scored</div><div class="mv">7 putters · 5 criteria</div></div>
     </div>
   </div>
-  <div class="cfoot">anthonybest.com · Putter Advisory Series · 2026</div>
-</div>
+  <div class="cfoot">Independent research · No retailer affiliation</div>
+</section>
 
-<!-- ── S2 EXISTING WEAPON ── -->
-<div class="slide" id="s2">
-  <div class="gold-rule"></div>
-  <div class="ss-grid">
-    <div class="ss-l a">
-      <div class="ss-badge">✦ Special Select · 2022</div>
-      <div class="ss-name">Special Select<em>Newport 2</em></div>
-      <div class="ss-imgwrap">
-        <img class="ss-img"
-          src="https://www.scottycameron.com/media/17447/product_pages__0000_2020-select-newport-hero.jpg"
-          alt="Special Select Newport"
-          onerror="this.style.opacity='0'">
-      </div>
-      <div class="spec-grid">
-        <div class="spec"><div class="spec-l">Head</div><div class="spec-v">303 Stainless</div></div>
-        <div class="spec"><div class="spec-l">Face</div><div class="spec-v">Solid milled</div></div>
-        <div class="spec"><div class="spec-l">Loft</div><div class="spec-v">3.5°</div></div>
-        <div class="spec"><div class="spec-l">Lie</div><div class="spec-v">70°</div></div>
-        <div class="spec"><div class="spec-l">Neck</div><div class="spec-v">Plumbing</div></div>
-        <div class="spec"><div class="spec-l">Toe flow</div><div class="spec-v">Mid</div></div>
-        <div class="spec"><div class="spec-l">Weights</div><div class="spec-v">2×35g W</div></div>
-        <div class="spec"><div class="spec-l">Insert</div><div class="spec-v">None — solid</div></div>
-      </div>
-    </div>
-    <div class="ss-r a">
-      <div class="why-card">
-        <div class="why-head">The solid face tax</div>
-        <div class="why-body">The Newport's milled face is unforgiving by design. Catch the center — perfect. Miss by 4–5mm and the face twists, costing both distance and direction. That's not a flaw in the putter. It's the nature of every solid-face blade, and it demands a consistent center strike every single time.</div>
-      </div>
-      <div class="why-card">
-        <div class="why-head">What playing twice a week means for a blade</div>
-        <div class="why-body">Putting touch is a perishable skill. Without practice reps between rounds, your feel for center contact resets. Research shows even good putters miss the sweet spot on <strong>roughly 30% of attempts</strong> when in form — and that number climbs when you haven't putted in days. The Newport punishes every one of those misses.</div>
-      </div>
-      <div class="why-card">
-        <div class="why-head">The Newport demands the consistency you can't guarantee</div>
-        <div class="why-body">The Special Select rewards players who putt frequently enough to keep their strike pattern sharp. For someone who plays two days a week without dedicated practice, the blade's narrow forgiveness window becomes a problem. <strong>Your stroke is good. Your equipment is working against it.</strong></div>
-      </div>
-      <div class="upgrade-bar">
-        <strong>The case for replacement:</strong> The Newport hasn't broken. But it's built for golfers who practice enough to guarantee center contact. You don't — and you're leaving putts on the table because of it. The three Phantom finalists match your stroke exactly and give you the forgiveness a twice-a-week player deserves.
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ── S3 CASE FOR A CHANGE ── -->
-<div class="slide" id="s3">
-  <div class="gold-rule"></div>
+<!-- ═══════════════════ S2 · CASE FOR MALLET ═══════════════════ -->
+<section class="slide" id="s2">
   <div class="sl">
-    <div class="sl-l a">
-      <div class="sl-num">03 · The Case for a Change</div>
-      <div class="sl-ttl">Three finalists.<br>One fitting confirms<br>the right one.</div>
-      <div class="sl-sup">10 Phantom models evaluated. 7 eliminated in round one. 3 remain — each a direct extension of the stroke you've already built.</div>
-      <div class="sl-rule"></div>
-    </div>
-    <div class="sl-r">
-      <div class="insight a">
-        <div class="iey">Primary finding</div>
-        <div class="itxt">The Newport is holding back a good putter. Of 10 Phantom models evaluated, 7 were eliminated — wrong stroke geometry. Three remain: the 5.2, 7.2, and 9.2R. Each matches your current setup exactly and delivers the forgiveness a twice-a-week player deserves. One fitting session confirms which one is yours.</div>
-      </div>
-      <div class="fg">
-        <div class="fc a">
-          <div class="fn">Finding 01</div>
-          <div class="ft">Your stroke transfers immediately — what changes is the miss</div>
-          <div class="fb">All three Phantom finalists use the same plumbing-neck geometry as your Newport. Same setup. Same feel at address. Same stroke. Nothing about how you putt changes. What changes is that off-center contact no longer costs you the putt.</div>
-        </div>
-        <div class="fc a">
-          <div class="fn">Finding 02</div>
-          <div class="ft">10 models evaluated. 7 eliminated. 3 advance to fitting.</div>
-          <div class="fb">Seven Phantom models were screened out immediately — fixed-neck geometry (5.5, 7.5), over-center designs (×2), and five models with incompatible stroke arc profiles. The 5.2, 7.2, and 9.2R are the only three that fully preserve your putting foundation.</div>
-        </div>
-        <div class="fc a">
-          <div class="fn">Finding 03</div>
-          <div class="ft">Research confirms: forgiveness matters most when you play without practice</div>
-          <div class="fb">MyGolfSpy's 40,000+ putt study shows higher forgiveness directly converts the putts good players should be making but aren't — especially when their strike isn't grooved from recent practice. Playing twice a week is precisely the profile that benefits most.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ── S4 YOUR PUTTING PROFILE ── -->
-<div class="slide" id="s4">
-  <div class="gold-rule"></div>
-  <div class="sl">
-    <div class="sl-l a">
-      <div class="sl-num">04 · Your Putting Profile</div>
-      <div class="sl-ttl">Good putting that could be more consistent.</div>
-      <div class="sl-big">+1</div>
-      <div class="sl-lbl">putt saved per round<br>switching blade → mallet</div>
-      <div class="sl-cmp">
-        <span class="sl-cmp-a">82%</span>
-        <span class="sl-cmp-sep">vs</span>
-        <span class="sl-cmp-b">75%</span>
-        <span class="sl-cmp-cap">make rate inside 6 ft<br>mallet vs blade</span>
-      </div>
-      <div class="sl-rule"></div>
-    </div>
-    <div class="sl-r">
-      <div class="yc a">
-        <div class="yt">What even a good stroke can't control</div>
-        <div style="font-family:'Syne',sans-serif;font-size:clamp(24px,3vw,40px);font-weight:800;color:var(--gold);line-height:1;margin-bottom:8px;flex-shrink:0">Center contact.</div>
-        <div class="yb">Playing two rounds a week without dedicated putting practice means your feel for the sweet spot resets between sessions. Research shows putting precision requires thousands of consistent reps to stay fully grooved — and you're not getting them. Your equipment penalizes every round where your strike isn't perfectly centered from hole one.</div>
-      </div>
-      <div class="yc a">
-        <div class="yt">What good putters pay for on a blade</div>
-        <div style="font-family:'Syne',sans-serif;font-size:clamp(22px,2.6vw,36px);font-weight:800;line-height:1.1;margin-bottom:8px;flex-shrink:0">Off-center strikes.</div>
-        <div class="yb">Good putters miss the sweet spot on roughly 30% of attempts even when playing regularly. On the Newport's solid face, those misses cost you distance and direction — both. On a high-forgiveness mallet with the same neck geometry, the penalty is near-zero. Same stroke. Better results.</div>
-      </div>
-      <div class="yc a">
-        <div class="yt">What changes — and what doesn't</div>
-        <div style="font-family:'Syne',sans-serif;font-size:clamp(18px,2.2vw,30px);font-weight:800;line-height:1.15;margin-bottom:8px;flex-shrink:0">Stroke: identical.<br><span style="color:var(--gold)">Results: better.</span></div>
-        <div class="yb">All three finalists use the same plumbing-neck geometry as your Newport — same feel at address, same stroke, same setup routine. Nothing about how you putt changes. The only difference is what happens when contact is slightly off-center: with the Newport, you lose the putt. With these, you don't.</div>
-      </div>
-      <div class="yq a">"Two rounds a week is a great schedule. It's just not enough practice to guarantee center contact on a blade every time. The data says a mallet gives back the putts currently being lost — without changing a single thing about your stroke."</div>
-    </div>
-  </div>
-</div>
-
-<!-- ── S5 RESEARCH ── -->
-<div class="slide" id="s5">
-  <div class="gold-rule"></div>
-  <div class="sl">
-    <div class="sl-l a">
-      <div class="sl-num">05 · The Research</div>
-      <div class="sl-ttl">The data is not<br>from a lab.</div>
-      <div class="sl-big" style="font-size:clamp(52px,7vw,88px)">40,000+</div>
-      <div class="sl-lbl">real on-course putts tracked<br>MyGolfSpy / Shot Scope · 2025</div>
-      <div class="sl-rule"></div>
-    </div>
-    <div class="sl-r">
-      <div class="rg">
-        <div class="rc a">
-          <div class="rsrc">Shot Scope On-Course · 2025</div>
-          <div class="rn"><span>82%</span> vs 75%</div>
-          <div style="font-size:14px;color:var(--muted);margin-bottom:6px">mallet vs blade make rate inside 6 ft</div>
-          <div class="rb">Mallet users make 7 more six-footers per 100 attempts — real rounds, real conditions. That's roughly one additional make per 18 holes.</div>
-        </div>
-        <div class="rc a">
-          <div class="rsrc">Shot Scope On-Course · 2025</div>
-          <div class="rn"><span>2.3</span> vs 2.6</div>
-          <div style="font-size:14px;color:var(--muted);margin-bottom:6px">three-putts per round: mallet vs blade</div>
-          <div class="rb">Mallet users three-putt 0.3 fewer times per round. That's a stroke directly saved — not from a better stroke, but from a putter that doesn't punish slightly long lag putts the same way.</div>
-        </div>
-        <div class="rc a">
-          <div class="rsrc">Motor Learning Research · 2025</div>
-          <div class="rn"><span>2×</span>/week</div>
-          <div style="font-size:14px;color:var(--muted);margin-bottom:6px">playing without dedicated putting practice</div>
-          <div class="rb">Precision requires thousands of consistent reps to stay fully grooved. Without practice between rounds, feel for center contact varies. High-forgiveness equipment compensates automatically.</div>
-        </div>
-        <div class="rc a">
-          <div class="rsrc">MyGolfSpy · Putter Testing</div>
-          <div class="rn"><span>80%</span></div>
-          <div style="font-size:14px;color:var(--muted);margin-bottom:6px">of golfers use a putter mismatched to their stroke</div>
-          <div class="rb">What matters is neck geometry matched to stroke arc — not head shape. A Newport player moving to a plumbing-neck mallet is the rare case where the transition is an exact match.</div>
-        </div>
-        <div class="rc a">
-          <div class="rsrc">Tour Data · 2025</div>
-          <div class="rn"><span>75%</span></div>
-          <div style="font-size:14px;color:var(--muted);margin-bottom:6px">of PGA Tour wins now go to mallet putters</div>
-          <div class="rb">Blade putters account for only 25% of Tour victories. Players with unlimited access to any putter in the world have moved to mallets. That's not a trend — it's the data.</div>
-        </div>
-        <div class="rc a">
-          <div class="rsrc">Golf Digest / Club Champion · 2024</div>
-          <div class="rn"><span>62%</span></div>
-          <div style="font-size:14px;color:var(--muted);margin-bottom:6px">of head-to-head tests won by mallets</div>
-          <div class="rb">Mallets outperformed blades 62% of the time across all metrics. Face-to-path consistency was higher in mallets for every single player tested — a +15% advantage in stroke reliability.</div>
-        </div>
-      </div>
-      <div class="rnote a"><strong>Sources:</strong> MyGolfSpy / Shot Scope on-course data, June 2025 (40,000+ putts) · Motor learning research: Psychological Research, 2025 · Golf Digest / Club Champion SAM PuttLab, March 2024.</div>
-    </div>
-  </div>
-</div>
-
-<!-- ── S6 DECISION MATRIX ── -->
-<div class="slide" id="s6">
-  <div class="gold-rule"></div>
-  <div style="flex:1;display:flex;flex-direction:column;padding:28px 4% 80px;overflow:hidden;gap:16px">
-
-    <!-- Header row -->
-    <div style="display:flex;justify-content:space-between;align-items:flex-end;padding-bottom:16px;border-bottom:.5px solid var(--border-f);flex-shrink:0" class="a">
+    <div class="sl-l">
       <div>
-        <div style="font-family:'Syne',sans-serif;font-size:11px;color:var(--gold);letter-spacing:.22em;text-transform:uppercase;font-weight:600;margin-bottom:10px">06 · Decision Matrix</div>
-        <div style="font-family:'Syne',sans-serif;font-size:clamp(24px,3.2vw,44px);font-weight:800;line-height:1.05">How 10 models became <em style="color:var(--gold);font-style:italic;font-weight:400">3 finalists.</em></div>
+        <div class="sl-num a">02 · The data case</div>
+        <h2 class="sl-ttl a" style="margin-top:16px">Why a mallet is <em>the move.</em></h2>
+        <p class="sl-sup a">The performance gap between blade and mallet at your handicap and playing frequency is not subtle. Three independent datasets, the same conclusion.</p>
       </div>
-      <div style="display:flex;gap:6px;flex-shrink:0;margin-left:24px">
-        <span style="background:rgba(204,102,51,0.1);border:.5px solid rgba(204,102,51,0.28);padding:5px 11px;border-radius:2px;font-family:'Syne',sans-serif;font-size:11px;color:var(--muted);white-space:nowrap;letter-spacing:.08em">Stroke 30%</span>
-        <span style="background:rgba(204,102,51,0.1);border:.5px solid rgba(204,102,51,0.28);padding:5px 11px;border-radius:2px;font-family:'Syne',sans-serif;font-size:11px;color:var(--muted);white-space:nowrap;letter-spacing:.08em">MOI 25%</span>
-        <span style="background:rgba(204,102,51,0.1);border:.5px solid rgba(204,102,51,0.28);padding:5px 11px;border-radius:2px;font-family:'Syne',sans-serif;font-size:11px;color:var(--muted);white-space:nowrap;letter-spacing:.08em">Neck 20%</span>
-        <span style="background:rgba(204,102,51,0.1);border:.5px solid rgba(204,102,51,0.28);padding:5px 11px;border-radius:2px;font-family:'Syne',sans-serif;font-size:11px;color:var(--muted);white-space:nowrap;letter-spacing:.08em">Alignment 15%</span>
-        <span style="background:rgba(204,102,51,0.1);border:.5px solid rgba(204,102,51,0.28);padding:5px 11px;border-radius:2px;font-family:'Syne',sans-serif;font-size:11px;color:var(--muted);white-space:nowrap;letter-spacing:.08em">Confidence 10%</span>
-      </div>
-    </div>
-
-    <!-- 3 finalist cards -->
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;flex:1;min-height:0">
-
-      <!-- ── Phantom 7.2 — Top Score ── -->
-      <div style="background:linear-gradient(155deg,rgba(200,169,110,0.07),rgba(200,169,110,0.02));border:.5px solid var(--border);border-top:2px solid var(--gold);padding:24px 26px;border-radius:2px;display:flex;flex-direction:column" class="a">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;flex-shrink:0">
-          <div>
-            <div style="font-family:'Syne',sans-serif;font-size:11px;color:var(--gold);letter-spacing:.2em;text-transform:uppercase;margin-bottom:8px;font-weight:600">Finalist 1 · Top Score</div>
-            <div style="font-family:'Syne',sans-serif;font-size:clamp(16px,2vw,26px);font-weight:800;line-height:1.05">Scotty Cameron<br><span style="color:var(--gold);font-size:1.25em">Phantom 7.2</span></div>
-          </div>
-          <div style="text-align:right;flex-shrink:0;margin-left:12px">
-            <div style="font-family:'Syne',sans-serif;font-size:clamp(52px,7vw,88px);font-weight:800;color:var(--gold);line-height:.85">94</div>
-            <div style="font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-top:5px">composite</div>
-          </div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:14px;flex:1;justify-content:space-between">
-          <div>
-            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
-              <span style="font-family:'Syne',sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Stroke Compatibility</span>
-              <span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--gold)">95%</span>
-            </div>
-            <div style="height:5px;background:rgba(255,255,255,0.07);border-radius:3px"><div style="width:95%;height:100%;background:var(--gold);border-radius:3px"></div></div>
-          </div>
-          <div>
-            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
-              <span style="font-family:'Syne',sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">MOI Forgiveness</span>
-              <span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--gold)">100%</span>
-            </div>
-            <div style="height:5px;background:rgba(255,255,255,0.07);border-radius:3px"><div style="width:100%;height:100%;background:var(--gold);border-radius:3px"></div></div>
-          </div>
-          <div>
-            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
-              <span style="font-family:'Syne',sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Neck Architecture</span>
-              <span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--gold)">95%</span>
-            </div>
-            <div style="height:5px;background:rgba(255,255,255,0.07);border-radius:3px"><div style="width:95%;height:100%;background:var(--gold);border-radius:3px"></div></div>
-          </div>
-          <div>
-            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
-              <span style="font-family:'Syne',sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Alignment Utility</span>
-              <span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--gold)">100%</span>
-            </div>
-            <div style="height:5px;background:rgba(255,255,255,0.07);border-radius:3px"><div style="width:100%;height:100%;background:var(--gold);border-radius:3px"></div></div>
-          </div>
-          <div>
-            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
-              <span style="font-family:'Syne',sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Address Confidence</span>
-              <span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--gold)">90%</span>
-            </div>
-            <div style="height:5px;background:rgba(255,255,255,0.07);border-radius:3px"><div style="width:90%;height:100%;background:var(--gold);border-radius:3px"></div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ── Phantom 9.2R ── -->
-      <div style="background:var(--card-bg);border:.5px solid var(--border-f);border-top:2px solid var(--gold);padding:24px 26px;border-radius:2px;display:flex;flex-direction:column" class="a">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;flex-shrink:0">
-          <div>
-            <div style="font-family:'Syne',sans-serif;font-size:11px;color:var(--gold);letter-spacing:.2em;text-transform:uppercase;margin-bottom:8px;font-weight:600">Finalist 2</div>
-            <div style="font-family:'Syne',sans-serif;font-size:clamp(16px,2vw,26px);font-weight:800;line-height:1.05">Scotty Cameron<br><span style="color:var(--gold);font-size:1.25em">Phantom 9.2R</span></div>
-          </div>
-          <div style="text-align:right;flex-shrink:0;margin-left:12px">
-            <div style="font-family:'Syne',sans-serif;font-size:clamp(52px,7vw,88px);font-weight:800;color:var(--text);line-height:.85">81</div>
-            <div style="font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-top:5px">composite</div>
-          </div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:14px;flex:1;justify-content:space-between">
-          <div>
-            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
-              <span style="font-family:'Syne',sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Stroke Compatibility</span>
-              <span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--gold)">90%</span>
-            </div>
-            <div style="height:5px;background:rgba(255,255,255,0.07);border-radius:3px"><div style="width:90%;height:100%;background:var(--gold);border-radius:3px"></div></div>
-          </div>
-          <div>
-            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
-              <span style="font-family:'Syne',sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">MOI Forgiveness</span>
-              <span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--gold)">100%</span>
-            </div>
-            <div style="height:5px;background:rgba(255,255,255,0.07);border-radius:3px"><div style="width:100%;height:100%;background:var(--gold);border-radius:3px"></div></div>
-          </div>
-          <div>
-            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
-              <span style="font-family:'Syne',sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Neck Architecture</span>
-              <span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--gold)">90%</span>
-            </div>
-            <div style="height:5px;background:rgba(255,255,255,0.07);border-radius:3px"><div style="width:90%;height:100%;background:var(--gold);border-radius:3px"></div></div>
-          </div>
-          <div>
-            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
-              <span style="font-family:'Syne',sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Alignment Utility</span>
-              <span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:rgba(200,169,110,0.55)">45%</span>
-            </div>
-            <div style="height:5px;background:rgba(255,255,255,0.07);border-radius:3px"><div style="width:45%;height:100%;background:rgba(200,169,110,0.38);border-radius:3px"></div></div>
-          </div>
-          <div>
-            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
-              <span style="font-family:'Syne',sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Address Confidence</span>
-              <span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:rgba(200,169,110,0.55)">55%</span>
-            </div>
-            <div style="height:5px;background:rgba(255,255,255,0.07);border-radius:3px"><div style="width:55%;height:100%;background:rgba(200,169,110,0.38);border-radius:3px"></div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ── Phantom 5.2 ── -->
-      <div style="background:var(--card-bg);border:.5px solid var(--border-f);border-top:2px solid var(--gold);padding:24px 26px;border-radius:2px;display:flex;flex-direction:column" class="a">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;flex-shrink:0">
-          <div>
-            <div style="font-family:'Syne',sans-serif;font-size:11px;color:var(--gold);letter-spacing:.2em;text-transform:uppercase;margin-bottom:8px;font-weight:600">Finalist 3</div>
-            <div style="font-family:'Syne',sans-serif;font-size:clamp(16px,2vw,26px);font-weight:800;line-height:1.05">Scotty Cameron<br><span style="color:var(--gold);font-size:1.25em">Phantom 5.2</span></div>
-          </div>
-          <div style="text-align:right;flex-shrink:0;margin-left:12px">
-            <div style="font-family:'Syne',sans-serif;font-size:clamp(52px,7vw,88px);font-weight:800;color:var(--text);line-height:.85">76</div>
-            <div style="font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-top:5px">composite</div>
-          </div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:14px;flex:1;justify-content:space-between">
-          <div>
-            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
-              <span style="font-family:'Syne',sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Stroke Compatibility</span>
-              <span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--gold)">88%</span>
-            </div>
-            <div style="height:5px;background:rgba(255,255,255,0.07);border-radius:3px"><div style="width:88%;height:100%;background:var(--gold);border-radius:3px"></div></div>
-          </div>
-          <div>
-            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
-              <span style="font-family:'Syne',sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">MOI Forgiveness</span>
-              <span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:rgba(200,169,110,0.6)">58%</span>
-            </div>
-            <div style="height:5px;background:rgba(255,255,255,0.07);border-radius:3px"><div style="width:58%;height:100%;background:rgba(200,169,110,0.45);border-radius:3px"></div></div>
-          </div>
-          <div>
-            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
-              <span style="font-family:'Syne',sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Neck Architecture</span>
-              <span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--gold)">88%</span>
-            </div>
-            <div style="height:5px;background:rgba(255,255,255,0.07);border-radius:3px"><div style="width:88%;height:100%;background:var(--gold);border-radius:3px"></div></div>
-          </div>
-          <div>
-            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
-              <span style="font-family:'Syne',sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Alignment Utility</span>
-              <span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:rgba(200,169,110,0.6)">50%</span>
-            </div>
-            <div style="height:5px;background:rgba(255,255,255,0.07);border-radius:3px"><div style="width:50%;height:100%;background:rgba(200,169,110,0.45);border-radius:3px"></div></div>
-          </div>
-          <div>
-            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
-              <span style="font-family:'Syne',sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Address Confidence</span>
-              <span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--gold)">82%</span>
-            </div>
-            <div style="height:5px;background:rgba(255,255,255,0.07);border-radius:3px"><div style="width:82%;height:100%;background:var(--gold);border-radius:3px"></div></div>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /3 finalists -->
-
-    <!-- Eliminated row -->
-    <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;padding-top:12px;border-top:.5px solid rgba(255,255,255,0.06)" class="a">
-      <span style="font-family:'Syne',sans-serif;font-size:11px;color:rgba(232,228,220,0.35);letter-spacing:.12em;text-transform:uppercase;flex-shrink:0;font-weight:600">7 eliminated:</span>
-      <span style="font-size:13px;color:rgba(232,228,220,0.3)">Fixed neck — Phantom 5.5 &amp; 7.5</span>
-      <span style="color:rgba(232,228,220,0.15);font-size:18px;line-height:1">·</span>
-      <span style="font-size:13px;color:rgba(232,228,220,0.3)">Over-center offset — ×2 models</span>
-      <span style="color:rgba(232,228,220,0.15);font-size:18px;line-height:1">·</span>
-      <span style="font-size:13px;color:rgba(232,228,220,0.3)">Incompatible stroke arc — remaining 5</span>
-    </div>
-
-  </div>
-</div>
-
-<!-- ── S7 MOI / FORGIVENESS ── -->
-<div class="slide" id="s7">
-  <div class="gold-rule"></div>
-  <div class="sl">
-    <div class="sl-l a">
-      <div class="sl-num">07 · Forgiveness</div>
-      <div class="sl-ttl">How much each finalist protects an off-center strike.</div>
-      <div class="sl-sup">MOI = resistance to face twist on a missed strike. Higher number = less twist = less distance and directional loss. The Newport's number is its biggest limitation.</div>
-      <div style="margin-top:auto">
-        <div style="font-family:'Syne',sans-serif;font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">Your current putter</div>
-        <div style="font-family:'Syne',sans-serif;font-size:clamp(28px,4vw,48px);font-weight:800;color:rgba(232,228,220,0.3);line-height:1">5,200</div>
-        <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:2px;margin:8px 0"><div style="width:53%;height:100%;background:rgba(232,228,220,0.2);border-radius:2px"></div></div>
-        <div style="font-size:13px;color:rgba(232,228,220,0.4)">Newport baseline · the limitation</div>
-      </div>
-      <div class="sl-rule"></div>
+      <div class="sl-rule a"></div>
     </div>
     <div class="sl-r">
-      <div class="moi-cmp">
-        <div style="background:var(--card-bg);border:.5px solid var(--border-f);border-top:2px solid rgba(232,228,220,0.18);padding:16px;border-radius:2px;display:flex;flex-direction:column" class="a">
-          <div style="font-family:'Syne',sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(232,228,220,0.4);margin-bottom:8px;font-weight:600">Current · Newport</div>
-          <div class="moi-num" style="color:rgba(232,228,220,0.35)">5,200</div>
-          <div class="moi-lbl">g·cm² forgiveness</div>
-          <div class="moi-bar-track"><div class="moi-bar-fill" style="width:53%;background:rgba(232,228,220,0.2)"></div></div>
-          <div class="moi-body">Compact blade geometry keeps mass close to center. This is the ceiling for a solid-face blade of this profile — and it's the limitation you're feeling every time contact is slightly off.</div>
+      <div class="stat-row a">
+        <div class="stat-card">
+          <div class="stat-num">82%<small>vs 75%</small></div>
+          <div class="stat-lbl">Mallet vs blade make rate inside 6 ft at 15-handicap.</div>
+          <div class="stat-src">Shot Scope · 40,000+ on-course putts · 2025</div>
         </div>
-        <div style="background:var(--card-bg);border:.5px solid var(--border-f);border-top:2px solid var(--gold);padding:16px;border-radius:2px;display:flex;flex-direction:column" class="a">
-          <div style="font-family:'Syne',sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-weight:600">Finalist 3 · Phantom 5.2</div>
-          <div class="moi-num">7,100</div>
-          <div class="moi-lbl">g·cm² forgiveness</div>
-          <div class="moi-bar-track"><div class="moi-bar-fill" style="width:73%"></div></div>
-          <div class="moi-delta"><span class="moi-delta-n">+37%</span><span class="moi-delta-l">+1,900 g·cm²</span></div>
-          <div class="moi-body">6061 aluminum body frees mass for perimeter placement. A meaningful step up — misses that drift offline now hold their line.</div>
+        <div class="stat-card">
+          <div class="stat-num">+1.0<small>per round</small></div>
+          <div class="stat-lbl">Average mallet advantage on makeable putts at your level.</div>
+          <div class="stat-src">Shot Scope tracking · 2.3 vs 2.6 three-putts/round</div>
         </div>
-        <div style="background:var(--card-bg);border:.5px solid var(--border-f);border-top:2px solid var(--gold);padding:16px;border-radius:2px;display:flex;flex-direction:column" class="a">
-          <div style="font-family:'Syne',sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-weight:600">Finalist 1 · Phantom 7.2</div>
-          <div class="moi-num">8,600</div>
-          <div class="moi-lbl">g·cm² forgiveness</div>
-          <div class="moi-bar-track"><div class="moi-bar-fill" style="width:88%"></div></div>
-          <div class="moi-delta"><span class="moi-delta-n">+65%</span><span class="moi-delta-l">+3,400 g·cm²</span></div>
-          <div class="moi-body">Extended angular wings push weight as far out as the geometry allows. Small misses — 5–10mm off center — produce almost no directional error. This is where the 82% vs 75% data gap is created.</div>
-        </div>
-        <div style="background:var(--card-bg);border:.5px solid var(--border-f);border-top:2px solid var(--gold);padding:16px;border-radius:2px;display:flex;flex-direction:column" class="a">
-          <div style="font-family:'Syne',sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-weight:600">Finalist 2 · Phantom 9.2R</div>
-          <div class="moi-num">9,800</div>
-          <div class="moi-lbl">g·cm² forgiveness</div>
-          <div class="moi-bar-track"><div class="moi-bar-fill" style="width:100%"></div></div>
-          <div class="moi-delta"><span class="moi-delta-n">+88%</span><span class="moi-delta-l">+4,600 g·cm²</span></div>
-          <div class="moi-body">Widest, deepest body in the Phantom range. The maximum forgiveness ceiling on the shortlist — strikes that would clearly miss with the Newport hold their line with the 9.2R.</div>
+        <div class="stat-card">
+          <div class="stat-num">75%<small>of wins</small></div>
+          <div class="stat-lbl">2024 PGA Tour victories won with mallet putters.</div>
+          <div class="stat-src">PGA Tour stats · Top 50 adoption 75–85%</div>
         </div>
       </div>
-      <div class="rnote a"><strong>Note:</strong> Values estimated from published head geometry and Scotty Cameron specifications. Relative gaps between the Newport and all three finalists are consistent regardless of exact measurement method — confirm with a SAM PuttLab session at fitting.</div>
+      <div class="data-strip a">
+        <div class="data-card">
+          <h3>Lab data agrees with the course data.</h3>
+          <div class="findings">
+            <div><b>62%</b> — mallets outperformed blades across all skill levels in SAM PuttLab testing.</div>
+            <div><b>+15%</b> — face-to-path consistency advantage, present in <b>100%</b> of players measured.</div>
+            <div><b>46,000+</b> putts analyzed across 46 putter models in the MyGolfSpy Golf Lab 2024 study — same directional conclusion.</div>
+          </div>
+        </div>
+        <div class="data-card alt">
+          <h3>The motor-learning angle</h3>
+          <div class="findings">
+            Putting precision is a perishable skill that needs thousands of consistent reps to stay grooved. Without regular putting practice between rounds, strike-pattern variability climbs — and a blade penalizes every miss directly. Higher-MOI heads absorb that variance automatically.
+            <div style="font-size:11px;color:var(--muted-2);margin-top:6px;letter-spacing:.04em">Psychological Research · 2025 motor learning study</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- ── S8 STROKE COMPATIBILITY ── -->
-<div class="slide" id="s8">
-  <div class="gold-rule"></div>
+<!-- ═══════════════════ S3 · FULL FIELD MATRIX ═══════════════════ -->
+<section class="slide" id="s3">
   <div class="sl">
-    <div class="sl-l a">
-      <div class="sl-num">08 · Stroke Compatibility</div>
-      <div class="sl-ttl">Your stroke dictates<br>the ideal face balance.</div>
-      <div class="sl-sup">A putter's face balance must match your natural stroke arc. A mismatch causes compensatory manipulation that destroys repeatability — the single most common root cause of directional inconsistency.</div>
-      <div style="margin-top:auto">
-        <div style="font-family:'Syne',sans-serif;font-size:11px;color:var(--gold);letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px;font-weight:600">Your stroke profile</div>
-        <div style="font-size:clamp(16px,1.8vw,22px);font-weight:600;line-height:1.4;color:var(--text)">Slight-arc to straight — exactly what plumbing-neck mallets are engineered for.</div>
+    <div class="sl-l">
+      <div>
+        <div class="sl-num a">03 · The full field</div>
+        <h2 class="sl-ttl a" style="margin-top:16px">All seven, <em>scored.</em></h2>
+        <p class="sl-sup a">Each putter rated 0–100 in five criteria, weighted to a composite total. Scored specifically for a Newport 2 player with a moderate-arc stroke.</p>
+        <div class="weights a">
+          <div class="weight-row"><span>Stroke compatibility</span><span class="wt-val">30%</span><span class="wt-bar"><span class="wt-fill" style="width:100%"></span></span></div>
+          <div class="weight-row"><span>MOI forgiveness</span><span class="wt-val">25%</span><span class="wt-bar"><span class="wt-fill" style="width:83%"></span></span></div>
+          <div class="weight-row"><span>Neck architecture</span><span class="wt-val">20%</span><span class="wt-bar"><span class="wt-fill" style="width:67%"></span></span></div>
+          <div class="weight-row"><span>Alignment utility</span><span class="wt-val">15%</span><span class="wt-bar"><span class="wt-fill" style="width:50%"></span></span></div>
+          <div class="weight-row"><span>Address confidence</span><span class="wt-val">10%</span><span class="wt-bar"><span class="wt-fill" style="width:33%"></span></span></div>
+        </div>
       </div>
-      <div class="sl-rule"></div>
+      <div class="sl-rule a"></div>
     </div>
     <div class="sl-r">
-      <div class="fg">
-        <div class="fc a">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-            <div class="fn" style="margin-bottom:0">Phantom 7.2</div>
-            <div style="display:flex;align-items:center;gap:6px"><span class="pc pc-hi"></span><span class="pv pv-g" style="font-size:14px">95%</span></div>
-          </div>
-          <div class="ft">Near-perfect stroke match</div>
-          <div class="fb">The 7.2's extended angular body is face-balanced at address, tracking cleanly on a slight arc. The plumbing neck positions the shaft directly over the center of mass, producing a pendulum geometry that rewards a consistent, unhurried tempo.</div>
-          <div style="margin-top:10px;padding:7px 10px;background:rgba(200,169,110,0.06);border-radius:2px;font-size:13px;color:var(--muted)">Toe hang: Low · Face balance: High · Arc: Straight to slight</div>
-        </div>
-        <div class="fc a">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-            <div class="fn" style="margin-bottom:0">Phantom 9.2R</div>
-            <div style="display:flex;align-items:center;gap:6px"><span class="pc pc-hi"></span><span class="pv pv-g" style="font-size:14px">90%</span></div>
-          </div>
-          <div class="ft">Excellent stroke match</div>
-          <div class="fb">The round mallet profile is fully face-balanced and tolerates a range of stroke arcs. The "R" designation introduces a rear-weighted cavity that creates a slightly more pendulum-forward feel — some players find this promotes a firmer, more decisive strike through contact.</div>
-          <div style="margin-top:10px;padding:7px 10px;background:rgba(200,169,110,0.06);border-radius:2px;font-size:13px;color:var(--muted)">Toe hang: None · Face balance: Full · Arc: Straight to slight</div>
-        </div>
-        <div class="fc a">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-            <div class="fn" style="margin-bottom:0">Phantom 5.2</div>
-            <div style="display:flex;align-items:center;gap:6px"><span class="pc pc-hi"></span><span class="pv pv-g" style="font-size:14px">88%</span></div>
-          </div>
-          <div class="ft">Strong stroke match</div>
-          <div class="fb">The 5.2's compact mallet delivers the face-balance profile of a larger mallet in a body closer to what a blade player already perceives. A familiar visual pendulum with mallet-grade face balance — the smallest adjustment in stroke geometry of the three finalists.</div>
-          <div style="margin-top:10px;padding:7px 10px;background:rgba(200,169,110,0.06);border-radius:2px;font-size:13px;color:var(--muted)">Toe hang: Low · Face balance: High · Arc: Slight to straight</div>
-        </div>
+      <div class="matrix-wrap a">
+        <table class="matrix">
+          <thead>
+            <tr>
+              <th>Putter</th>
+              <th>Stroke<span class="th-wt">30%</span></th>
+              <th>MOI<span class="th-wt">25%</span></th>
+              <th>Neck<span class="th-wt">20%</span></th>
+              <th>Align<span class="th-wt">15%</span></th>
+              <th>Conf.<span class="th-wt">10%</span></th>
+              <th>Total<span class="th-wt">/ 100</span></th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 1. Phantom 7.2 -->
+            <tr class="rec">
+              <td><span class="rk">01</span><span class="pname" style="display:inline">Scotty Cameron Phantom 7.2</span><span class="pmeta">Angular wingback · Plumbing neck · $499</span></td>
+              <td><div class="score-cell"><span class="sv">100</span><span class="sb-track"><span class="sb-fill" style="width:100%"></span></span></div></td>
+              <td><div class="score-cell"><span class="sv">85</span><span class="sb-track"><span class="sb-fill" style="width:85%"></span></span></div></td>
+              <td><div class="score-cell"><span class="sv">100</span><span class="sb-track"><span class="sb-fill" style="width:100%"></span></span></div></td>
+              <td><div class="score-cell"><span class="sv">100</span><span class="sb-track"><span class="sb-fill" style="width:100%"></span></span></div></td>
+              <td><div class="score-cell"><span class="sv">90</span><span class="sb-track"><span class="sb-fill" style="width:90%"></span></span></div></td>
+              <td><span class="tot-cell rec">95</span></td>
+              <td><span class="status-pill rec">Primary</span></td>
+            </tr>
+            <!-- 2. Phantom 9.2R -->
+            <tr>
+              <td><span class="rk">02</span><span class="pname" style="display:inline">Scotty Cameron Phantom 9.2R</span><span class="pmeta">Round mallet · Plumbing neck · $499</span></td>
+              <td><div class="score-cell"><span class="sv">100</span><span class="sb-track"><span class="sb-fill" style="width:100%"></span></span></div></td>
+              <td><div class="score-cell"><span class="sv">100</span><span class="sb-track"><span class="sb-fill" style="width:100%"></span></span></div></td>
+              <td><div class="score-cell"><span class="sv">100</span><span class="sb-track"><span class="sb-fill" style="width:100%"></span></span></div></td>
+              <td><div class="score-cell"><span class="sv mid">45</span><span class="sb-track"><span class="sb-fill mid" style="width:45%"></span></span></div></td>
+              <td><div class="score-cell"><span class="sv mid">50</span><span class="sb-track"><span class="sb-fill mid" style="width:50%"></span></span></div></td>
+              <td><span class="tot-cell">87</span></td>
+              <td><span class="status-pill alt">Conditional</span></td>
+            </tr>
+            <!-- 3. Phantom 5.2 -->
+            <tr>
+              <td><span class="rk">03</span><span class="pname" style="display:inline">Scotty Cameron Phantom 5.2</span><span class="pmeta">Compact wingback · Plumbing neck · $499</span></td>
+              <td><div class="score-cell"><span class="sv">100</span><span class="sb-track"><span class="sb-fill" style="width:100%"></span></span></div></td>
+              <td><div class="score-cell"><span class="sv mid">60</span><span class="sb-track"><span class="sb-fill mid" style="width:60%"></span></span></div></td>
+              <td><div class="score-cell"><span class="sv">100</span><span class="sb-track"><span class="sb-fill" style="width:100%"></span></span></div></td>
+              <td><div class="score-cell"><span class="sv mid">55</span><span class="sb-track"><span class="sb-fill mid" style="width:55%"></span></span></div></td>
+              <td><div class="score-cell"><span class="sv">95</span><span class="sb-track"><span class="sb-fill" style="width:95%"></span></span></div></td>
+              <td><span class="tot-cell">83</span></td>
+              <td><span class="status-pill fin">Fallback</span></td>
+            </tr>
+            <!-- 4. LAB Golf OZ.1i -->
+            <tr>
+              <td><span class="rk dim">04</span><span class="pname" style="display:inline">L.A.B. Golf OZ.1i</span><span class="pmeta">Mid-mallet · Lie Angle Balanced · $500</span></td>
+              <td><div class="score-cell"><span class="sv mid">60</span><span class="sb-track"><span class="sb-fill mid" style="width:60%"></span></span></div></td>
+              <td><div class="score-cell"><span class="sv">95</span><span class="sb-track"><span class="sb-fill" style="width:95%"></span></span></div></td>
+              <td><div class="score-cell"><span class="sv lo">25</span><span class="sb-track"><span class="sb-fill lo" style="width:25%"></span></span></div></td>
+              <td><div class="score-cell"><span class="sv">85</span><span class="sb-track"><span class="sb-fill" style="width:85%"></span></span></div></td>
+              <td><div class="score-cell"><span class="sv lo">35</span><span class="sb-track"><span class="sb-fill lo" style="width:35%"></span></span></div></td>
+              <td><span class="tot-cell alt">63</span></td>
+              <td><span class="status-pill elim">Eliminated</span></td>
+            </tr>
+            <!-- 5. Evnroll ER8 -->
+            <tr>
+              <td><span class="rk dim">05</span><span class="pname" style="display:inline">Evnroll Origin ER8</span><span class="pmeta">SweetFace 2.0 · Single-bend · $399</span></td>
+              <td><div class="score-cell"><span class="sv lo">30</span><span class="sb-track"><span class="sb-fill lo" style="width:30%"></span></span></div></td>
+              <td><div class="score-cell"><span class="sv">80</span><span class="sb-track"><span class="sb-fill" style="width:80%"></span></span></div></td>
+              <td><div class="score-cell"><span class="sv lo">20</span><span class="sb-track"><span class="sb-fill lo" style="width:20%"></span></span></div></td>
+              <td><div class="score-cell"><span class="sv mid">70</span><span class="sb-track"><span class="sb-fill mid" style="width:70%"></span></span></div></td>
+              <td><div class="score-cell"><span class="sv lo">25</span><span class="sb-track"><span class="sb-fill lo" style="width:25%"></span></span></div></td>
+              <td><span class="tot-cell elim">46</span></td>
+              <td><span class="status-pill elim">Eliminated</span></td>
+            </tr>
+            <!-- 6. Odyssey Jailbird -->
+            <tr>
+              <td><span class="rk dim">06</span><span class="pname" style="display:inline">Odyssey Ai-ONE Jailbird</span><span class="pmeta">Center-shafted face-bal. · $350</span></td>
+              <td><div class="score-cell"><span class="sv lo">20</span><span class="sb-track"><span class="sb-fill lo" style="width:20%"></span></span></div></td>
+              <td><div class="score-cell"><span class="sv">80</span><span class="sb-track"><span class="sb-fill" style="width:80%"></span></span></div></td>
+              <td><div class="score-cell"><span class="sv lo">15</span><span class="sb-track"><span class="sb-fill lo" style="width:15%"></span></span></div></td>
+              <td><div class="score-cell"><span class="sv">80</span><span class="sb-track"><span class="sb-fill" style="width:80%"></span></span></div></td>
+              <td><div class="score-cell"><span class="sv lo">25</span><span class="sb-track"><span class="sb-fill lo" style="width:25%"></span></span></div></td>
+              <td><span class="tot-cell elim">44</span></td>
+              <td><span class="status-pill elim">Eliminated</span></td>
+            </tr>
+            <!-- 7. TaylorMade Spider Tour X -->
+            <tr>
+              <td><span class="rk dim">07</span><span class="pname" style="display:inline">TaylorMade Spider Tour X</span><span class="pmeta">Slant hosel · 30° toe hang · ~$430</span></td>
+              <td><div class="score-cell"><span class="sv lo">30</span><span class="sb-track"><span class="sb-fill lo" style="width:30%"></span></span></div></td>
+              <td><div class="score-cell"><span class="sv mid">55</span><span class="sb-track"><span class="sb-fill mid" style="width:55%"></span></span></div></td>
+              <td><div class="score-cell"><span class="sv lo">20</span><span class="sb-track"><span class="sb-fill lo" style="width:20%"></span></span></div></td>
+              <td><div class="score-cell"><span class="sv mid">75</span><span class="sb-track"><span class="sb-fill mid" style="width:75%"></span></span></div></td>
+              <td><div class="score-cell"><span class="sv lo">45</span><span class="sb-track"><span class="sb-fill lo" style="width:45%"></span></span></div></td>
+              <td><span class="tot-cell elim">43</span></td>
+              <td><span class="status-pill elim">Eliminated</span></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <div class="rnote a">All three finalists score 88–95% on stroke compatibility because they share the same plumbing-neck architecture engineered for your stroke profile. This criterion does not differentiate them — any of the three is a biomechanically correct fit.</div>
+      <div class="matrix-foot a">
+        <b>Why four candidates were eliminated:</b> all three Phantoms preserve your plumbing-neck stroke architecture exactly. The OZ.1i has the strongest pure-performance technology in the field but ships with the highest brand- and geometry-transition cost. The other three carry incompatible neck geometries — re-grooving the stroke costs more than the technology gains.
+      </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- ── S9 NECK ARCHITECTURE ── -->
-<div class="slide" id="s9">
-  <div class="gold-rule"></div>
+<!-- ═══════════════════ S4 · FINALISTS DEEP-DIVE ═══════════════════ -->
+<section class="slide" id="s4">
   <div class="sl">
-    <div class="sl-l a">
-      <div class="sl-num">09 · Neck Architecture</div>
-      <div class="sl-ttl">The plumbing neck is a non-negotiable match.</div>
-      <div class="sl-sup">The hosel-to-shaft connection governs toe hang and face balance directly. A neck mismatch forces manipulation through impact — the single most common root cause of directional inconsistency in skilled players.</div>
-      <div style="margin-top:auto">
-        <div style="background:rgba(200,169,110,0.06);border:.5px solid var(--border);border-top:2px solid var(--gold);padding:14px 16px;border-radius:2px">
-          <div style="font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px">Plumbing Neck ✓</div>
-          <div style="font-size:14px;color:var(--muted);line-height:1.6">Shaft runs straight through hosel top. Near-zero offset. Low toe hang. Direct continuation of your current geometry — all three finalists use this architecture.</div>
-        </div>
+    <div class="sl-l">
+      <div>
+        <div class="sl-num a">04 · Inside the top three</div>
+        <h2 class="sl-ttl a" style="margin-top:16px">Three Phantoms. <em>One clear winner.</em></h2>
+        <p class="sl-sup a">The plumbing-neck filter eliminated four candidates. These three preserve your stroke architecture exactly — the only differences are head shape, weighting, and the address picture.</p>
       </div>
-      <div class="sl-rule"></div>
+      <div class="sl-rule a"></div>
     </div>
     <div class="sl-r">
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;flex-shrink:0" class="a">
-        <div style="background:var(--card-bg);border:.5px solid var(--border-f);padding:12px 14px;border-radius:2px;opacity:0.5">
-          <div style="font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">Slant Neck ✗</div>
-          <div style="font-size:14px;color:var(--muted);line-height:1.6">Moderate offset and medium toe hang. Requires a slight arc stroke — a mismatch for your profile.</div>
-        </div>
-        <div style="background:var(--card-bg);border:.5px solid var(--border-f);padding:12px 14px;border-radius:2px;opacity:0.5">
-          <div style="font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">Flow Neck ✗</div>
-          <div style="font-size:14px;color:var(--muted);line-height:1.6">Full-shaft offset. Higher toe hang. Best for strong-arc strokes — the opposite of your technique.</div>
-        </div>
-        <div style="background:var(--card-bg);border:.5px solid var(--border-f);padding:12px 14px;border-radius:2px;opacity:0.5">
-          <div style="font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">Short Slant ✗</div>
-          <div style="font-size:14px;color:var(--muted);line-height:1.6">Compact hosel with light offset. Variable face balance — inconsistent fit profile.</div>
-        </div>
-      </div>
-      <div class="fg">
-        <div class="fc a">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-            <div class="fn" style="margin-bottom:0">Phantom 7.2</div>
-            <div style="display:flex;align-items:center;gap:6px"><span class="pc pc-full"></span><span class="pv pv-g">95%</span></div>
+      <div class="fin-grid a">
+
+        <!-- Phantom 7.2 -->
+        <div class="fin-card primary">
+          <div class="fin-head">
+            <div>
+              <div class="fin-name">Phantom 7.2<em>Angular wingback</em></div>
+              <span class="fin-tag primary" style="margin-top:8px">Primary · 95</span>
+            </div>
+            <div class="fin-score">95</div>
           </div>
-          <div class="fb">Plumbing neck with the widest body in its category. The neck geometry is identical to your Special Select Newport — same sight picture at address, same shaft lean, no recalibration required.</div>
-        </div>
-        <div class="fc a">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-            <div class="fn" style="margin-bottom:0">Phantom 9.2R</div>
-            <div style="display:flex;align-items:center;gap:6px"><span class="pc pc-hi"></span><span class="pv pv-g">90%</span></div>
+          <div class="fin-criteria">
+            <div class="fc-row"><span>Stroke</span><span class="fc-val">100</span><span class="fc-bar"><span class="fc-fill" style="width:100%"></span></span></div>
+            <div class="fc-row"><span>MOI</span><span class="fc-val">85</span><span class="fc-bar"><span class="fc-fill" style="width:85%"></span></span></div>
+            <div class="fc-row"><span>Neck</span><span class="fc-val">100</span><span class="fc-bar"><span class="fc-fill" style="width:100%"></span></span></div>
+            <div class="fc-row"><span>Alignment</span><span class="fc-val">100</span><span class="fc-bar"><span class="fc-fill" style="width:100%"></span></span></div>
+            <div class="fc-row"><span>Confidence</span><span class="fc-val">90</span><span class="fc-bar"><span class="fc-fill" style="width:90%"></span></span></div>
           </div>
-          <div class="fb">Plumbing neck confirmed. The round body changes the head profile dramatically but the hosel connection is identical in geometry. Slight reduction reflects the larger head requiring brief recalibration of shaft lean perception.</div>
+          <div class="fin-verdict"><b>Highest composite — no weak category.</b> Extended angular wings push perimeter mass to the maximum r² distance from center while doubling as alignment rails. Blade-like topline reads as familiar from your Newport.</div>
         </div>
-        <div class="fc a">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-            <div class="fn" style="margin-bottom:0">Phantom 5.2</div>
-            <div style="display:flex;align-items:center;gap:6px"><span class="pc pc-hi"></span><span class="pv pv-g">88%</span></div>
+
+        <!-- Phantom 9.2R -->
+        <div class="fin-card">
+          <div class="fin-head">
+            <div>
+              <div class="fin-name">Phantom 9.2R<em>Round mallet</em></div>
+              <span class="fin-tag conditional" style="margin-top:8px">Conditional · 87</span>
+            </div>
+            <div class="fin-score dim">87</div>
           </div>
-          <div class="fb">Plumbing neck confirmed. Compact mallet body keeps the neck-to-head proportion closest to a blade — this is the most natural neck transition of the three. Setup will feel almost identical to your current putter within a few sessions.</div>
+          <div class="fin-criteria">
+            <div class="fc-row"><span>Stroke</span><span class="fc-val">100</span><span class="fc-bar"><span class="fc-fill" style="width:100%"></span></span></div>
+            <div class="fc-row"><span>MOI</span><span class="fc-val">100</span><span class="fc-bar"><span class="fc-fill" style="width:100%"></span></span></div>
+            <div class="fc-row"><span>Neck</span><span class="fc-val">100</span><span class="fc-bar"><span class="fc-fill" style="width:100%"></span></span></div>
+            <div class="fc-row"><span>Alignment</span><span class="fc-val lo">45</span><span class="fc-bar"><span class="fc-fill lo" style="width:45%"></span></span></div>
+            <div class="fc-row"><span>Confidence</span><span class="fc-val lo">50</span><span class="fc-bar"><span class="fc-fill lo" style="width:50%"></span></span></div>
+          </div>
+          <div class="fin-verdict"><b>Maximum forgiveness, real visual cost.</b> Highest MOI in the range — but the round profile is the biggest departure from your Newport. Only advances if a fitting confirms address comfort.</div>
         </div>
+
+        <!-- Phantom 5.2 -->
+        <div class="fin-card">
+          <div class="fin-head">
+            <div>
+              <div class="fin-name">Phantom 5.2<em>Compact wingback</em></div>
+              <span class="fin-tag fallback" style="margin-top:8px">Fallback · 83</span>
+            </div>
+            <div class="fin-score dim">83</div>
+          </div>
+          <div class="fin-criteria">
+            <div class="fc-row"><span>Stroke</span><span class="fc-val">100</span><span class="fc-bar"><span class="fc-fill" style="width:100%"></span></span></div>
+            <div class="fc-row"><span>MOI</span><span class="fc-val lo">60</span><span class="fc-bar"><span class="fc-fill lo" style="width:60%"></span></span></div>
+            <div class="fc-row"><span>Neck</span><span class="fc-val">100</span><span class="fc-bar"><span class="fc-fill" style="width:100%"></span></span></div>
+            <div class="fc-row"><span>Alignment</span><span class="fc-val lo">55</span><span class="fc-bar"><span class="fc-fill lo" style="width:55%"></span></span></div>
+            <div class="fc-row"><span>Confidence</span><span class="fc-val">95</span><span class="fc-bar"><span class="fc-fill" style="width:95%"></span></span></div>
+          </div>
+          <div class="fin-verdict"><b>Easiest transition, smallest gain.</b> Smallest visual change from the Newport — but the compact head means the smallest MOI bump of the three. Choose if the 7.2 produces hesitation at address.</div>
+        </div>
+
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- ── S10 ALIGNMENT ── -->
-<div class="slide" id="s10">
-  <div class="gold-rule"></div>
+<!-- ═══════════════════ S5 · PRIMARY 7.2 ═══════════════════ -->
+<section class="slide" id="s5">
+  <div class="pr-l">
+    <img class="pr-img" src="https://www.scottycameron.com/media/ptag021j/2026-sc-phantom-7-2-hero.jpg" alt="Phantom 7.2" onerror="this.style.display='none'">
+    <div class="pr-over">
+      <div class="pr-mod">Phantom 7.2<em>Angular wingback · Plumbing neck</em></div>
+      <span class="pr-price">$499 · 33" / 34" / 35"</span>
+    </div>
+  </div>
+  <div class="pr-r">
+    <div class="pr-tag-row a">
+      <span class="pr-tag">05 · Primary recommendation</span>
+      <span class="pr-score-pill">95 / 100</span>
+    </div>
+    <h2 class="pr-title a">Highest composite score, <em>no weak category.</em></h2>
+    <p class="pr-sub a">The 7.2 is the only candidate in the field that scores above 85 in every single criterion. Exact stroke and neck match to your Newport; maximum perimeter weighting for an angular body; the strongest alignment rails in the lineup; and a topline familiar enough to keep you confident over the ball.</p>
+    <div class="pillars">
+      <div class="pill-card a">
+        <div class="pill-eyebrow">Stroke · 100</div>
+        <div class="pill-title">Transfers without rebuild.</div>
+        <div class="pill-body">Plumbing neck, medium toe flow, full shaft offset — <b>architecturally identical</b> to your Newport's setup. No re-grooving the stroke; your muscle memory carries over from the first putt.</div>
+      </div>
+      <div class="pill-card a">
+        <div class="pill-eyebrow">MOI · 85</div>
+        <div class="pill-title">Maximum perimeter mass.</div>
+        <div class="pill-body">Extended angular wings push tungsten weighting to the extreme heel and toe — the <b>furthest r² distance</b> in any plumbing-neck Phantom angular body. Off-center strikes lose less distance and less line.</div>
+      </div>
+      <div class="pill-card a">
+        <div class="pill-eyebrow">Alignment · 100</div>
+        <div class="pill-title">Two parallel reference lines.</div>
+        <div class="pill-body">The sharp wing edges <b>frame the target line from two angles simultaneously</b>. Reduces cognitive load at address — directly tied to lower frontal-theta hesitation and higher make rates in EEG putting studies.</div>
+      </div>
+      <div class="pill-card a">
+        <div class="pill-eyebrow">Confidence · 90</div>
+        <div class="pill-title">Blade-like topline.</div>
+        <div class="pill-body">Scotty Cameron's own brief: <b>"a familiar look at address for players switching from a blade."</b> Angular silhouette reads as purposeful — none of the round-mallet visual shock that destroys confidence in the first few holes.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ S6 · TRANSITION & CLOSE ═══════════════════ -->
+<section class="slide" id="s6">
   <div class="sl">
-    <div class="sl-l a">
-      <div class="sl-num">10 · Alignment Utility</div>
-      <div class="sl-ttl">What you see at address determines what you trust.</div>
-      <div class="sl-big" style="font-size:clamp(56px,8vw,104px)">83%</div>
-      <div class="sl-lbl">of directional error in skilled amateur putting comes from face misalignment at address — not the stroke itself.</div>
-      <div class="sl-rule"></div>
+    <div class="sl-l">
+      <div>
+        <div class="sl-num a">06 · The transition</div>
+        <h2 class="sl-ttl a" style="margin-top:16px">What to <em>expect.</em></h2>
+        <p class="sl-sup a">The Newport built your stroke. The 7.2 keeps every architectural decision the same — the only thing that changes is what happens on the putts you slightly miss.</p>
+      </div>
+      <div class="sl-rule a"></div>
     </div>
     <div class="sl-r">
-      <div class="fg">
-        <div class="fc a">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-            <div class="fn" style="margin-bottom:0">Phantom 7.2</div>
-            <div style="display:flex;align-items:center;gap:6px"><span class="pc pc-full"></span><span class="pv pv-g">100%</span></div>
-          </div>
-          <div class="ft">Dominant alignment architecture</div>
-          <div class="fb">Single extended centerline runs the full length of the rear flange. The straight-edged angular body forms a natural "channel" around the line — two parallel reference points rather than one. The clearest alignment system in its price tier.</div>
-          <div style="margin-top:10px;padding:7px 10px;background:rgba(200,169,110,0.06);border-radius:2px;font-size:13px;color:var(--muted)">Centerline + angular body edges as secondary guides</div>
+      <div class="close-grid a">
+        <div class="close-card">
+          <div class="close-eyebrow">Visual adjustment</div>
+          <div class="close-title">A few holes.</div>
+          <div class="close-body">Plumbing neck means setup is identical to your Newport — only the head is wider. Most blade players stop registering the difference inside round one.</div>
         </div>
-        <div class="fc a">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-            <div class="fn" style="margin-bottom:0">Phantom 9.2R</div>
-            <div style="display:flex;align-items:center;gap:6px"><span class="pc pc-mid"></span><span class="pv pv-d">45%</span></div>
-          </div>
-          <div class="ft">Round profile creates alignment ambiguity</div>
-          <div class="fb">The Exo-Cage provides a center dot and partial lines, but the fully round mallet makes it harder to perceive whether the face is truly square. Players transitioning from a blade can find the curved perimeter disorienting — a significant factor in this scoring gap.</div>
-          <div style="margin-top:10px;padding:7px 10px;background:rgba(204,102,51,0.06);border:.5px solid rgba(204,102,51,0.2);border-radius:2px;font-size:13px;color:var(--muted)">Alignment score is the primary reason the 9.2R trails the 7.2 overall.</div>
+        <div class="close-card">
+          <div class="close-eyebrow">Stroke feel</div>
+          <div class="close-title">Softer, quieter face.</div>
+          <div class="close-body">The Studio Carbon Steel insert is more muted than the Newport's dual-milled face. Reviews uniformly describe this as an upgrade, not a compromise.</div>
         </div>
-        <div class="fc a">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-            <div class="fn" style="margin-bottom:0">Phantom 5.2</div>
-            <div style="display:flex;align-items:center;gap:6px"><span class="pc pc-mid"></span><span class="pv pv-d">50%</span></div>
-          </div>
-          <div class="ft">Familiar but minimal — near-blade information density</div>
-          <div class="fb">The compact mallet has a short rear sightline and relies on the player's instinct from the blade background. For a Newport user, the smaller head profile means alignment feels familiar rather than assisted — similar to the current putter, without the elevated visual guidance of the 7.2.</div>
-          <div style="margin-top:10px;padding:7px 10px;background:rgba(200,169,110,0.06);border-radius:2px;font-size:13px;color:var(--muted)">Short centerline · compact mallet profile · near-blade visual footprint</div>
+        <div class="close-card">
+          <div class="close-eyebrow">Before you buy</div>
+          <div class="close-title">Get fit first.</div>
+          <div class="close-body">Scotty Cameron Gallery or any Titleist dealer with SAM PuttLab. Verify the plumbing neck actually matches your stroke arc, and test all three Phantoms on the same green before committing.</div>
         </div>
       </div>
-      <div class="rnote a">The 7.2 creates the largest alignment gap of any criterion. If the fitting confirms that the 7.2's sight picture reads well for this player, the alignment advantage alone is a compelling differentiator.</div>
+      <div class="close-cta-row a">
+        <div class="close-quote">The adjustment period is short. The gain — on <em>every round</em> you play for the next several years — is not.</div>
+        <a href="https://www.scottycameron.com/fitting" target="_blank" rel="noopener" class="cta-btn">Book a fitting</a>
+      </div>
+      <div class="sources-line a">
+        <b style="color:var(--gold);font-weight:500;letter-spacing:.04em">Sources</b> · Shot Scope / MyGolfSpy 40,000+ on-course putts (2025) · Golf Digest × Club Champion SAM PuttLab (2024) · MyGolfSpy Golf Lab 46,000+ putts (2024) · Yu et al., Frontiers in Psychology 15:1349918 (2024) · Carey et al., Frontiers in Psychology 15:1424242 (2024) · Cognitive, Neurophysiological, and Behavioral Adaptations in Golf Putting Motor Learning, Psychological Research (2025) · scottycameron.com official specs
+      </div>
     </div>
   </div>
+</section>
+
 </div>
 
-<!-- ── S11 CONFIDENCE ── -->
-<div class="slide" id="s11">
-  <div class="gold-rule"></div>
-  <div class="sl">
-    <div class="sl-l a">
-      <div class="sl-num">11 · Address Confidence</div>
-      <div class="sl-ttl">The putter you trust most is the putter you make most.</div>
-      <div class="sl-sup">Studies on pre-shot routine and putting performance show a direct correlation between visual appeal at address and commitment to the line. A putter that produces hesitation causes deceleration and manipulation.</div>
-      <div style="margin-top:auto">
-        <div style="font-size:clamp(14px,1.4vw,18px);color:var(--text);font-weight:600;line-height:1.5">A current Newport user carries a strong visual reference for what "correct" looks like. The closer a finalist sits to that reference, the faster confidence transfers.</div>
-      </div>
-      <div class="sl-rule"></div>
-    </div>
-    <div class="sl-r">
-      <div class="fg">
-        <div class="fc a">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-            <div class="fn" style="margin-bottom:0">Phantom 7.2</div>
-            <div style="display:flex;align-items:center;gap:6px"><span class="pc pc-hi"></span><span class="pv pv-g">90%</span></div>
-          </div>
-          <div class="ft">High confidence — distinctive but purposeful</div>
-          <div class="fb">The 7.2's angular silhouette is assertive — it looks fast and engineered. Most Newport players report immediate comfort because the extended wings read as authority rather than excess. The centerline draws the eye to the ball-target line naturally. The putter projects confidence before the stroke begins.</div>
-        </div>
-        <div class="fc a">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-            <div class="fn" style="margin-bottom:0">Phantom 9.2R</div>
-            <div style="display:flex;align-items:center;gap:6px"><span class="pc pc-mid"></span><span class="pv pv-d">55%</span></div>
-          </div>
-          <div class="ft">Lower initial confidence for blade players</div>
-          <div class="fb">The 9.2R's round head is the largest visual departure from the Newport on the shortlist. For a player calibrated to a traditional blade profile, the wide curved body can feel unfamiliar — particularly from 6 feet. This normalizes with practice, but the fitting session is the definitive test.</div>
-          <div style="margin-top:10px;padding:7px 10px;background:rgba(204,102,51,0.06);border:.5px solid rgba(204,102,51,0.2);border-radius:2px;font-size:13px;color:var(--muted)">Key test: Does the 9.2R feel natural over a 5-footer? If yes, the MOI advantage becomes decisive.</div>
-        </div>
-        <div class="fc a">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-            <div class="fn" style="margin-bottom:0">Phantom 5.2</div>
-            <div style="display:flex;align-items:center;gap:6px"><span class="pc pc-hi"></span><span class="pv pv-g">82%</span></div>
-          </div>
-          <div class="ft">Highest transition confidence of the three</div>
-          <div class="fb">The 5.2's compact footprint and smaller rear profile are the closest visual analog to the Special Select Newport in the entire Phantom lineup. The player's eye adjusts fastest here. If fitting reveals any hesitation with the 7.2 or 9.2R, the 5.2 is the natural landing spot.</div>
-          <div style="margin-top:10px;padding:7px 10px;background:rgba(200,169,110,0.06);border-radius:2px;font-size:13px;color:var(--muted)">The 5.2 is the strongest fallback if head-size confidence is the deciding factor.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ── S12 FINALIST 1: PHANTOM 5.2 ── -->
-<div class="slide" id="s12">
-  <div class="gold-rule" style="position:absolute;top:0;left:0;right:0;z-index:2"></div>
-  <div class="fl">
-    <div class="fl-l">
-      <img class="fl-img"
-        src="https://www.scottycameron.com/media/sicf0u3k/2026-sc-phantom-5-2-hero.jpg"
-        alt="Scotty Cameron Phantom 5.2"
-        onerror="this.style.opacity='0'">
-      <div class="fl-over">
-        <div class="rey a">12 · Finalist 1 of 3</div>
-        <div class="rmod a">Scotty Cameron<br><em>Phantom 5.2</em></div>
-        <span class="rprice a">$499 · titleist.com</span>
-      </div>
-    </div>
-    <div class="fl-r">
-      <div class="rttl a">Natural transition — the most compact Phantom and the closest visual match to the Special Select Newport in the entire lineup.</div>
-      <div class="pillars">
-        <div class="pill a">
-          <div class="pt">Zero stroke disruption</div>
-          <div class="pb">Plumbing neck mirrors the Special Select Newport's geometry exactly. Same toe hang, same shaft plane — the muscle memory you've built carries over immediately on day one.</div>
-        </div>
-        <div class="pill a">
-          <div class="pt">Most blade-like Phantom profile</div>
-          <div class="pb">The 5.2 is the smallest head in the Phantom range — the closest any current Scotty Cameron mallet gets to the visual footprint of a blade. Fastest confidence path of the three finalists.</div>
-        </div>
-        <div class="pill a">
-          <div class="pt">+37% MOI over your Newport</div>
-          <div class="pb">A significant forgiveness gain — converting misses that would have drifted offline into putts that hold their line. A genuine step forward without a dramatic shape change.</div>
-        </div>
-        <div class="pill a">
-          <div class="pt">Studio Carbon Steel insert</div>
-          <div class="pb">Full-face chain-link milling delivers softer feel and sharper distance control — a meaningful advancement over the Newport's insert-free solid-steel construction.</div>
-        </div>
-      </div>
-      <div style="margin-top:14px;flex-shrink:0" class="a">
-        <a href="https://www.titleist.com/product/phantom-5.2/758C%3ACP-E757.html" target="_blank" style="font-family:'Syne',sans-serif;font-size:13px;color:var(--gold);letter-spacing:.1em;text-decoration:none;border-bottom:.5px solid var(--border)">View on Titleist.com →</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ── S13 FINALIST 2: PHANTOM 9.2R ── -->
-<div class="slide" id="s13">
-  <div class="gold-rule" style="position:absolute;top:0;left:0;right:0;z-index:2"></div>
-  <div class="fl">
-    <div class="fl-l">
-      <img class="fl-img"
-        src="https://www.scottycameron.com/media/2cmlwtyp/2026-sc-phantom-9-2r-hero.jpg"
-        alt="Scotty Cameron Phantom 9.2R"
-        onerror="this.style.opacity='0'">
-      <div class="fl-over">
-        <div class="rey a">13 · Finalist 2 of 3</div>
-        <div class="rmod a">Scotty Cameron<br><em>Phantom 9.2R</em></div>
-        <span class="rprice a">$499 · titleist.com</span>
-      </div>
-    </div>
-    <div class="fl-r">
-      <div class="rttl a">Maximum forgiveness — the highest MOI in the entire 2026 Phantom lineup, in a rounded modern mallet built for a plumbing-neck stroke.</div>
-      <div class="pillars">
-        <div class="pill a">
-          <div class="pt">Zero stroke disruption</div>
-          <div class="pb">Plumbing neck mirrors the Special Select Newport's geometry exactly. The same toe hang, the same shaft plane — established muscle memory becomes an immediate day-one advantage.</div>
-        </div>
-        <div class="pill a">
-          <div class="pt">Highest MOI in the Phantom lineup</div>
-          <div class="pb">The 9.2R's widest, deepest body pushes mass to the extreme perimeter — delivering more MOI than any other model in the 2026 Phantom range. Maximum protection on the shortlist.</div>
-        </div>
-        <div class="pill a">
-          <div class="pt">+88% MOI over your Newport</div>
-          <div class="pb">Off-center strikes that would cost distance and direction with any other option hold their intended line. The most forgiving instrument on the shortlist — by a significant margin.</div>
-        </div>
-        <div class="pill a">
-          <div class="pt">Studio Carbon Steel insert</div>
-          <div class="pb">Full-face chain-link milling delivers softer feel and precise distance control — a significant advancement over the Newport's insert-free solid-steel foundation.</div>
-        </div>
-      </div>
-      <div style="margin-top:14px;flex-shrink:0" class="a">
-        <a href="https://www.titleist.com/product/phantom-9.2r/758C%3ACP-E793.html" target="_blank" style="font-family:'Syne',sans-serif;font-size:13px;color:var(--gold);letter-spacing:.1em;text-decoration:none;border-bottom:.5px solid var(--border)">View on Titleist.com →</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ── S14 FINALIST 3: PHANTOM 7.2 ── -->
-<div class="slide" id="s14">
-  <div class="gold-rule" style="position:absolute;top:0;left:0;right:0;z-index:2"></div>
-  <div class="fl">
-    <div class="fl-l">
-      <img class="fl-img"
-        src="https://www.scottycameron.com/media/ptag021j/2026-sc-phantom-7-2-hero.jpg"
-        alt="Scotty Cameron Phantom 7.2"
-        onerror="this.style.opacity='0'">
-      <div class="fl-over">
-        <div class="rey a">14 · Finalist 3 of 3</div>
-        <div class="rmod a">Scotty Cameron<br><em>Phantom 7.2</em></div>
-        <span class="rprice a">$499 · titleist.com</span>
-      </div>
-    </div>
-    <div class="fl-r">
-      <div class="rttl a">Peak alignment architecture and exceptional MOI — the top-scoring finalist that delivers mallet-level stability in a profile that transitions naturally from a blade.</div>
-      <div class="pillars">
-        <div class="pill a">
-          <div class="pt">Zero stroke disruption</div>
-          <div class="pb">Plumbing neck mirrors the Special Select Newport's mid toe hang exactly. Established muscle memory becomes an immediate day-one advantage — no relearning required.</div>
-        </div>
-        <div class="pill a">
-          <div class="pt">Best-balanced MOI and alignment</div>
-          <div class="pb">Extended angular wings push mass to the extreme perimeter — exceptional forgiveness alongside the strongest alignment architecture of any finalist. Top composite score: 94.</div>
-        </div>
-        <div class="pill a">
-          <div class="pt">+65% MOI over your Newport</div>
-          <div class="pb">Sharp angular wings create the strongest visual alignment cues of any compatible model — reducing aim error on the pressure putts. Where the 82% vs 75% make-rate gap is being created.</div>
-        </div>
-        <div class="pill a">
-          <div class="pt">Studio Carbon Steel insert</div>
-          <div class="pb">New full-face chain-link milling delivers softer feel with sharper distance control — a significant advancement over the Newport's insert-free foundation.</div>
-        </div>
-      </div>
-      <div style="margin-top:14px;flex-shrink:0" class="a">
-        <a href="https://www.titleist.com/product/phantom-7.2/758C%3ACP-E758.html" target="_blank" style="font-family:'Syne',sans-serif;font-size:13px;color:var(--gold);letter-spacing:.1em;text-decoration:none;border-bottom:.5px solid var(--border)">View on Titleist.com →</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ── S15 WHAT TO EXPECT ── -->
-<div class="slide" id="s15">
-  <div class="gold-rule"></div>
-  <div class="sl">
-    <div class="sl-l a">
-      <div class="sl-num">15 · What to Expect</div>
-      <div class="sl-ttl">The first few rounds with a new putter.</div>
-      <div class="sl-sup">Three brief adjustments. None of them last more than a few rounds. All of them are worth it.</div>
-      <div style="margin-top:auto;background:rgba(200,169,110,0.04);border:.5px solid var(--border);border-left:2px solid var(--orange);padding:14px 16px;border-radius:2px">
-        <div style="font-size:clamp(14px,1.3vw,17px);color:var(--text);line-height:1.7;font-style:italic">"The adjustment period is short. The gain — on every round you play for the next several years — is not."</div>
-      </div>
-      <div class="sl-rule"></div>
-    </div>
-    <div class="sl-r">
-      <div class="risk-g">
-        <div class="rsk hi a">
-          <div class="rlv">Visual · A few holes</div>
-          <div class="rtt">Getting comfortable with a wider head</div>
-          <div class="rbd">All three Phantoms are wider than the Newport. Some blade players take a few holes to stop thinking about the size — then never think about it again.</div>
-          <div class="rmt"><strong>What to do</strong>15 minutes on the practice green before your first competitive round. Most players stop noticing the head size by hole 3.</div>
-        </div>
-        <div class="rsk md a">
-          <div class="rlv">Feel · 3–5 rounds</div>
-          <div class="rtt">The insert sounds and feels softer than the Newport</div>
-          <div class="rbd">The Newport's solid face is sharper-sounding at impact. The Phantom's Carbon Steel insert is softer. A few players initially read this as less precise feedback — it isn't.</div>
-          <div class="rmt"><strong>What to do</strong>Give it 3–5 rounds. The insert feel becomes your new reference quickly. The distance control is equivalent — the sound is different, not the information.</div>
-        </div>
-        <div class="rsk lo a">
-          <div class="rlv">Tempo · 1–2 rounds</div>
-          <div class="rtt">A slightly heavier feel through impact</div>
-          <div class="rbd">The wider, heavier head resists rotation slightly more than the Newport. Some players briefly over-steer in the first round or two. It self-corrects quickly.</div>
-          <div class="rmt"><strong>What to do</strong>You're not changing your stroke — you're learning the putter needs a little less input. Most find this actually simplifies their putting.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ── S16 CLOSE ── -->
-<div class="slide" id="s16">
-  <div class="gold-rule" style="position:absolute;top:0;left:0;right:0;z-index:2"></div>
-  <div class="crings">
-    <span style="width:480px;height:480px"></span>
-    <span style="width:680px;height:680px"></span>
-    <span style="width:880px;height:880px"></span>
-  </div>
-  <div class="ci2">
-    <span class="cgemclose a">✦</span>
-    <div class="cey2 a">The conclusion</div>
-    <div class="ctitle2 a">Your Newport built your stroke.<br>Time to <em>use it better.</em></div>
-    <div class="cbody a">The Newport isn't the problem — the equipment is. You've outgrown what a solid-face blade can do for a player who plays twice a week. All three finalists match your stroke exactly and give you the forgiveness a good putter on a real schedule deserves. One fitting session confirms which one. Go find out.</div>
-    <a class="ccta a" href="https://www.scottycameron.com/experience/fitting/" target="_blank">Book a Scotty Cameron Fitting →</a>
-  </div>
-  <div class="cfoot2">anthonybest.com · Putter Advisory · 2026</div>
-</div>
-
-</div><!-- /deck -->
-
+<!-- ═══════════════════ CONTROLS ═══════════════════ -->
 <div class="controls">
-  <a href="/projects/" class="btn" style="text-decoration:none">↑ Portfolio</a>
-  <button class="btn" onclick="go(-1)">← Prev</button>
-  <div class="dots" id="dts"></div>
-  <div class="ctr" id="ctr">1 / 16</div>
-  <button class="btn" onclick="go(1)">Next →</button>
+  <button class="btn" id="prev">← Prev</button>
+  <div class="dots" id="dots"></div>
+  <span class="ctr" id="ctr">1 / 6</span>
+  <button class="btn" id="next">Next →</button>
 </div>
 
 <script>
-const sl=document.querySelectorAll('.slide');
-const dEl=document.getElementById('dts');
-const ct=document.getElementById('ctr');
-let c=0,n=sl.length;
-ct.textContent=`1 / ${n}`;
-sl.forEach((_,i)=>{const d=document.createElement('div');d.className='d'+(i===0?' on':'');d.onclick=()=>gt(i);dEl.appendChild(d)});
-function gt(i){
-  sl[c].classList.remove('active');dEl.children[c].classList.remove('on');
-  c=Math.max(0,Math.min(i,n-1));
-  sl[c].classList.add('active');dEl.children[c].classList.add('on');
-  ct.textContent=`${c+1} / ${n}`;
-  sl[c].querySelectorAll('.a').forEach(e=>{e.style.animation='none';e.offsetHeight;e.style.animation=''});
-  if(window.innerWidth<=768)window.scrollTo({top:0,behavior:'instant'});
+const slides=document.querySelectorAll('.slide');
+const dots=document.getElementById('dots');
+const ctr=document.getElementById('ctr');
+const n=slides.length;
+let i=0;
+ctr.textContent=`1 / ${n}`;
+for(let k=0;k<n;k++){
+  const d=document.createElement('span');
+  d.className='d'+(k===0?' on':'');
+  d.onclick=()=>go(k);
+  dots.appendChild(d);
 }
-function go(d){gt(c+d)}
-document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowDown')go(1);if(e.key==='ArrowLeft'||e.key==='ArrowUp')go(-1)});
-let tx=0,ty=0;
-document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY},{passive:true});
-document.addEventListener('touchend',e=>{
-  const dx=e.changedTouches[0].clientX-tx;
-  const dy=e.changedTouches[0].clientY-ty;
-  if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>50)go(dx<0?1:-1);
+function go(k){
+  if(k<0||k>=n)return;
+  slides[i].classList.remove('active');
+  dots.children[i].classList.remove('on');
+  i=k;
+  slides[i].classList.add('active');
+  dots.children[i].classList.add('on');
+  ctr.textContent=`${i+1} / ${n}`;
+  if(window.matchMedia('(max-width:768px)').matches){window.scrollTo({top:0,behavior:'smooth'})}
+}
+document.getElementById('prev').onclick=()=>go(i-1);
+document.getElementById('next').onclick=()=>go(i+1);
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' ')go(i+1);
+  if(e.key==='ArrowLeft')go(i-1);
 });
 </script>
 </body>
