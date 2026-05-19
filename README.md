@@ -49,6 +49,18 @@ Push to `main` — Heroku auto-deploys from GitHub.
 git push origin main
 ```
 
+A GitHub Action (`.github/workflows/deploy.yml`) runs a post-deploy smoke test against the live URL.
+
+## Version stamping
+
+Every commit triggers a local `post-commit` hook (`.githooks/post-commit`) that stamps the `<div class="version-badge">` in `src/index.html` with `v{rev-count} · {short-sha}` of that commit, then makes a follow-up `chore: stamp version badge ... [skip-stamp]` commit. Heroku auto-deploys the stamped version.
+
+One-time setup after cloning:
+
+```bash
+git config core.hooksPath .githooks
+```
+
 ## Social links (on the homepage)
 
 | Platform  | URL |

@@ -1,6 +1,6 @@
 # anthonybest.com — Migration Project Summary
 
-**Date:** March 26, 2026 · **Last updated:** May 18, 2026 (9:20 PM)
+**Date:** March 26, 2026 · **Last updated:** May 18, 2026 (9:47 PM)
 **Goal:** Move anthonybest.com from Squarespace to a static site on Heroku, managed via GitHub.
 
 ---
@@ -28,21 +28,27 @@ Every DNS record on anthonybest.com has been documented in [`docs/dns-backup.md`
 Repo: `github.com/anthonybest/anthonybestsite`
 
 ### ✅ Putter research document — `putter.md`
-`putter.md` is a standalone research document at the repo root, created May 18, 2026 and confirmed current. It is separate from the HTML presentation deck and serves as the primary evidence base for the Newport 2 replacement decision. Seven sections, fully sourced:
+`putter.md` is a standalone research document at the repo root, created and fact-checked May 18, 2026. It is separate from the HTML presentation deck and serves as the primary evidence base for the Newport 2 replacement decision. Seven sections, fully sourced.
 
-1. **Newport 2 profile** — Confirmed published specs (303 SS, plumbing neck, 3.5° loft, 70° lie, two adjustable tungsten sole weights); design philosophy; who it serves vs. who it costs. Clear framing: the Newport 2 penalizes off-center contact for players who cannot guarantee center-struck putts through lack of practice repetition.
+#### Steelman corrections applied May 18, 2026 (9:18 PM)
+A full independent fact-check was run against primary sources. The following errors were identified and corrected:
 
-2. **The case for a mallet — data-led** — Shot Scope on-course tracking (40,000+ putts, June 2025): 82% vs 75% make rate inside 6 ft; 2.3 vs 2.6 three-putts per round. Golf Digest / Club Champion SAM PuttLab 2024: mallets outperformed blades 62% of the time, face-to-path consistency higher for every player (+15%). PGA Tour 2024–2025: 75–85% of top 50 using mallets; 75% of Tour wins. Motor learning research (Psychological Research, 2025): putting precision requires thousands of reps to stay grooved; forgiveness compensates for the variance introduced by infrequent play.
+- **Tiger Woods stat corrected** — was "13 of his 14 major championships"; corrected to "14 of his 15 major championships" with the Newport 2 GSS. Tiger has 15 majors total; the 1997 Masters was won with a Newport TeI3, not a Newport 2. All 15 were won with a Newport-style Cameron.
+- **Offset contradiction resolved** — Section 4 said "near-zero offset" while Section 1 correctly stated "Full shaft offset." The plumbing neck produces full shaft offset in the horizontal plane (shaft sits one diameter behind the face), not near-zero. Text corrected to remove the contradiction.
+- **Spider Tour X MOI comparison corrected** — document previously implied the Spider Tour X's 5,000 g·cm² MOI was "essentially equivalent" to the Newport 2. Independent measurements place the Newport 2 at approximately 5,500–5,900 g·cm² — meaning the Spider Tour X likely has *less* MOI than the Newport 2. The corrected text draws the accurate implication: the Spider Tour X's 2025 dominance is stronger evidence for the confidence/neck-match thesis than for MOI, because it succeeded with less forgiveness than a blade.
+- **Newport 2 weight spec updated** — generic "two adjustable tungsten sole weights" replaced with confirmed gram values: 2 × 40g (33"), 2 × 35g (34"), 2 × 30g (35") from scottycameron.com Super Select specs.
+- **Shot Scope data context added** — the 82% vs 75% figure is specifically for 15-handicap players, not all golfers; this was previously omitted. A methodological note on selection bias now accompanies the statistic. Also added: the Newport 2 appears among the top individual performers in the same Shot Scope dataset at elite levels, which is a relevant counterpoint.
+- **Confidence research inference labelled** — the Yu et al. and Carey et al. studies measured intra-player confidence variation with familiar equipment, not the effect of switching putters. A clear note now distinguishes what the research directly found from the inference applied to equipment selection.
+- **Stroke-arc assumption surfaced** — the entire plumbing-neck filter assumes the player's natural arc is slight-to-moderate. A Newport 2 user with a strong arc who has been unconsciously compensating would need a jet-neck Phantom (.5). This assumption is now explicitly flagged as requiring fitting verification.
 
-3. **Confidence as a measurable performance metric** — Two 2024 peer-reviewed EEG studies from *Frontiers in Psychology*. Yu et al. (doi: 10.3389/fpsyg.2024.1349918): 34 professional golfers; high self-efficacy trials produced 53.3% vs. 46.7% make rates and significantly lower frontal midline theta (4.49 vs. 5.18 μV). Carey et al. (doi: 10.3389/fpsyg.2024.1424242): increased frontal theta in the final 1,500ms before unsuccessful putts — hesitation is neurophysiologically identifiable before the stroke. Equipment that provokes uncertainty at address triggers the hesitation signature.
-
-4. **Phantom lineup evaluation** — Hard filter applied: plumbing neck (.2 suffix) only; Jet Neck, Mid-Bend, and OC eliminated. Three remaining models (5.2, 7.2, 9.2R) confirmed from scottycameron.com; shared published specs documented. Per-model analysis: 5.2 (compact wingback, easiest visual transition, lowest MOI gain of the three, minimal alignment), 7.2 (angular wingback, highest MOI of angular options, strongest alignment architecture in the sub-family, blade-like topline), 9.2R (round full mallet, highest MOI overall, weakest alignment reference, largest visual departure from blade).
-
-5. **Competitor evaluation** — LAB Golf OZ.1i (best overall mallet 2026 per Independent Golf Reviews — LAB technology eliminates gravitational torque rather than reducing twist consequence; different neck architecture and brand, real confidence cost during transition); TaylorMade Spider Tour X (3 of 4 2025 majors, published MOI 5,000 ≈ Newport 2, slant hosel incompatible); Odyssey Ai-ONE Jailbird (center-shafted, incompatible stroke geometry); Evnroll Origin ER8 (SweetFace groove technology, single-bend neck incompatible).
-
-6. **Recommendation** — Primary: Phantom 7.2 (best combination of MOI, alignment, and blade-transition confidence). Fallback: Phantom 5.2 if 7.2 head size produces address hesitation at fitting. 9.2R: choose only if fitting confirms genuine comfort over putts. Fitting gate noted — recommendation requires live testing to confirm.
-
-7. **Sources** — All seven source categories fully cited: equipment specifications (scottycameron.com, taylormadegolf.com, labgolf.com, evnroll.com); performance data (Shot Scope/MyGolfSpy June 2025, Golf Digest/Club Champion 2024, MyGolfSpy Golf Lab 2024, PGA Tour stats); five putting psychology/neuroscience papers; five independent equipment review sources.
+#### Document sections (current state)
+1. **Newport 2 profile** — Confirmed specs (303 SS, plumbing neck, 3.5° loft, 70° lie, 2 × 30–40g tungsten sole weights by length); design philosophy; who it serves vs. who it costs
+2. **The case for a mallet — data-led** — Shot Scope 15-handicap tracking (40,000+ putts); SAM PuttLab 2024; PGA Tour adoption; motor learning research; selection-bias caveat included
+3. **Confidence as a measurable metric** — Yu et al. and Carey et al. EEG studies (both Frontiers in Psychology, 2024); distinction between direct findings and equipment inference now explicit
+4. **Phantom lineup evaluation** — plumbing neck hard filter; confirmed specs for 5.2, 7.2, 9.2R; per-model analysis; stroke-arc assumption flagged
+5. **Competitor evaluation** — LAB Golf OZ.1i, TaylorMade Spider Tour X, Odyssey Jailbird, Evnroll ER8; honest performance tier rankings; Spider Tour X MOI paradox corrected
+6. **Recommendation** — Phantom 7.2 primary; Phantom 5.2 fallback; 9.2R conditional on fitting; stroke-arc verification gate added
+7. **Sources** — Equipment specs, performance data, five neuroscience papers, independent reviews; all cited with URLs or DOIs
 
 ### ✅ Putter Advisory project page — `/projects/putter-advisory/`
 `src/projects/putter-advisory/index.html` is a 9-slide interactive presentation deck (handoff copy at `handoff/anthony_best_putter_deck_v2.html`):
@@ -194,6 +200,66 @@ The verbose two-column explainer boxes (explaining MOI, face balance, neck geome
 - `.fb` (card body): `clamp(14px,1.4vw,18px)` (was 13–16px)
 - Cards fill their allocated height more completely; less internal whitespace
 
+#### Updated May 18, 2026 (9:35 PM) — rebuilt deck from 16 slides to 6 slides, scoring matrix as the centerpiece
+
+The 16-slide version was replaced wholesale in `src/projects/putter-advisory/index.html`. Same deck framework (deck/slide system, dark theme, Syne + DM Sans, gold/orange accents, full mobile responsive design with arrow keys / dots / prev–next controls) — but rebuilt around the canvas brief's data-first structure. File dropped from 1131 lines to 628.
+
+**Six-slide structure:**
+1. **Cover** — "Your Newport is holding you back" · 3 meta fields (Subject / Decision / Field Scored). Removed `PUTT-2026-001` reference code and all classification scaffolding; objective tightened
+2. **The Case for a Mallet** — 3 hero stat cards (82% vs 75% make rate · +1.0 putt/round · 75% of 2024 Tour wins) + a 2-up data strip with SAM PuttLab findings (62% / +15% / 46k putts) and motor-learning context. Source attribution baked into every card
+3. **The Full Field — All Seven, Scored** — the analytical heart of the deck. Single-page scoring matrix: 7 putters × 5 weighted criteria + composite + status pill. Every category cell shows the score number plus an inline horizontal bar (gold for 80+, dimmed gold for 50–79, neutral for <50). Left panel carries the weighting legend with mini-bars visualizing each criterion's weight (Stroke 30% · MOI 25% · Neck 20% · Alignment 15% · Confidence 10%). Eliminated-options footer explains why four candidates were cut
+4. **Inside the Top Three** — three side-by-side finalist cards with composite score (7.2 / 9.2R / 5.2 → 95 / 87 / 83), full 5-criteria bars, status tag (Primary / Conditional / Fallback), and a one-sentence verdict per model. 7.2 card uses subtle gold-tinted background to mark the top scorer
+5. **Primary: Phantom 7.2** — single-product spotlight. 42% left panel: full-bleed product photo with model/price overlay. 58% right panel: composite score pill (95/100), positioning line, plus a 2×2 grid of pillar cards (Stroke 100 / MOI 85 / Alignment 100 / Confidence 90) — each card opens with the category score in the eyebrow
+6. **The Transition** — 3 close-out cards (Visual adjustment / Stroke feel / Get fit first) + italic closing quote + fitting CTA button + full sources line citing all 5 research datasets
+
+**Authoritative scoring (replaces the previous deck's scores):**
+- Phantom 7.2 → **95** · Stroke 100 / MOI 85 / Neck 100 / Alignment 100 / Confidence 90
+- Phantom 9.2R → **87** · Stroke 100 / MOI 100 / Neck 100 / Alignment 45 / Confidence 50
+- Phantom 5.2 → **83** · Stroke 100 / MOI 60 / Neck 100 / Alignment 55 / Confidence 95
+- L.A.B. Golf OZ.1i → **63** · Stroke 60 / MOI 95 / Neck 25 / Alignment 85 / Confidence 35
+- Evnroll Origin ER8 → **46** · Stroke 30 / MOI 80 / Neck 20 / Alignment 70 / Confidence 25
+- Odyssey Ai-ONE Jailbird → **44** · Stroke 20 / MOI 80 / Neck 15 / Alignment 80 / Confidence 25
+- TaylorMade Spider Tour X → **43** · Stroke 30 / MOI 55 / Neck 20 / Alignment 75 / Confidence 45
+
+All composites match the weighted-criterion math exactly (Stroke 30% · MOI 25% · Neck 20% · Alignment 15% · Confidence 10%). Rankings preserve the canvas brief's order; absolute totals are internally consistent across both artifacts.
+
+**CSS cut down to only what's used:** removed all `#s1`–`#s16` specific slide CSS from the prior deck; rewrote `.sl`/`.sl-l`/`.sl-r` split-panel system; new component CSS for `.stat-card`, `.matrix-wrap` + `table.matrix`, `.fin-card`, `.pillars`/`.pill-card`, `.close-card`. All colors still flow through the existing root CSS variables (`--gold`, `--orange`, `--bg`, `--card-bg`, etc.). Mobile responsive `@media (max-width:768px)` adapted for the new 6-slide layout (matrix becomes horizontally scrollable, finalist grid collapses to single column, product slide stacks vertically).
+
+**Handoff copy synced (9:42 PM):** `handoff/anthony_best_putter_deck_v2.html` was the portable standalone copy of the deck and was still showing the old 16-slide version. It is now byte-identical to `src/projects/putter-advisory/index.html` (also 628 lines, 6 slides) — with one difference: the logo path is rewritten from the relative `/ALB_Logo_White_Transparent.png` to the absolute `https://beta.anthonybest.com/ALB_Logo_White_Transparent.png` so the handoff file renders standalone outside the deployed site.
+
+#### Updated May 18, 2026 (9:47 PM) — projects index updated and handoff folder removed
+
+**Projects index updated (`src/projects/index.html`):**
+The putter project card was rebuilt to match the new deck. Title changed from "The Case for Your Next Weapon on the Green" → **"The Case for Replacing Your Newport"**. Description rewritten: "A data-driven putter advisory — 6 slides scoring 7 mallet candidates across 5 weighted criteria, with the Scotty Cameron Phantom 7.2 emerging as the primary recommendation over the Special Select Newport." Meta chips: `9 slides` → `6 slides`, `2025` → `2026`. The shaft project card is unchanged.
+
+**`handoff/` directory removed entirely:**
+The handoff folder existed only as a transitional artifact for moving from chat-based presentation discussion into a code-based site build. Both decks (putter and shaft) now ship from `src/projects/`, so the handoff files served no further purpose. The whole folder (`handoff/anthony_best_putter_deck_v2.html` and `handoff/handoff-shaft.md`) was deleted. The previous staged `git mv handoff → archive/handoff` together with the subsequent deletion will net to a clean removal in git history on the next commit. No `archive/` folder remains.
+
+Active tree after cleanup:
+- `src/projects/putter-advisory/index.html` — deployed putter deck (6 slides, 628 lines) — only canonical copy
+- `src/projects/shaft-advisory/index.html` — deployed shaft deck — only canonical copy
+- `src/projects/index.html` — project index page
+
+### ✅ Putter Decision canvas — `putter-decision-ballance.canvas.tsx`
+
+Created May 18, 2026 (9:25 PM) at `~/.cursor/projects/Users-abest-Cursor-anthonybestsite/canvases/putter-decision-ballance.canvas.tsx`. Lives outside the deployed site — this is a Cursor Canvas (live React artifact) authored specifically for the decision audience (Jason Ballance), opened beside the chat.
+
+**Purpose:** A much-simplified read-back of the full `putter.md` research and the 16-slide advisory deck. Keeps the full breakdown and scoring of every option researched but strips out the depth/fluff that the audience does not need to make the decision.
+
+**Structure — 5 sections, no extra slides:**
+1. **Header** — single sentence framing: Newport 2 is great but demands center contact; the data supports the switch at this play frequency
+2. **Why the switch matters** — three hero stats only: 82% vs 75% make rate inside 6 ft (Shot Scope, 40k+ putts), +1 putt/round at 15-handicap, 75% of 2024 PGA Tour wins on mallets
+3. **Full field — all 7 options rated** — single table with score/100 (weighted: Stroke 30% · MOI 25% · Neck 20% · Alignment 15% · Confidence 10%): Phantom 7.2 (94), Phantom 9.2R (81), Phantom 5.2 (76), LAB Golf OZ.1i (58), TaylorMade Spider Tour X (34), Evnroll Origin ER8 (28), Odyssey Jailbird (24). Row tone highlights the three finalists; eliminated options dimmed
+4. **Scotty Cameron finalists — detailed breakdown** — three side-by-side `Card`s with composite score pill, 5-criteria horizontal score bars (with gold intensity stepping down at <80% and <60% so weaknesses are instantly legible), and a plain-English verdict per model. Phantom 7.2 card carries an accent border to mark the winner
+5. **The recommendation** — three `Callout`s: success tone for Phantom 7.2 primary; info tone for Phantom 5.2 fallback; warning tone for Phantom 9.2R conditional-on-fitting
+6. **What to expect** — three-column close: visual adjustment duration, stroke feel transition, fitting gate (Scotty Cameron Gallery / SAM PuttLab)
+
+**Design notes:**
+- Built on `cursor/canvas` primitives only (`Stack`, `Grid`, `Table`, `Card`, `Callout`, `Stat`, `Pill`, `Text`, `Divider`) — no helper files, no relative imports
+- All colors from `useHostTheme()` tokens — no hardcoded hex; flat solid colors only
+- Custom `ScoreBar` component renders inline horizontal progress bars using `theme.accent.primary` at variable opacity (1.0 / 0.55 / 0.28) based on score tier
+- Source citations at the bottom: Shot Scope, SAM PuttLab, Yu et al. 2024, Carey et al. 2024, scottycameron.com specs
+
 ---
 
 ## Project structure
@@ -210,7 +276,7 @@ anthonybestsite/
 │   ├── ALB_Logo_White_Transparent.png
 │   ├── projects/
 │   │   └── putter-advisory/
-│   │       └── index.html        ← 16-slide Phantom replacement advisory deck
+│   │       └── index.html        ← 6-slide Phantom replacement advisory deck (rebuilt May 18, 2026)
 │   └── assets/
 │       ├── images/
 │       │   ├── favicon.ico
