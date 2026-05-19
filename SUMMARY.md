@@ -1,6 +1,6 @@
 # anthonybest.com — Migration Project Summary
 
-**Date:** March 26, 2026 · **Last updated:** May 18, 2026 (8:21 PM)
+**Date:** March 26, 2026 · **Last updated:** May 18, 2026 (9:20 PM)
 **Goal:** Move anthonybest.com from Squarespace to a static site on Heroku, managed via GitHub.
 
 ---
@@ -26,6 +26,23 @@ Every DNS record on anthonybest.com has been documented in [`docs/dns-backup.md`
 
 ### ✅ GitHub repo live
 Repo: `github.com/anthonybest/anthonybestsite`
+
+### ✅ Putter research document — `putter.md`
+`putter.md` is a standalone research document at the repo root, created May 18, 2026 and confirmed current. It is separate from the HTML presentation deck and serves as the primary evidence base for the Newport 2 replacement decision. Seven sections, fully sourced:
+
+1. **Newport 2 profile** — Confirmed published specs (303 SS, plumbing neck, 3.5° loft, 70° lie, two adjustable tungsten sole weights); design philosophy; who it serves vs. who it costs. Clear framing: the Newport 2 penalizes off-center contact for players who cannot guarantee center-struck putts through lack of practice repetition.
+
+2. **The case for a mallet — data-led** — Shot Scope on-course tracking (40,000+ putts, June 2025): 82% vs 75% make rate inside 6 ft; 2.3 vs 2.6 three-putts per round. Golf Digest / Club Champion SAM PuttLab 2024: mallets outperformed blades 62% of the time, face-to-path consistency higher for every player (+15%). PGA Tour 2024–2025: 75–85% of top 50 using mallets; 75% of Tour wins. Motor learning research (Psychological Research, 2025): putting precision requires thousands of reps to stay grooved; forgiveness compensates for the variance introduced by infrequent play.
+
+3. **Confidence as a measurable performance metric** — Two 2024 peer-reviewed EEG studies from *Frontiers in Psychology*. Yu et al. (doi: 10.3389/fpsyg.2024.1349918): 34 professional golfers; high self-efficacy trials produced 53.3% vs. 46.7% make rates and significantly lower frontal midline theta (4.49 vs. 5.18 μV). Carey et al. (doi: 10.3389/fpsyg.2024.1424242): increased frontal theta in the final 1,500ms before unsuccessful putts — hesitation is neurophysiologically identifiable before the stroke. Equipment that provokes uncertainty at address triggers the hesitation signature.
+
+4. **Phantom lineup evaluation** — Hard filter applied: plumbing neck (.2 suffix) only; Jet Neck, Mid-Bend, and OC eliminated. Three remaining models (5.2, 7.2, 9.2R) confirmed from scottycameron.com; shared published specs documented. Per-model analysis: 5.2 (compact wingback, easiest visual transition, lowest MOI gain of the three, minimal alignment), 7.2 (angular wingback, highest MOI of angular options, strongest alignment architecture in the sub-family, blade-like topline), 9.2R (round full mallet, highest MOI overall, weakest alignment reference, largest visual departure from blade).
+
+5. **Competitor evaluation** — LAB Golf OZ.1i (best overall mallet 2026 per Independent Golf Reviews — LAB technology eliminates gravitational torque rather than reducing twist consequence; different neck architecture and brand, real confidence cost during transition); TaylorMade Spider Tour X (3 of 4 2025 majors, published MOI 5,000 ≈ Newport 2, slant hosel incompatible); Odyssey Ai-ONE Jailbird (center-shafted, incompatible stroke geometry); Evnroll Origin ER8 (SweetFace groove technology, single-bend neck incompatible).
+
+6. **Recommendation** — Primary: Phantom 7.2 (best combination of MOI, alignment, and blade-transition confidence). Fallback: Phantom 5.2 if 7.2 head size produces address hesitation at fitting. 9.2R: choose only if fitting confirms genuine comfort over putts. Fitting gate noted — recommendation requires live testing to confirm.
+
+7. **Sources** — All seven source categories fully cited: equipment specifications (scottycameron.com, taylormadegolf.com, labgolf.com, evnroll.com); performance data (Shot Scope/MyGolfSpy June 2025, Golf Digest/Club Champion 2024, MyGolfSpy Golf Lab 2024, PGA Tour stats); five putting psychology/neuroscience papers; five independent equipment review sources.
 
 ### ✅ Putter Advisory project page — `/projects/putter-advisory/`
 `src/projects/putter-advisory/index.html` is a 9-slide interactive presentation deck (handoff copy at `handoff/anthony_best_putter_deck_v2.html`):
@@ -145,6 +162,38 @@ The deck's central argument was rebuilt. The previous framing ("graduation from 
 - Title changed from "Three exceptional instruments. One will reveal itself." to "Your Newport built your stroke. Time to use it better."
 - Body copy rewritten with conviction: acknowledges the Newport's role, frames the change as outgrowing the equipment's limitations, directs to a fitting session without hedging
 
+#### Updated May 18, 2026 (9:20 PM) — full pitch deck visual redesign, slide 6 rebuilt, whitespace fixed
+
+**New layout architecture — split-panel system replacing top-header model:**
+All content slides (2–15) migrated from the old `.inner` + `.sh` (small top header + content below) pattern to a new two-column split layout:
+- Left panel (28%): section label (11px gold, tracked) + large dramatic slide title (`clamp(22px,3vw,42px)`) + optional hero stat. Panel uses `justify-content:space-between` to distribute content evenly — eliminates the dead zone that formed between the section label and title when no hero stat existed.
+- Right panel (72%): all card/data/grid content with `24px/34px` padding
+
+**Hero stats as dominant visual elements:**
+Key numbers are now the first thing visible on data slides — not buried in card body text:
+- Slide 4: `+1` at up to 124px in gold, then `82% vs 75%` stacked comparison below
+- Slide 5: `40,000+` as left-panel hero stat with label `MyGolfSpy / Shot Scope · 2025`
+- Slide 7: Newport `5,200` baseline shown dim in left panel; right panel shows 4 MOI bar cards
+- Slide 10: `83%` at ~100px (83% of directional error from face misalignment at address)
+
+**Finalist slides 12–14 — full-height putter images:**
+Removed the old `max-height: 200px` image constraint. Putter images now fill the entire 42% left panel via `position:absolute; inset:0; object-fit:contain; padding:9% 7%` against a `#060608` dark background — a product photography / magazine spread approach. Model name and price overlay from the bottom via a gradient. Emoji icons removed from feature cards; cards use `border-top: 1.5px solid var(--gold)` accent only.
+
+**Primer boxes removed from slides 7–11:**
+The verbose two-column explainer boxes (explaining MOI, face balance, neck geometry, alignment, and confidence concepts) were eliminated. Key context was moved into the left panel as concise `sl-sup` text beneath the title. Right panels now give the full height to the 3-finalist comparison cards.
+
+**Slide 6 — fully rebuilt as visual finalist comparison (PR #12):**
+- Old dense table replaced with three large side-by-side finalist cards
+- Each card: model name + composite score at 88px + five labeled horizontal progress bars (Stroke Compatibility / MOI Forgiveness / Neck Architecture / Alignment Utility / Address Confidence), each showing the percentile as a filled bar and numeric label. High scores render in full gold; lower scores render in dimmed gold to make weaknesses immediately visible (9.2R alignment gap at 45% and 5.2 MOI gap at 58% are instantly legible)
+- Phantom 7.2 card uses a subtle gold-tinted background to signal top scorer (94 vs 81 vs 76)
+- Header row integrates title left + five criteria weight badges right (`Stroke 30%` / `MOI 25%` / `Neck 20%` / `Alignment 15%` / `Confidence 10%`)
+- Bottom strip: seven eliminated models explained in one line (`Fixed neck — 5.5 & 7.5 · Over-center offset — ×2 · Incompatible stroke arc — ×5`)
+
+**Card typography scaled up:**
+- `.ft` (card title): `clamp(16px,1.8vw,24px)` (was 14–20px)
+- `.fb` (card body): `clamp(14px,1.4vw,18px)` (was 13–16px)
+- Cards fill their allocated height more completely; less internal whitespace
+
 ---
 
 ## Project structure
@@ -154,6 +203,7 @@ anthonybestsite/
 ├── Procfile                      ← web: bin/start-nginx-static
 ├── static.json                   ← root: src/, clean_urls, https_only
 ├── README.md
+├── putter.md                     ← standalone Newport 2 replacement research document (May 2026)
 ├── SUMMARY.md                    ← this file
 ├── src/                          ← deployed web root
 │   ├── index.html                ← link-in-bio homepage
