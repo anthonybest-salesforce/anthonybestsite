@@ -41,13 +41,13 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-seri
    Right panel (72%): main content
    ══════════════════════════════════════════ */
 .sl{flex:1;display:grid;grid-template-columns:28% 1fr;min-height:0;overflow:hidden}
-.sl-l{padding:36px 28px 80px;display:flex;flex-direction:column;border-right:.5px solid rgba(255,255,255,0.055);background:linear-gradient(155deg,rgba(200,169,110,0.07) 0%,transparent 55%)}
-.sl-r{padding:28px 36px 80px;display:flex;flex-direction:column;overflow:hidden;gap:14px}
+.sl-l{padding:32px 28px 80px;display:flex;flex-direction:column;justify-content:space-between;border-right:.5px solid rgba(255,255,255,0.055);background:linear-gradient(155deg,rgba(200,169,110,0.07) 0%,transparent 55%)}
+.sl-r{padding:24px 34px 80px;display:flex;flex-direction:column;overflow:hidden;gap:12px}
 .sl-num{font-family:'Syne',sans-serif;font-size:11px;color:var(--gold);letter-spacing:.22em;text-transform:uppercase;font-weight:600;flex-shrink:0}
-.sl-ttl{font-family:'Syne',sans-serif;font-size:clamp(20px,2.8vw,38px);font-weight:800;line-height:1.1;margin-top:auto}
+.sl-ttl{font-family:'Syne',sans-serif;font-size:clamp(22px,3vw,42px);font-weight:800;line-height:1.1}
 .sl-ttl em{font-style:italic;color:var(--gold);font-weight:400}
-.sl-sup{font-size:clamp(13px,1.1vw,15px);color:var(--muted);line-height:1.65;margin-top:14px}
-.sl-big{font-family:'Syne',sans-serif;font-size:clamp(72px,10vw,124px);font-weight:800;color:var(--gold);line-height:.88;margin-top:auto}
+.sl-sup{font-size:clamp(13px,1.2vw,16px);color:var(--muted);line-height:1.65;margin-top:12px}
+.sl-big{font-family:'Syne',sans-serif;font-size:clamp(72px,10vw,124px);font-weight:800;color:var(--gold);line-height:.88}
 .sl-lbl{font-size:clamp(13px,1.2vw,17px);color:var(--muted);margin-top:10px;line-height:1.4}
 .sl-cmp{margin-top:16px}
 .sl-cmp-a{font-family:'Syne',sans-serif;font-size:clamp(32px,4.5vw,62px);font-weight:800;color:var(--gold);line-height:1;display:block}
@@ -57,10 +57,10 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-seri
 .sl-rule{height:.5px;background:linear-gradient(90deg,var(--gold-dim),transparent);margin-top:20px;width:50%;flex-shrink:0}
 
 /* ── SHARED CARD STYLES ── */
-.fc{background:var(--card-bg);border:.5px solid var(--border-f);border-top:1.5px solid var(--gold);padding:20px 22px;border-radius:2px;display:flex;flex-direction:column}
+.fc{background:var(--card-bg);border:.5px solid var(--border-f);border-top:1.5px solid var(--gold);padding:22px 24px;border-radius:2px;display:flex;flex-direction:column}
 .fn{font-family:'Syne',sans-serif;font-size:11px;color:var(--gold);letter-spacing:.16em;text-transform:uppercase;margin-bottom:10px;font-weight:600;flex-shrink:0}
-.ft{font-family:'Syne',sans-serif;font-size:clamp(14px,1.5vw,20px);font-weight:700;margin-bottom:10px;line-height:1.25;flex-shrink:0}
-.fb{font-size:clamp(13px,1.2vw,16px);color:var(--muted);line-height:1.65;flex:1}
+.ft{font-family:'Syne',sans-serif;font-size:clamp(16px,1.8vw,24px);font-weight:700;margin-bottom:12px;line-height:1.25;flex-shrink:0}
+.fb{font-size:clamp(14px,1.4vw,18px);color:var(--muted);line-height:1.65;flex:1}
 .fg{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;flex:1;min-height:0}
 .fc-col{display:flex;flex-direction:column;gap:14px;flex:1;min-height:0}
 
@@ -468,103 +468,191 @@ table.mx tr.win td{color:var(--text)}
 <!-- ── S6 DECISION MATRIX ── -->
 <div class="slide" id="s6">
   <div class="gold-rule"></div>
-  <div class="sl">
-    <div class="sl-l a">
-      <div class="sl-num">06 · Decision Matrix</div>
-      <div class="sl-ttl">How 10 models became<br>3 finalists.</div>
-      <div style="margin-top:auto">
-        <div style="font-family:'Syne',sans-serif;font-size:clamp(52px,7vw,82px);font-weight:800;color:var(--text);line-height:.9">10</div>
-        <div style="font-size:14px;color:var(--muted);margin-bottom:14px;margin-top:6px">models evaluated</div>
-        <div style="font-family:'Syne',sans-serif;font-size:clamp(28px,4vw,44px);font-weight:800;color:rgba(232,228,220,0.22);line-height:.9">↓ 7</div>
-        <div style="font-size:14px;color:var(--muted);margin-bottom:14px;margin-top:6px">eliminated — stroke incompatibility</div>
-        <div style="font-family:'Syne',sans-serif;font-size:clamp(52px,7vw,82px);font-weight:800;color:var(--gold);line-height:.9">3</div>
-        <div style="font-size:14px;color:var(--muted);margin-top:6px">finalists advance to fitting</div>
+  <div style="flex:1;display:flex;flex-direction:column;padding:28px 4% 80px;overflow:hidden;gap:16px">
+
+    <!-- Header row -->
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;padding-bottom:16px;border-bottom:.5px solid var(--border-f);flex-shrink:0" class="a">
+      <div>
+        <div style="font-family:'Syne',sans-serif;font-size:11px;color:var(--gold);letter-spacing:.22em;text-transform:uppercase;font-weight:600;margin-bottom:10px">06 · Decision Matrix</div>
+        <div style="font-family:'Syne',sans-serif;font-size:clamp(24px,3.2vw,44px);font-weight:800;line-height:1.05">How 10 models became <em style="color:var(--gold);font-style:italic;font-weight:400">3 finalists.</em></div>
       </div>
-      <div class="sl-rule"></div>
+      <div style="display:flex;gap:6px;flex-shrink:0;margin-left:24px">
+        <span style="background:rgba(204,102,51,0.1);border:.5px solid rgba(204,102,51,0.28);padding:5px 11px;border-radius:2px;font-family:'Syne',sans-serif;font-size:11px;color:var(--muted);white-space:nowrap;letter-spacing:.08em">Stroke 30%</span>
+        <span style="background:rgba(204,102,51,0.1);border:.5px solid rgba(204,102,51,0.28);padding:5px 11px;border-radius:2px;font-family:'Syne',sans-serif;font-size:11px;color:var(--muted);white-space:nowrap;letter-spacing:.08em">MOI 25%</span>
+        <span style="background:rgba(204,102,51,0.1);border:.5px solid rgba(204,102,51,0.28);padding:5px 11px;border-radius:2px;font-family:'Syne',sans-serif;font-size:11px;color:var(--muted);white-space:nowrap;letter-spacing:.08em">Neck 20%</span>
+        <span style="background:rgba(204,102,51,0.1);border:.5px solid rgba(204,102,51,0.28);padding:5px 11px;border-radius:2px;font-family:'Syne',sans-serif;font-size:11px;color:var(--muted);white-space:nowrap;letter-spacing:.08em">Alignment 15%</span>
+        <span style="background:rgba(204,102,51,0.1);border:.5px solid rgba(204,102,51,0.28);padding:5px 11px;border-radius:2px;font-family:'Syne',sans-serif;font-size:11px;color:var(--muted);white-space:nowrap;letter-spacing:.08em">Confidence 10%</span>
+      </div>
     </div>
-    <div class="sl-r">
-      <div class="mx-wrap a">
-        <div class="crit">
-          <div class="ch">Criteria weights</div>
-          <div class="ci"><span class="cw">30%</span> Stroke compatibility</div>
-          <div class="ci"><span class="cw">25%</span> MOI / forgiveness gain</div>
-          <div class="ci"><span class="cw">20%</span> Neck architecture</div>
-          <div class="ci"><span class="cw">15%</span> Alignment utility</div>
-          <div class="ci"><span class="cw">10%</span> Address confidence</div>
-          <div style="margin-top:14px;padding-top:12px;border-top:.5px solid var(--border-f);font-size:13px;color:var(--muted);line-height:1.7">
-            <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><span class="pc pc-full"></span> Dominant</div>
-            <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><span class="pc pc-hi"></span> Strong</div>
-            <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><span class="pc pc-mid"></span> Moderate</div>
-            <div style="display:flex;align-items:center;gap:6px"><span class="pc pc-lo"></span> Eliminated</div>
+
+    <!-- 3 finalist cards -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;flex:1;min-height:0">
+
+      <!-- ── Phantom 7.2 — Top Score ── -->
+      <div style="background:linear-gradient(155deg,rgba(200,169,110,0.07),rgba(200,169,110,0.02));border:.5px solid var(--border);border-top:2px solid var(--gold);padding:24px 26px;border-radius:2px;display:flex;flex-direction:column" class="a">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;flex-shrink:0">
+          <div>
+            <div style="font-family:'Syne',sans-serif;font-size:11px;color:var(--gold);letter-spacing:.2em;text-transform:uppercase;margin-bottom:8px;font-weight:600">Finalist 1 · Top Score</div>
+            <div style="font-family:'Syne',sans-serif;font-size:clamp(16px,2vw,26px);font-weight:800;line-height:1.05">Scotty Cameron<br><span style="color:var(--gold);font-size:1.25em">Phantom 7.2</span></div>
+          </div>
+          <div style="text-align:right;flex-shrink:0;margin-left:12px">
+            <div style="font-family:'Syne',sans-serif;font-size:clamp(52px,7vw,88px);font-weight:800;color:var(--gold);line-height:.85">94</div>
+            <div style="font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-top:5px">composite</div>
           </div>
         </div>
-        <table class="mx">
-          <thead><tr>
-            <th style="width:145px">Model</th>
-            <th>Stroke</th><th>MOI</th><th>Neck</th><th>Alignment</th><th>Confidence</th><th>Score</th>
-          </tr></thead>
-          <tbody>
-            <tr class="win">
-              <td>Phantom 7.2 <span class="wp">FINALIST</span></td>
-              <td><span class="pc pc-hi"></span><span class="pv pv-g">95%</span></td>
-              <td><span class="pc pc-full"></span><span class="pv pv-g">100%</span></td>
-              <td><span class="pc pc-full"></span><span class="pv pv-g">95%</span></td>
-              <td><span class="pc pc-full"></span><span class="pv pv-g">100%</span></td>
-              <td><span class="pc pc-hi"></span><span class="pv pv-g">90%</span></td>
-              <td><span class="sc sw">94</span></td>
-            </tr>
-            <tr class="win">
-              <td>Phantom 9.2R <span class="wp">FINALIST</span></td>
-              <td><span class="pc pc-hi"></span><span class="pv pv-g">90%</span></td>
-              <td><span class="pc pc-full"></span><span class="pv pv-g">100%</span></td>
-              <td><span class="pc pc-hi"></span><span class="pv pv-g">90%</span></td>
-              <td><span class="pc pc-mid"></span><span class="pv pv-d">45%</span></td>
-              <td><span class="pc pc-mid"></span><span class="pv pv-d">55%</span></td>
-              <td><span class="sc sw">81</span></td>
-            </tr>
-            <tr class="win">
-              <td>Phantom 5.2 <span class="wp">FINALIST</span></td>
-              <td><span class="pc pc-hi"></span><span class="pv pv-g">88%</span></td>
-              <td><span class="pc pc-mid"></span><span class="pv pv-d">58%</span></td>
-              <td><span class="pc pc-hi"></span><span class="pv pv-g">88%</span></td>
-              <td><span class="pc pc-mid"></span><span class="pv pv-d">50%</span></td>
-              <td><span class="pc pc-hi"></span><span class="pv pv-g">82%</span></td>
-              <td><span class="sc sw">76</span></td>
-            </tr>
-            <tr style="border-top:.5px solid rgba(255,255,255,0.07)">
-              <td style="color:rgba(232,228,220,0.25);font-style:italic">Phantom 5.5 / 7.5</td>
-              <td><span class="pc pc-lo"></span><span class="pv pv-l">8%</span></td>
-              <td><span class="pc pc-mid"></span><span class="pv pv-l">58%</span></td>
-              <td><span class="pc pc-lo"></span><span class="pv pv-l">8%</span></td>
-              <td><span class="pc pc-lo"></span><span class="pv pv-l">8%</span></td>
-              <td><span class="pc pc-mid"></span><span class="pv pv-l">48%</span></td>
-              <td><span class="sc" style="color:rgba(255,255,255,0.15)">41</span></td>
-            </tr>
-            <tr>
-              <td style="color:rgba(232,228,220,0.25);font-style:italic">OC models (×2)</td>
-              <td><span class="pc pc-lo"></span><span class="pv pv-l">8%</span></td>
-              <td><span class="pc pc-full" style="opacity:0.35"></span><span class="pv pv-l">95%</span></td>
-              <td><span class="pc pc-lo"></span><span class="pv pv-l">8%</span></td>
-              <td><span class="pc pc-mid" style="opacity:0.4"></span><span class="pv pv-l">48%</span></td>
-              <td><span class="pc pc-lo"></span><span class="pv pv-l">8%</span></td>
-              <td><span class="sc" style="color:rgba(255,255,255,0.15)">29</span></td>
-            </tr>
-            <tr>
-              <td style="color:rgba(232,228,220,0.25);font-style:italic">Remaining 5</td>
-              <td><span class="pc pc-lo"></span><span class="pv pv-l">5%</span></td>
-              <td><span class="pc-na"></span></td>
-              <td><span class="pc pc-lo"></span><span class="pv pv-l">5%</span></td>
-              <td><span class="pc-na"></span></td>
-              <td><span class="pc-na"></span></td>
-              <td><span class="sc" style="color:rgba(255,255,255,0.15)">&lt;25</span></td>
-            </tr>
-          </tbody>
-        </table>
+        <div style="display:flex;flex-direction:column;gap:14px;flex:1;justify-content:space-between">
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
+              <span style="font-family:'Syne',sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Stroke Compatibility</span>
+              <span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--gold)">95%</span>
+            </div>
+            <div style="height:5px;background:rgba(255,255,255,0.07);border-radius:3px"><div style="width:95%;height:100%;background:var(--gold);border-radius:3px"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
+              <span style="font-family:'Syne',sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">MOI Forgiveness</span>
+              <span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--gold)">100%</span>
+            </div>
+            <div style="height:5px;background:rgba(255,255,255,0.07);border-radius:3px"><div style="width:100%;height:100%;background:var(--gold);border-radius:3px"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
+              <span style="font-family:'Syne',sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Neck Architecture</span>
+              <span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--gold)">95%</span>
+            </div>
+            <div style="height:5px;background:rgba(255,255,255,0.07);border-radius:3px"><div style="width:95%;height:100%;background:var(--gold);border-radius:3px"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
+              <span style="font-family:'Syne',sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Alignment Utility</span>
+              <span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--gold)">100%</span>
+            </div>
+            <div style="height:5px;background:rgba(255,255,255,0.07);border-radius:3px"><div style="width:100%;height:100%;background:var(--gold);border-radius:3px"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
+              <span style="font-family:'Syne',sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Address Confidence</span>
+              <span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--gold)">90%</span>
+            </div>
+            <div style="height:5px;background:rgba(255,255,255,0.07);border-radius:3px"><div style="width:90%;height:100%;background:var(--gold);border-radius:3px"></div></div>
+          </div>
+        </div>
       </div>
-      <div style="padding-top:10px;border-top:.5px solid rgba(255,255,255,0.06);font-size:13px;color:rgba(232,228,220,0.28);line-height:1.7" class="a">
-        <strong style="color:rgba(232,228,220,0.38)">Score</strong> = weighted sum of each criterion percentile (0–100). <strong style="color:rgba(232,228,220,0.38)">MOI gain</strong> = improvement over Special Select Newport as % of max available in the plumbing-neck-compatible lineup.
+
+      <!-- ── Phantom 9.2R ── -->
+      <div style="background:var(--card-bg);border:.5px solid var(--border-f);border-top:2px solid var(--gold);padding:24px 26px;border-radius:2px;display:flex;flex-direction:column" class="a">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;flex-shrink:0">
+          <div>
+            <div style="font-family:'Syne',sans-serif;font-size:11px;color:var(--gold);letter-spacing:.2em;text-transform:uppercase;margin-bottom:8px;font-weight:600">Finalist 2</div>
+            <div style="font-family:'Syne',sans-serif;font-size:clamp(16px,2vw,26px);font-weight:800;line-height:1.05">Scotty Cameron<br><span style="color:var(--gold);font-size:1.25em">Phantom 9.2R</span></div>
+          </div>
+          <div style="text-align:right;flex-shrink:0;margin-left:12px">
+            <div style="font-family:'Syne',sans-serif;font-size:clamp(52px,7vw,88px);font-weight:800;color:var(--text);line-height:.85">81</div>
+            <div style="font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-top:5px">composite</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px;flex:1;justify-content:space-between">
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
+              <span style="font-family:'Syne',sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Stroke Compatibility</span>
+              <span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--gold)">90%</span>
+            </div>
+            <div style="height:5px;background:rgba(255,255,255,0.07);border-radius:3px"><div style="width:90%;height:100%;background:var(--gold);border-radius:3px"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
+              <span style="font-family:'Syne',sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">MOI Forgiveness</span>
+              <span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--gold)">100%</span>
+            </div>
+            <div style="height:5px;background:rgba(255,255,255,0.07);border-radius:3px"><div style="width:100%;height:100%;background:var(--gold);border-radius:3px"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
+              <span style="font-family:'Syne',sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Neck Architecture</span>
+              <span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--gold)">90%</span>
+            </div>
+            <div style="height:5px;background:rgba(255,255,255,0.07);border-radius:3px"><div style="width:90%;height:100%;background:var(--gold);border-radius:3px"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
+              <span style="font-family:'Syne',sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Alignment Utility</span>
+              <span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:rgba(200,169,110,0.55)">45%</span>
+            </div>
+            <div style="height:5px;background:rgba(255,255,255,0.07);border-radius:3px"><div style="width:45%;height:100%;background:rgba(200,169,110,0.38);border-radius:3px"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
+              <span style="font-family:'Syne',sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Address Confidence</span>
+              <span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:rgba(200,169,110,0.55)">55%</span>
+            </div>
+            <div style="height:5px;background:rgba(255,255,255,0.07);border-radius:3px"><div style="width:55%;height:100%;background:rgba(200,169,110,0.38);border-radius:3px"></div></div>
+          </div>
+        </div>
       </div>
+
+      <!-- ── Phantom 5.2 ── -->
+      <div style="background:var(--card-bg);border:.5px solid var(--border-f);border-top:2px solid var(--gold);padding:24px 26px;border-radius:2px;display:flex;flex-direction:column" class="a">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;flex-shrink:0">
+          <div>
+            <div style="font-family:'Syne',sans-serif;font-size:11px;color:var(--gold);letter-spacing:.2em;text-transform:uppercase;margin-bottom:8px;font-weight:600">Finalist 3</div>
+            <div style="font-family:'Syne',sans-serif;font-size:clamp(16px,2vw,26px);font-weight:800;line-height:1.05">Scotty Cameron<br><span style="color:var(--gold);font-size:1.25em">Phantom 5.2</span></div>
+          </div>
+          <div style="text-align:right;flex-shrink:0;margin-left:12px">
+            <div style="font-family:'Syne',sans-serif;font-size:clamp(52px,7vw,88px);font-weight:800;color:var(--text);line-height:.85">76</div>
+            <div style="font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-top:5px">composite</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px;flex:1;justify-content:space-between">
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
+              <span style="font-family:'Syne',sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Stroke Compatibility</span>
+              <span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--gold)">88%</span>
+            </div>
+            <div style="height:5px;background:rgba(255,255,255,0.07);border-radius:3px"><div style="width:88%;height:100%;background:var(--gold);border-radius:3px"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
+              <span style="font-family:'Syne',sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">MOI Forgiveness</span>
+              <span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:rgba(200,169,110,0.6)">58%</span>
+            </div>
+            <div style="height:5px;background:rgba(255,255,255,0.07);border-radius:3px"><div style="width:58%;height:100%;background:rgba(200,169,110,0.45);border-radius:3px"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
+              <span style="font-family:'Syne',sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Neck Architecture</span>
+              <span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--gold)">88%</span>
+            </div>
+            <div style="height:5px;background:rgba(255,255,255,0.07);border-radius:3px"><div style="width:88%;height:100%;background:var(--gold);border-radius:3px"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
+              <span style="font-family:'Syne',sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Alignment Utility</span>
+              <span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:rgba(200,169,110,0.6)">50%</span>
+            </div>
+            <div style="height:5px;background:rgba(255,255,255,0.07);border-radius:3px"><div style="width:50%;height:100%;background:rgba(200,169,110,0.45);border-radius:3px"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
+              <span style="font-family:'Syne',sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Address Confidence</span>
+              <span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--gold)">82%</span>
+            </div>
+            <div style="height:5px;background:rgba(255,255,255,0.07);border-radius:3px"><div style="width:82%;height:100%;background:var(--gold);border-radius:3px"></div></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /3 finalists -->
+
+    <!-- Eliminated row -->
+    <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;padding-top:12px;border-top:.5px solid rgba(255,255,255,0.06)" class="a">
+      <span style="font-family:'Syne',sans-serif;font-size:11px;color:rgba(232,228,220,0.35);letter-spacing:.12em;text-transform:uppercase;flex-shrink:0;font-weight:600">7 eliminated:</span>
+      <span style="font-size:13px;color:rgba(232,228,220,0.3)">Fixed neck — Phantom 5.5 &amp; 7.5</span>
+      <span style="color:rgba(232,228,220,0.15);font-size:18px;line-height:1">·</span>
+      <span style="font-size:13px;color:rgba(232,228,220,0.3)">Over-center offset — ×2 models</span>
+      <span style="color:rgba(232,228,220,0.15);font-size:18px;line-height:1">·</span>
+      <span style="font-size:13px;color:rgba(232,228,220,0.3)">Incompatible stroke arc — remaining 5</span>
     </div>
+
   </div>
 </div>
 
