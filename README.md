@@ -45,38 +45,50 @@ Then open [http://localhost:3000](http://localhost:3000).
 
 Every change follows this process — **never commit directly to `main`**.
 
-### 1. Create a feature branch
+Heroku is connected to this GitHub repo via the native GitHub integration. It deploys automatically the moment a PR is merged to `main` — no manual `git push heroku` needed. Turnaround is typically under a minute.
+
+### 1. Pull latest `main` and create a branch
 
 ```bash
 git checkout main && git pull origin main
-git checkout -b your-branch-name
+git checkout -b type/short-description
 ```
 
-Use a short, descriptive name, e.g. `feat/add-tiktok-link`, `fix/nav-typo`, `content/update-putter-deck`.
+**Branch naming convention** (mirrors what's been used on this repo):
 
-### 2. Make your changes, then commit
+| Prefix | When to use | Example |
+|--------|-------------|---------|
+| `feat/` | New feature or page | `feat/add-tiktok-link` |
+| `fix/` | Bug or content correction | `fix/nav-typo` |
+| `content/` | Copy or media update | `content/update-putter-deck` |
+| `docs/` | README / SUMMARY changes | `docs/deploy-workflow` |
+| `test/` | Infra / integration tests | `test/native-github-deploy` |
+
+### 2. Make changes and commit
+
+Keep commits focused — one logical change per commit is ideal.
 
 ```bash
 git add .
-git commit -m "feat: describe what changed and why"
+git commit -m "Short description of what changed and why"
 ```
 
-### 3. Push the branch and open a PR
+### 3. Push and open a PR
 
 ```bash
-git push -u origin your-branch-name
+git push -u origin type/short-description
 gh pr create --title "Short description" --body "What changed and why"
 ```
 
-Or open the PR in the GitHub UI at `github.com/anthonybest/anthonybestsite`.
+Or open the PR directly in the [GitHub UI](https://github.com/anthonybest-salesforce/anthonybestsite/pulls).
 
-### 4. Merge the PR into `main`
+### 4. Merge the PR
 
-Review the diff in the PR, then merge (squash merge recommended for a clean history). Delete the feature branch after merging.
+Review the diff, then merge using **"Merge pull request"** (standard merge commit — this is what PRs #3 and #4 used). GitHub will offer to delete the branch after merging; do it to keep the repo clean.
 
-### 5. Heroku auto-deploys
+### 5. Heroku deploys automatically
 
-Heroku is connected to this GitHub repo and deploys automatically when `main` is updated. No manual `git push heroku` needed. Monitor the build at the [Heroku dashboard](https://dashboard.heroku.com).
+Once `main` updates, Heroku picks up the change and deploys. Monitor progress at the [Heroku dashboard](https://dashboard.heroku.com). No further action needed.
 
 ## Social links (on the homepage)
 
