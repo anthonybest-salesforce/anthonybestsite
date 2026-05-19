@@ -1,6 +1,6 @@
 # anthonybest.com — Migration Project Summary
 
-**Date:** March 26, 2026 · **Last updated:** May 18, 2026 (10:05 PM)
+**Date:** March 26, 2026 · **Last updated:** May 18, 2026 (10:11 PM)
 **Goal:** Move anthonybest.com from Squarespace to a static site on Heroku, managed via GitHub.
 
 ---
