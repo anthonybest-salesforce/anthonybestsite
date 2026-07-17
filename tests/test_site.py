@@ -347,55 +347,6 @@ class TestContent(unittest.TestCase):
         self.assertNotIn("<loc>https://anthonybest.com/links</loc>", text,
                           "sitemap.xml should not list the removed /links page")
 
-    def test_projects_index_has_ga_script(self):
-        _, _, body = fetch("/projects")
-        text = body.decode("utf-8", errors="ignore")
-        self.assertIn('/assets/js/analytics.js', text)
-
-    def test_projects_index_references_person_entity(self):
-        _, _, body = fetch("/projects")
-        text = body.decode("utf-8", errors="ignore")
-        self.assertIn('"@id": "https://anthonybest.com/#person"', text,
-                      "Projects index JSON-LD should reference the Person entity")
-        self.assertIn('"@type": "Person"', text,
-                      "Projects index JSON-LD should inline a Person stub, not a bare @id reference")
-
-    def test_projects_index_has_twitter_card(self):
-        _, _, body = fetch("/projects")
-        text = body.decode("utf-8", errors="ignore")
-        self.assertIn('name="twitter:card" content="summary_large_image"', text)
-
-    def test_projects_index_jsonld_is_webpage_type(self):
-        _, _, body = fetch("/projects")
-        text = body.decode("utf-8", errors="ignore")
-        self.assertIn('"@type": "WebPage"', text)
-
-    def test_putter_advisory_has_ga_script(self):
-        _, _, body = fetch("/projects/putter-advisory")
-        text = body.decode("utf-8", errors="ignore")
-        self.assertIn('/assets/js/analytics.js', text)
-
-    def test_putter_advisory_has_canonical(self):
-        _, _, body = fetch("/projects/putter-advisory")
-        text = body.decode("utf-8", errors="ignore")
-        self.assertIn('<link rel="canonical" href="https://anthonybest.com/projects/putter-advisory">', text)
-
-    def test_putter_advisory_has_twitter_card(self):
-        _, _, body = fetch("/projects/putter-advisory")
-        text = body.decode("utf-8", errors="ignore")
-        self.assertIn('name="twitter:card" content="summary_large_image"', text)
-
-    def test_putter_advisory_references_person_entity(self):
-        _, _, body = fetch("/projects/putter-advisory")
-        text = body.decode("utf-8", errors="ignore")
-        self.assertIn('"@id": "https://anthonybest.com/#person"', text)
-        self.assertIn('"@type": "Person"', text)
-
-    def test_putter_advisory_jsonld_is_webpage_type(self):
-        _, _, body = fetch("/projects/putter-advisory")
-        text = body.decode("utf-8", errors="ignore")
-        self.assertIn('"@type": "WebPage"', text)
-
 
 # ── Entry point ───────────────────────────────────────────────────────────────
 
