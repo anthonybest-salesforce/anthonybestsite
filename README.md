@@ -105,16 +105,30 @@ for personal daily-life management — SCC Greens Committee's site is a
    `database_id` into `wrangler.toml`.
 2. `npm run db:migrate` (remote) / `npm run db:migrate:local` (local dev).
 3. Cloudflare dashboard → Zero Trust → Access → create a self-hosted
-   application for `anthonybest.com/admin*`, policy allowing only the
-   admin email(s). This is the only Access app needed — the public site
-   and `/projects/*` stay ungated.
-4. Set `ADMIN_EMAILS` (Worker → Settings → Variables) to the real admin
-   email list.
+   application with **two destinations** on the same policy: `anthonybest.com/admin*`
+   (the SPA shell) **and** `anthonybest.com/api/*` (the CRUD + `/api/me`
+   endpoints the SPA calls). Policy allows only the admin email(s). Gotcha
+   learned the hard way: Access only injects the
+   `Cf-Access-Authenticated-User-Email` header on requests matching one of
+   the app's configured destinations. Gating `/admin*` alone lets the SPA
+   shell load past Access fine, but every fetch it makes to `/api/...`
+   sails through ungated with no identity header, so the app-level admin
+   check always sees `email: null` and shows "access restricted" even for
+   the real admin. Both path prefixes must be added as destinations on the
+   same app (up to 5 destinations are allowed per self-hosted app). The
+   public site and `/projects/*` stay ungated since neither path is
+   covered.
+4. Set `ADMIN_EMAILS` (Worker → Settings → Variables, or `[vars]` in
+   `wrangler.toml`) to the real admin email list.
 5. Connect the Worker to this GitHub repo (Workers Builds) for
    push-to-deploy, same as sccgc-site.
-6. **DNS caution:** `anthonybest.com` and `www` currently CNAME to
-   `anthonybestsite.pages.dev`. Do not touch the Google Workspace MX/TXT
-   (SPF/DKIM/DMARC) records or the `mcdo`/Salesforce records documented in
-   `SUMMARY.md` — only the root/`www` CNAME target changes when cutting
-   over from Pages to the Worker custom domain, and only after the Worker
-   has been verified working at its `*.workers.dev` preview URL.
+6. **DNS cutover (done 2026-07-17):** `anthonybest.com` and `www` used to
+   CNAME to `anthonybestsite.pages.dev`. To cut over, the old CNAME records
+   were deleted and Cloudflare's Worker "Custom Domains" feature was used
+   to attach both hostnames directly to the Worker (Workers & Pages →
+   anthonybest-cos → Domains → Add Domain) — this is safer than hand-editing
+   a CNAME because it only touches the one record it creates. The Google
+   Workspace MX/TXT (SPF/DKIM/DMARC) records and the `mcdo`/Salesforce
+   records were left untouched throughout. Verified live end-to-end after
+   cutover: public site, Access-gated `/admin` SPA, and a full D1
+   create/read/delete round trip through `/api/admin/tasks`.
