@@ -162,6 +162,16 @@ class TestHTTPSRedirect(unittest.TestCase):
         )
 
 
+class TestLinksRedirect(unittest.TestCase):
+    """/links is a legacy URL — nginx 301s it to the canonical homepage."""
+
+    def test_links_redirects_to_home(self):
+        status, headers, _ = fetch("/links", follow_redirects=False)
+        self.assertEqual(status, 301, f"/links should return 301, got {status}")
+        self.assertEqual(headers.get("Location", ""), "/",
+                          "Location header should point at the homepage")
+
+
 class TestSecurityHeaders(unittest.TestCase):
     """nginx adds the three required security headers on every HTML response."""
 
@@ -333,6 +343,7 @@ if __name__ == "__main__":
         TestCleanURLs,
         TestNotFound,
         TestHTTPSRedirect,
+        TestLinksRedirect,
         TestSecurityHeaders,
         TestCacheHeaders,
         TestGzip,

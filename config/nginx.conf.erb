@@ -56,6 +56,14 @@ http {
     # location block below so they are always present, regardless of which
     # block matches the request.
 
+    # ── Legacy redirects ─────────────────────────────────────────────────
+    # /links was the old homepage URL before the link-in-bio redesign.
+    # 301 it to the canonical homepage so bookmarks/backlinks still work
+    # and search engines consolidate ranking signals onto a single URL.
+    location = /links {
+      return 301 /;
+    }
+
     # ── Routing ───────────────────────────────────────────────────────────
     # Try: exact file → file.html (clean URLs) → directory index.html
     # Using $uri/index.html instead of $uri/ avoids nginx issuing an
