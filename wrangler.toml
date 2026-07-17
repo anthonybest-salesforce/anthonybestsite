@@ -1,0 +1,20 @@
+name = "anthonybest-cos"
+main = "worker/index.js"
+compatibility_date = "2026-07-01"
+compatibility_flags = ["nodejs_compat"]
+
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+run_worker_first = true
+
+[[d1_databases]]
+binding = "DB"
+database_name = "anthonybestsite-db"
+database_id = "32480e7d-b163-454a-a2c5-eadeffa0d3fa"
+
+[version_metadata]
+binding = "CF_VERSION_METADATA"
+
+[vars]
+ADMIN_EMAILS = "anthony@anthonybest.com"
