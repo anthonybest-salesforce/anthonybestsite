@@ -70,10 +70,13 @@ Full DNS record backup (including Google Workspace MX, DKIM, SPF, DMARC, and Sal
 section above is historical; DNS has pointed `anthonybest.com`/`www` at a
 Cloudflare Pages project for a while, and this migration moves it one step
 further onto the Worker + D1 + Access harness first built for
-`sccgc-site`). The public link-in-bio page and `/projects/*` decks are
-unchanged and still fully public. A gated `/admin` portal has been added
-for personal daily-life management — SCC Greens Committee's site is a
-*product* built on this same harness; this repo is the platform.
+`sccgc-site`). The public link-in-bio page (`src/index.html`) is unchanged
+and still fully public. A gated `/admin` portal has been added for
+personal daily-life management — SCC Greens Committee's site is a
+*product* built on this same harness; this repo is the platform. The
+`/projects/*` advisory decks that used to be public were removed (see the
+`admin/public/` bullet below) — the homepage no longer links out to a
+portfolio page.
 
 ### Architecture
 
@@ -96,6 +99,15 @@ for personal daily-life management — SCC Greens Committee's site is a
   served by the Worker at `/admin/*`. Mirrors `resources.js` client-side
   (`admin/src/resources.ts`) to drive a single generic `ResourceTable` +
   `ResourceForm` pair instead of one UI per domain.
+- `admin/public/` — static files copied verbatim into `dist/admin/` by
+  Vite's default public-dir handling, served through the same
+  Access-gated `/admin/*` path with no route code needed. Currently holds
+  `presentation-template/index.html`, a blank reference deck (one example
+  of every slide type) for starting new advisory/analysis presentations —
+  see [docs/presentation-template.md](docs/presentation-template.md). The
+  two decks previously public at `/projects/*` (putter and shaft advisory)
+  were removed since their content was no longer relevant; the reusable
+  deck framework lives on here instead.
 - `src/` — unchanged public static site, copied into `dist/` alongside the
   built admin app by `scripts/copy-public.mjs`.
 

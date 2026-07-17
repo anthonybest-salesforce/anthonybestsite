@@ -94,7 +94,7 @@ export const RESOURCES: ResourceDef[] = [
       slug: { type: "text", label: "Slug" },
       summary: { type: "textarea", label: "Summary", long: true },
       status: { type: "enum", label: "Status", values: ["draft", "published", "archived"] },
-      deck_url: { type: "text", label: "Deck URL (/projects/...)" },
+      deck_url: { type: "text", label: "Deck URL (/admin/...)" },
       doc_url: { type: "text", label: "Research doc URL" },
     },
   },
