@@ -291,6 +291,30 @@ class TestContent(unittest.TestCase):
         self.assertIn("G-GH4TDQ277N", text,
                       "analytics.js should contain the real GA4 Measurement ID")
 
+    def test_homepage_has_ga_script(self):
+        _, _, body = fetch("/")
+        text = body.decode("utf-8", errors="ignore")
+        self.assertIn('/assets/js/analytics.js', text,
+                      "Homepage should load the shared GA4 analytics script")
+
+    def test_homepage_canonical_is_self(self):
+        _, _, body = fetch("/")
+        text = body.decode("utf-8", errors="ignore")
+        self.assertIn('<link rel="canonical" href="https://anthonybest.com/">', text,
+                      "Homepage canonical tag should point at itself, not /links")
+
+    def test_homepage_og_image_is_self_hosted(self):
+        _, _, body = fetch("/")
+        text = body.decode("utf-8", errors="ignore")
+        self.assertIn('og:image" content="https://anthonybest.com/assets/images/hero-bg.jpg"', text,
+                      "Homepage og:image should be the self-hosted image, not the Squarespace CDN URL")
+
+    def test_homepage_has_twitter_card(self):
+        _, _, body = fetch("/")
+        text = body.decode("utf-8", errors="ignore")
+        self.assertIn('name="twitter:card" content="summary_large_image"', text,
+                      "Homepage should have a Twitter Card meta tag")
+
 
 # ── Entry point ───────────────────────────────────────────────────────────────
 
