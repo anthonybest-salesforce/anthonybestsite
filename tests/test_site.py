@@ -105,6 +105,9 @@ class TestRoutes(unittest.TestCase):
     def test_analytics_js(self):
         self._assert_200("/assets/js/analytics.js", "Analytics script")
 
+    def test_robots_txt(self):
+        self._assert_200("/robots.txt", "robots.txt")
+
 
 class TestCleanURLs(unittest.TestCase):
     """nginx try_files serves directory indexes without trailing slash or .html."""
@@ -324,6 +327,12 @@ class TestContent(unittest.TestCase):
         text = body.decode("utf-8", errors="ignore")
         self.assertIn('name="twitter:card" content="summary_large_image"', text,
                       "Homepage should have a Twitter Card meta tag")
+
+    def test_robots_txt_references_sitemap(self):
+        _, _, body = fetch("/robots.txt")
+        text = body.decode("utf-8", errors="ignore")
+        self.assertIn("Sitemap: https://anthonybest.com/sitemap.xml", text,
+                      "robots.txt should reference the sitemap")
 
 
 # ── Entry point ───────────────────────────────────────────────────────────────
