@@ -334,6 +334,19 @@ class TestContent(unittest.TestCase):
         self.assertIn("Sitemap: https://anthonybest.com/sitemap.xml", text,
                       "robots.txt should reference the sitemap")
 
+    def test_sitemap_lists_projects(self):
+        _, _, body = fetch("/sitemap.xml")
+        text = body.decode("utf-8", errors="ignore")
+        self.assertIn("<loc>https://anthonybest.com/projects</loc>", text)
+        self.assertIn("<loc>https://anthonybest.com/projects/putter-advisory</loc>", text)
+        self.assertIn("<loc>https://anthonybest.com/projects/shaft-advisory</loc>", text)
+
+    def test_sitemap_has_no_links_entry(self):
+        _, _, body = fetch("/sitemap.xml")
+        text = body.decode("utf-8", errors="ignore")
+        self.assertNotIn("<loc>https://anthonybest.com/links</loc>", text,
+                          "sitemap.xml should not list the removed /links page")
+
 
 # ── Entry point ───────────────────────────────────────────────────────────────
 
