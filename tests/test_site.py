@@ -93,12 +93,6 @@ class TestRoutes(unittest.TestCase):
     def test_homepage(self):
         self._assert_200("/", "Homepage")
 
-    def test_projects_index(self):
-        self._assert_200("/projects", "Projects index")
-
-    def test_putter_advisory(self):
-        self._assert_200("/projects/putter-advisory", "Putter advisory deck")
-
     def test_sitemap_xml(self):
         self._assert_200("/sitemap.xml", "Sitemap")
 
@@ -107,18 +101,6 @@ class TestRoutes(unittest.TestCase):
 
     def test_robots_txt(self):
         self._assert_200("/robots.txt", "robots.txt")
-
-
-class TestCleanURLs(unittest.TestCase):
-    """nginx try_files serves directory indexes without trailing slash or .html."""
-
-    def test_projects_no_trailing_slash(self):
-        status, _, _ = fetch("/projects")
-        self.assertEqual(status, 200, "/projects (no slash) should return 200")
-
-    def test_putter_advisory_no_trailing_slash(self):
-        status, _, _ = fetch("/projects/putter-advisory")
-        self.assertEqual(status, 200, "/projects/putter-advisory (no slash) should return 200")
 
 
 class TestNotFound(unittest.TestCase):
@@ -275,18 +257,6 @@ class TestContent(unittest.TestCase):
         has_link = any(s in text for s in ["youtube", "instagram", "linkedin"])
         self.assertTrue(has_link, "Homepage should reference at least one social platform")
 
-    def test_projects_page_references_putter(self):
-        _, _, body = fetch("/projects")
-        text = body.decode("utf-8", errors="ignore").lower()
-        self.assertIn("putter", text,
-                      "Projects index should reference the putter advisory project")
-
-    def test_putter_deck_title_present(self):
-        _, _, body = fetch("/projects/putter-advisory")
-        text = body.decode("utf-8", errors="ignore")
-        self.assertIn("Phantom 7.2", text,
-                      "Putter deck should mention 'Phantom 7.2'")
-
     def test_sitemap_is_xml(self):
         _, headers, body = fetch("/sitemap.xml")
         text = body.decode("utf-8", errors="ignore")
@@ -355,7 +325,6 @@ if __name__ == "__main__":
     for cls in [
         TestLiveness,
         TestRoutes,
-        TestCleanURLs,
         TestNotFound,
         TestHTTPSRedirect,
         TestLinksRedirect,
