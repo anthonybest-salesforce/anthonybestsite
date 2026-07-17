@@ -102,6 +102,10 @@ admin.delete("/:resource/:id", async (c) => {
   return c.json({ ok: true });
 });
 
+// Legacy URL — /links was the old homepage before the link-in-bio redesign.
+// 301 so bookmarks/backlinks consolidate onto the canonical homepage.
+app.get("/links", (c) => c.redirect("/", 301));
+
 app.route("/api/admin", admin);
 
 // Anything else: try the exact static asset, and if it's missing fall back
