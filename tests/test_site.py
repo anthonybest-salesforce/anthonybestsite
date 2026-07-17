@@ -357,6 +357,18 @@ class TestContent(unittest.TestCase):
         text = body.decode("utf-8", errors="ignore")
         self.assertIn('"@id": "https://anthonybest.com/#person"', text,
                       "Projects index JSON-LD should reference the Person entity")
+        self.assertIn('"@type": "Person"', text,
+                      "Projects index JSON-LD should inline a Person stub, not a bare @id reference")
+
+    def test_projects_index_has_twitter_card(self):
+        _, _, body = fetch("/projects")
+        text = body.decode("utf-8", errors="ignore")
+        self.assertIn('name="twitter:card" content="summary_large_image"', text)
+
+    def test_projects_index_jsonld_is_webpage_type(self):
+        _, _, body = fetch("/projects")
+        text = body.decode("utf-8", errors="ignore")
+        self.assertIn('"@type": "WebPage"', text)
 
 
 # ── Entry point ───────────────────────────────────────────────────────────────
