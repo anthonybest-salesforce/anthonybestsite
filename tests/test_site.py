@@ -23,7 +23,7 @@ import unittest
 # ── Configuration ─────────────────────────────────────────────────────────────
 
 BASE_URL = os.environ.get(
-    "BASE_URL", "https://anthonybest-bf380286087d.herokuapp.com"
+    "BASE_URL", "https://anthonybest.com"
 ).rstrip("/")
 
 # Derive the HTTP equivalent for redirect tests
