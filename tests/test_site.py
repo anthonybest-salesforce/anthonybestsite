@@ -102,6 +102,9 @@ class TestRoutes(unittest.TestCase):
     def test_sitemap_xml(self):
         self._assert_200("/sitemap.xml", "Sitemap")
 
+    def test_analytics_js(self):
+        self._assert_200("/assets/js/analytics.js", "Analytics script")
+
 
 class TestCleanURLs(unittest.TestCase):
     """nginx try_files serves directory indexes without trailing slash or .html."""
@@ -281,6 +284,12 @@ class TestContent(unittest.TestCase):
             "xml" in ct or "text" in ct,
             f"sitemap.xml should have an XML or text content-type, got: {ct!r}"
         )
+
+    def test_analytics_js_has_measurement_id(self):
+        _, _, body = fetch("/assets/js/analytics.js")
+        text = body.decode("utf-8", errors="ignore")
+        self.assertIn("G-GH4TDQ277N", text,
+                      "analytics.js should contain the real GA4 Measurement ID")
 
 
 # ── Entry point ───────────────────────────────────────────────────────────────
