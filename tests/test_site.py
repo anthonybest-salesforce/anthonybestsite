@@ -23,7 +23,7 @@ import unittest
 # ── Configuration ─────────────────────────────────────────────────────────────
 
 BASE_URL = os.environ.get(
-    "BASE_URL", "https://anthonybest-bf380286087d.herokuapp.com"
+    "BASE_URL", "https://anthonybest.com"
 ).rstrip("/")
 
 # Derive the HTTP equivalent for redirect tests
@@ -93,26 +93,14 @@ class TestRoutes(unittest.TestCase):
     def test_homepage(self):
         self._assert_200("/", "Homepage")
 
-    def test_projects_index(self):
-        self._assert_200("/projects", "Projects index")
-
-    def test_putter_advisory(self):
-        self._assert_200("/projects/putter-advisory", "Putter advisory deck")
-
     def test_sitemap_xml(self):
         self._assert_200("/sitemap.xml", "Sitemap")
 
+    def test_analytics_js(self):
+        self._assert_200("/assets/js/analytics.js", "Analytics script")
 
-class TestCleanURLs(unittest.TestCase):
-    """nginx try_files serves directory indexes without trailing slash or .html."""
-
-    def test_projects_no_trailing_slash(self):
-        status, _, _ = fetch("/projects")
-        self.assertEqual(status, 200, "/projects (no slash) should return 200")
-
-    def test_putter_advisory_no_trailing_slash(self):
-        status, _, _ = fetch("/projects/putter-advisory")
-        self.assertEqual(status, 200, "/projects/putter-advisory (no slash) should return 200")
+    def test_robots_txt(self):
+        self._assert_200("/robots.txt", "robots.txt")
 
 
 class TestNotFound(unittest.TestCase):
@@ -157,6 +145,16 @@ class TestHTTPSRedirect(unittest.TestCase):
             re.search(r":\d{4,5}/", location),
             f"Redirect Location should not contain a port number, got: {location!r}"
         )
+
+
+class TestLinksRedirect(unittest.TestCase):
+    """/links is a legacy URL — nginx 301s it to the canonical homepage."""
+
+    def test_links_redirects_to_home(self):
+        status, headers, _ = fetch("/links", follow_redirects=False)
+        self.assertEqual(status, 301, f"/links should return 301, got {status}")
+        self.assertEqual(headers.get("Location", ""), "/",
+                          "Location header should point at the homepage")
 
 
 class TestSecurityHeaders(unittest.TestCase):
@@ -259,18 +257,6 @@ class TestContent(unittest.TestCase):
         has_link = any(s in text for s in ["youtube", "instagram", "linkedin"])
         self.assertTrue(has_link, "Homepage should reference at least one social platform")
 
-    def test_projects_page_references_putter(self):
-        _, _, body = fetch("/projects")
-        text = body.decode("utf-8", errors="ignore").lower()
-        self.assertIn("putter", text,
-                      "Projects index should reference the putter advisory project")
-
-    def test_putter_deck_title_present(self):
-        _, _, body = fetch("/projects/putter-advisory")
-        text = body.decode("utf-8", errors="ignore")
-        self.assertIn("Phantom 7.2", text,
-                      "Putter deck should mention 'Phantom 7.2'")
-
     def test_sitemap_is_xml(self):
         _, headers, body = fetch("/sitemap.xml")
         text = body.decode("utf-8", errors="ignore")
@@ -281,6 +267,48 @@ class TestContent(unittest.TestCase):
             "xml" in ct or "text" in ct,
             f"sitemap.xml should have an XML or text content-type, got: {ct!r}"
         )
+
+    def test_analytics_js_has_measurement_id(self):
+        _, _, body = fetch("/assets/js/analytics.js")
+        text = body.decode("utf-8", errors="ignore")
+        self.assertIn("G-GH4TDQ277N", text,
+                      "analytics.js should contain the real GA4 Measurement ID")
+
+    def test_homepage_has_ga_script(self):
+        _, _, body = fetch("/")
+        text = body.decode("utf-8", errors="ignore")
+        self.assertIn('/assets/js/analytics.js', text,
+                      "Homepage should load the shared GA4 analytics script")
+
+    def test_homepage_canonical_is_self(self):
+        _, _, body = fetch("/")
+        text = body.decode("utf-8", errors="ignore")
+        self.assertIn('<link rel="canonical" href="https://anthonybest.com/">', text,
+                      "Homepage canonical tag should point at itself, not /links")
+
+    def test_homepage_og_image_is_self_hosted(self):
+        _, _, body = fetch("/")
+        text = body.decode("utf-8", errors="ignore")
+        self.assertIn('og:image" content="https://anthonybest.com/assets/images/hero-bg.jpg"', text,
+                      "Homepage og:image should be the self-hosted image, not the Squarespace CDN URL")
+
+    def test_homepage_has_twitter_card(self):
+        _, _, body = fetch("/")
+        text = body.decode("utf-8", errors="ignore")
+        self.assertIn('name="twitter:card" content="summary_large_image"', text,
+                      "Homepage should have a Twitter Card meta tag")
+
+    def test_robots_txt_references_sitemap(self):
+        _, _, body = fetch("/robots.txt")
+        text = body.decode("utf-8", errors="ignore")
+        self.assertIn("Sitemap: https://anthonybest.com/sitemap.xml", text,
+                      "robots.txt should reference the sitemap")
+
+    def test_sitemap_has_no_links_entry(self):
+        _, _, body = fetch("/sitemap.xml")
+        text = body.decode("utf-8", errors="ignore")
+        self.assertNotIn("<loc>https://anthonybest.com/links</loc>", text,
+                          "sitemap.xml should not list the removed /links page")
 
 
 # ── Entry point ───────────────────────────────────────────────────────────────
@@ -297,9 +325,9 @@ if __name__ == "__main__":
     for cls in [
         TestLiveness,
         TestRoutes,
-        TestCleanURLs,
         TestNotFound,
         TestHTTPSRedirect,
+        TestLinksRedirect,
         TestSecurityHeaders,
         TestCacheHeaders,
         TestGzip,

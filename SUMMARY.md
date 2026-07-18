@@ -388,3 +388,40 @@ anthonybestsite/
 
 - **Registrar for transfer:** Cloudflare (recommended — free, fast DNS) or stay at Squarespace?
 - **GitHub repo visibility:** private or public?
+
+---
+
+## 2026-07-17 — Retired public /projects decks, moved presentation template into the gated admin portal
+
+Context: the site had already migrated off Heroku onto the Cloudflare Worker +
+D1 + Access "Chief of Staff" admin portal (see `4216d13`, same day) — a real
+gated `/admin` SPA now exists at `anthonybest.com/admin`, superseding the
+Heroku-era plan of an unlinked-but-public template folder.
+
+- Removed the "portfolio" footer link from `src/index.html` (was `/projects`).
+- Deleted `src/projects/` entirely — the listing page and both decks
+  (`putter-advisory`, `shaft-advisory`). Their content (Newport/Phantom
+  putter comparison, Recoil Dart/Axiom shaft comparison) was no longer
+  relevant; the reusable deck framework was kept, not the decks themselves.
+- Added `admin/public/presentation-template/index.html` — a blank reference
+  deck with one example of every documented slide type (cover, standard
+  content, three-column fact grid, two-column stats grid, research cards,
+  decision matrix, split-panel finalist, risk register, close) plus the
+  reusable components (why-card, quote block, upgrade bar, spec grid, gold
+  primer block, bar chart). Static files under `admin/public/` are copied
+  into `dist/admin/` by Vite and served through the same Access-gated
+  `/admin/*` path as the SPA — no new route code needed. Not linked from
+  any nav, `noindex, nofollow`.
+- Recovered the exact working CSS for this template from git history
+  (`shaft-advisory/index.html` as of the prior commit) rather than
+  reconstructing it from `docs/presentation-template.md`'s prose — the doc's
+  documented class names (`.fg`, `.yg`, `.rg`, `.mx-wrap`, `.risk-g`, etc.)
+  matched the shaft deck exactly but not the putter deck, which had been
+  independently rebuilt with different bespoke class names. Updated the
+  doc's "Reference implementation" pointer accordingly.
+- Updated `admin/src/resources.ts`'s `research_items.deck_url` field label
+  from a `/projects/...` hint to `/admin/...`, matching the new location.
+- Not yet verified with a live `npm run build` / `wrangler dev` — Node isn't
+  available in the environment this change was made in. Structural checks
+  (balanced tags, all 9 slide IDs present, no leftover golf content) passed;
+  a real build/deploy check is still needed before merging.

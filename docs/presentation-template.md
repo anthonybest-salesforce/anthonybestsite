@@ -1,8 +1,8 @@
 # Presentation Deck Template
 
-A standalone HTML presentation template used for advisory/analysis decks delivered on anthonybest.com. No build step, no framework — a single `.html` file with all CSS and JS inlined.
+A standalone HTML presentation template used for advisory/analysis decks. No build step, no framework — a single `.html` file with all CSS and JS inlined.
 
-**Reference implementation:** `src/projects/putter-advisory/index.html`
+**Reference implementation (blank, one example of every slide type):** `admin/public/presentation-template/index.html` — served at the Cloudflare Access–gated `anthonybest.com/admin/presentation-template/` (see the "Chief of Staff admin portal" section of [README.md](../README.md)). It is not linked from any nav and is not indexed (`noindex, nofollow`).
 
 ---
 
@@ -656,8 +656,8 @@ A 12–16 slide advisory deck typically follows this arc:
 
 ## File Naming & Deployment
 
-- Live file path: `src/projects/<project-slug>/index.html`
-- Accessible at: `anthonybest.com/projects/<project-slug>/`
+- Start a new deck by copying `admin/public/presentation-template/index.html` to a new file — e.g. `admin/public/<deck-slug>/index.html` — and replacing the placeholder copy.
+- Static files under `admin/public/` are copied verbatim into `dist/admin/` by the Vite build and served through the Worker at the Access-gated `/admin/*` path — no route code or React changes needed.
 - All assets (fonts, images) are loaded from external URLs — no local assets
-- Single file, no build step required
-- Deploy via `git push heroku main`
+- Single file, no build step required for the deck itself; `npm run build` just needs to run once to pick it up for deploy
+- Deploy via the normal push-to-`main` flow (Cloudflare Workers Builds)
