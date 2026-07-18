@@ -95,8 +95,17 @@ independent Access applications, and independent GitHub repos.
 - **Repo:** `anthonylbest/anthonybestsite`, `main` branch, up to date with
   what's deployed.
 - **Live at:** `anthonybest.com` + `www.anthonybest.com` (Cloudflare Worker
-  `anthonybest-cos`); public vanity page (`src/`) untouched, portal at
-  `/admin`.
+  `anthonybest-cos`); public vanity page at `src/`, portal at `/admin`.
+  **Note:** this repo kept moving after this brief's research was done —
+  a separate Claude Code session merged two more PRs same-day: PR #20 added
+  GA4 tracking + SEO fixes to the homepage and deleted the unused
+  `src/links/index.html`; PR #21 retired the public `/projects/*` advisory
+  decks entirely (removed `putter-advisory`/`shaft-advisory`, dropped the
+  footer link to them) and moved the reusable slide-deck template into
+  `admin/public/presentation-template/`, served through the gated
+  `/admin/*` path instead. So "public vanity page untouched" is no longer
+  accurate — check `git log` before assuming this brief reflects the tip
+  of `main`.
 - **The reusable scaffold** (this is the part meant to generalize):
   - `worker/resources.js` — single config object, one entry per resource
     (`tasks`, `events`, `notes`, `contacts`, `research_items`, `gear_items`,
