@@ -49,19 +49,21 @@ Schema per entry: `{ id, kicker, years, title, dek, body, quote?: { text, attrib
 - **years:** "Late 1990s"
 - **title:** "The Amp Before the Amp"
 - **dek:** "Before there was a production 'Naked,' there was one guitar tech's custom-modified Marshall — built by Dave Friedman for Billy Howerdel."
-- **body:** Billy Howerdel — then working as a guitar tech for acts including Fishbone, David Bowie, Smashing Pumpkins, Nine Inch Nails, and Guns N' Roses — had Dave Friedman build him a one-off amp in the late 1990s. Friedman took the preamp character of a Naylor Superdrive 60 that Howerdel loved and merged it with the power-amp section of a 100-watt Marshall head. That amp is what Howerdel used to record A Perfect Circle's debut, *Mer de Noms* (2000). **Sources disagree on the donor Marshall itself:** Premier Guitar's 2010 review identifies it as a 1978 JMP "Super Lead" 100-watt head; a 2008 forum post (unattributed to Friedman or Howerdel directly) instead describes a 1979 JMP 2203. Both are presented here since neither source fully corroborates or refutes the other. **The "Naked" name's origin — commonly told as a reference to a bare, uncovered chassis — has no confirmed primary-source citation** and is noted as received wisdom rather than documented fact.
+- **body:** Billy Howerdel — then working as a guitar tech for acts including Fishbone, David Bowie, Smashing Pumpkins, Nine Inch Nails, and Guns N' Roses — had Dave Friedman build him a one-off amp in the late 1990s. Friedman took the preamp character of a Naylor Superdrive 60 that Howerdel loved and merged it with the power-amp section of a 100-watt Marshall head. That amp is what Howerdel used to record A Perfect Circle's debut, *Mer de Noms* (2000). **Sources disagree on the donor Marshall itself:** Premier Guitar's 2010 review identifies it as a 1978 JMP "Super Lead" 100-watt head, and Premier Guitar's own 2017 Rig Rundown coverage of Howerdel's live rig independently repeats the same 1978 Super Lead identification — two separate Premier Guitar pieces, six years apart, agreeing. A single 2008 forum post (unattributed to Friedman or Howerdel directly) instead describes a 1979 JMP 2203. Both claims are presented here rather than silently resolved, though the Super Lead claim now has the stronger paper trail. **On the "Naked" name:** Howerdel himself refers to this amp as the "Naked Head" in a November 2022 Guitar World interview — so the name is directly tied to him, not just the later commercial product — but the specific "bare, uncovered chassis" origin story for *why* it's called that still has no confirmed primary-source citation and is noted as received wisdom rather than documented fact.
 - **quote:** `{ text: "He really loved this Naylor Superdrive 60 amplifier, but he wanted to merge it a little bit with his 100-watt Marshall.", attribution: "Dave Friedman, Guitar.com interview" }`
 - **specs:**
-  - `{ label: "Donor amp", value: "Disputed — 1978 Marshall JMP Super Lead 100W (Premier Guitar) vs. 1979 JMP 2203 (unattributed forum post, unconfirmed)" }`
+  - `{ label: "Donor amp", value: "Disputed — 1978 Marshall JMP Super Lead 100W (Premier Guitar, 2010 & 2017) vs. 1979 JMP 2203 (unattributed forum post, unconfirmed)" }`
   - `{ label: "Preamp character", value: "Naylor Superdrive 60-style front end" }`
   - `{ label: "Power section", value: "100W Marshall" }`
   - `{ label: "Recorded", value: "A Perfect Circle, Mer de Noms (2000)" }`
 - **sources:**
   - `"Dave Friedman, interview — Guitar.com, 'Dave Friedman talks motivation and sound' (https://guitar.com/features/interviews/dave-friedman-amplifiers/)"`
   - `"Premier Guitar, 'Rack Systems Brown Eye and Naked Amplifier Reviews,' Jordan Wagner, Aug. 17 2010 (https://www.premierguitar.com/gear/rack-systems-brown-eye-and-naked-amplifier-reviews)"`
+  - `"Premier Guitar, 'Rig Rundown - A Perfect Circle,' May 10 2017 — article text: 'a Dave Friedman-modded 1978 100-watt Marshall Super Lead... reworked the preamp section to sound and react similarly to a 60-watt Naylor head' (video: https://www.youtube.com/watch?v=WxoHvr2ICYA, channel confirmed as Premier Guitar via YouTube oembed)"`
+  - `"Guitar World, Billy Howerdel interview tied to 'What Normal Was,' reported Nov. 2022 (https://www.guitarworld.com/features/billy-howerdel-what-normal-was) — names the amp the 'Naked Head'; full article text not independently re-fetched, so treat as confirming the name/attribution but not as a verbatim quote"`
   - `"Rig-Talk forum, 'Naylor Dual 60 & Marshall mod by Dave Friedman' (https://www.rig-talk.com/forum/threads/naylor-dual-60-marshall-mod-by-dave-friedman.29506/) — forum post, unverified, cited only for the 2203 claim"`
   - `"Wikipedia, 'Billy Howerdel' — general biographical/timeline cross-check (https://en.wikipedia.org/wiki/Billy_Howerdel)"`
-- **media:** `{ photo: "PENDING — see image sourcing list below", video: "https://www.youtube.com/watch?v=a6tiMKq0ESw" }` ("What is the Friedman Naked and why does it exist?" — explainer video covering the amp's backstory)
+- **media:** `{ photo: "PENDING — see image sourcing list below", video: "PENDING" }` (the Rig Rundown video that documents this era lives in the new "Rig & Riff Rundown" section below rather than duplicated here)
 
 ### Entry 2 — `naked-original-run`
 
@@ -119,9 +121,23 @@ Schema per entry: `{ id, kicker, years, title, dek, body, quote?: { text, attrib
   - `"Reverb, Friedman brand page (https://reverb.com/brand/friedman?product_type=amps) — general market context only, not Naked-specific pricing"`
 - **media:** `{ photo: "PENDING — see image sourcing list below", video: "PENDING" }`
 
+## 3a. Rig & Riff Rundown videos (new section on the guide page)
+
+A dedicated section after the era timeline, titled "Watch: Rig & Riff Rundown" — Howerdel's gear discussed and played in his own words, distinct from the disputed-facts era cards above. Backed by a small `data.js` array (`RUNDOWN_VIDEOS`), rendered by `guitar-guide.js` as three video cards, each a real, verified YouTube embed:
+
+- `{ title: "Rig Rundown — A Perfect Circle", url: "https://www.youtube.com/watch?v=WxoHvr2ICYA", source: "Premier Guitar, May 10 2017", note: "Full rig walkthrough. Describes the Friedman-modded 1978 Marshall Super Lead reworked with a Naylor-style preamp — the same amp lineage as the Naked — though the video's own text doesn't use the 'Naked' brand name." }`
+- `{ title: "Riff Rundown — \"Judith\"", url: "https://www.youtube.com/watch?v=AmxgaC9bp1E", source: "Premier Guitar, Dec 23 2018", note: "Riff/tutorial format; no amp discussion." }`
+- `{ title: "Riff Rundown — \"So Long, and Thanks for All the Fish\"", url: "https://www.youtube.com/watch?v=2n3JBz2OL5Q", source: "Premier Guitar, Nov 18 2018", note: "Riff/tutorial format; no amp discussion." }`
+
+All three channel identities were confirmed via YouTube's oembed endpoint (author_name: "Premier Guitar") rather than search snippets alone, per the verification rule for this content.
+
+**Explicitly excluded** (research couldn't clear these for use — noted here so a future pass knows what was considered and rejected, not just omitted silently):
+- "5 Sounds That Built A Perfect Circle" (Premier Guitar channel) — the only date found for it could not be independently verified and looked like a possible search-summary artifact; excluded until the date and content are confirmed directly.
+- Gibson TV's "Riff Lords: Billy Howerdel of A Perfect Circle" (https://www.youtube.com/watch?v=64IzbxVpV2E, April 4 2024) — a legitimate gear/riff format but a different channel/franchise (Gibson, not Premier Guitar) and no Friedman amp mention found; left out as out-of-scope for a "Rig & Riff Rundown" section specifically, available as a future addition if the site owner wants broader Howerdel video coverage.
+
 ## 4. Media handling
 
-- **Video:** real YouTube URLs go directly into `media.video` — `guitar-guide.js` renders them as standard YouTube iframe embeds (no hotlinking concern; this is normal embedding of YouTube's own player).
+- **Video:** real YouTube URLs go directly into `media.video` (per-era) or `RUNDOWN_VIDEOS` (the Rig & Riff Rundown section, §3a) — `guitar-guide.js` renders them as standard YouTube iframe embeds (no hotlinking concern; this is normal embedding of YouTube's own player).
 - **Photos:** none hotlinked from third-party sites. The numbered list below is handed to the site owner for licensing/attribution review before anything is downloaded and committed to `src/assets/images/guitar-guides/friedman-naked-amp/`. Until reviewed, `media.photo` stays `"PENDING"` with an inline comment in `data.js` pointing at the relevant numbered item.
 
 **Image sourcing list (for review before download):**
@@ -161,7 +177,8 @@ These came back inconclusive and were deliberately left unresolved rather than g
 
 1. The "18 units" figure could not be verified anywhere.
 2. Several forum threads returned access errors (403/paywall) and were never actually read: Harmony Central ("Naked Amps - APC/Dave Friedman/RACKSystems"), the Fractal Audio Forum "Naked Poll" thread, My Les Paul Forum's MK2 NAD thread (full text), and a Gear Page thread on Howerdel's tone.
-3. The full text of Guitar World's Dave Friedman feature (by Charlie Wilkins) was never directly retrieved — only search-indexed excerpts.
+3. The full text of Guitar World's Dave Friedman feature (by Charlie Wilkins) was never directly retrieved — only search-indexed excerpts. The same is true of the separate Nov. 2022 Guitar World *Howerdel* interview (§3, Entry 1) — its "Naked Head" naming is usable, but treat any more specific claim from that article as needing a direct re-read first.
 4. A Howerdel quote about "power tubes and biasing" is very likely real but its exact originating interview couldn't be pinned down — deliberately not used as an attributed quote anywhere in this content.
-5. The "bare metal chassis" naming story has no primary-source confirmation.
+5. The "bare metal chassis" naming story has no primary-source confirmation, even though the name itself ("Naked Head") is now confirmed as Howerdel's own usage.
 6. Current Reverb resale pricing for both the original run and the MK2 couldn't be captured (bot-blocked) — needs a manual look.
+7. Whether the word "Naked" is actually spoken/shown on-camera in the 2017 Rig Rundown video wasn't verified (only the article text was checked) — a human re-watch could timestamp it if that matters for the page copy.
