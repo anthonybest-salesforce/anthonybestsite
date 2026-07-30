@@ -72,6 +72,15 @@ app.get("/api/version", (c) =>
   })
 );
 
+// Deliberately outside /api/* — that whole prefix is a Cloudflare Access
+// destination (gated at the edge, before requests reach this Worker), so
+// /api/version isn't actually reachable unauthenticated despite its name.
+// The post-deploy smoke test needs a genuinely public per-deploy signal to
+// detect when a new deploy has actually landed, hence this duplicate.
+app.get("/version.json", (c) =>
+  c.json({ version: c.env.CF_VERSION_METADATA?.id || "dev" })
+);
+
 app.get("/api/me", (c) =>
   c.json({ email: c.get("email") || null, admin: c.get("admin") })
 );
