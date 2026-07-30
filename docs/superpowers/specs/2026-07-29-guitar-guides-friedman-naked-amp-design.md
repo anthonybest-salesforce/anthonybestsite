@@ -41,7 +41,7 @@ Extends the homepage's existing design system — no new palette:
 
 ## 3. Content — `data.js` entries
 
-Schema per entry: `{ id, kicker, years, title, dek, body, quote?: { text, attribution }, specs: [{ label, value }], sources: [ "citation string" ], media: { photo, video } }`.
+Schema per entry: `{ id, kicker, years, title, dek, body, quote?: { text, attribution }, specs: [{ label, value }], sources: [ "citation string" ], media: { photo, videos: [ "url", ... ] } }`. (Updated 2026-07-30: `media.video` — a single string — was changed to `media.videos`, an array, once an era needed more than one embedded video. Empty array means no video yet; there's no `"PENDING"` sentinel for videos anymore, only for `photo`.)
 
 ### Entry 1 — `original`
 
@@ -63,7 +63,7 @@ Schema per entry: `{ id, kicker, years, title, dek, body, quote?: { text, attrib
   - `"Guitar World, Billy Howerdel interview tied to 'What Normal Was,' reported Nov. 2022 (https://www.guitarworld.com/features/billy-howerdel-what-normal-was) — names the amp the 'Naked Head'; full article text not independently re-fetched, so treat as confirming the name/attribution but not as a verbatim quote"`
   - `"Rig-Talk forum, 'Naylor Dual 60 & Marshall mod by Dave Friedman' (https://www.rig-talk.com/forum/threads/naylor-dual-60-marshall-mod-by-dave-friedman.29506/) — forum post, unverified, cited only for the 2203 claim"`
   - `"Wikipedia, 'Billy Howerdel' — general biographical/timeline cross-check (https://en.wikipedia.org/wiki/Billy_Howerdel)"`
-- **media:** `{ photo: "PENDING — see image sourcing list below", video: "PENDING" }` (the Rig Rundown video that documents this era lives in the new "Rig & Riff Rundown" section below rather than duplicated here)
+- **media:** `{ photo: "PENDING — see image sourcing list below", videos: [] }` (the Rig Rundown video that documents this era lives in the new "Rig & Riff Rundown" section below rather than duplicated here)
 
 ### Entry 2 — `naked-original-run`
 
@@ -71,21 +71,49 @@ Schema per entry: `{ id, kicker, years, title, dek, body, quote?: { text, attrib
 - **years:** "Late 1990s – 2000s"
 - **title:** "Naked Amplifiers — The Original Run"
 - **dek:** "Word got around. Friedman built a small clone run of Howerdel's amp under the 'Naked Amplifiers' name — how small, exactly, depends on who you ask."
-- **body:** Off the back of Howerdel's amp, Friedman built a limited clone run branded "Naked Amplifiers." **Unit counts conflict between sources and are presented as-is rather than resolved:** Friedman's own recollection describes "a few amps for the US, and a small run of amps for Japan, like a dozen amps or so" — implying a total somewhat above a dozen; Premier Guitar's 2010 review instead describes the entire original run as "around a dozen." A commonly cited figure of 18 total units could not be verified against any source found in this research and should not be treated as confirmed. A later limited reissue was sold through the retailer Tone Merchants around 2010. Forum teardown discussion (unverified against an official schematic) describes phase-inverter voltage variants, a tube-buffered effects loop positioned after the treble control, and EL34 power tubes biased around 70%.
+- **body:** Off the back of Howerdel's amp, Friedman built a limited clone run branded "Naked Amplifiers." **Unit counts conflict between sources and are presented as-is rather than resolved:** Friedman's own recollection describes "a few amps for the US, and a small run of amps for Japan, like a dozen amps or so" — implying a total somewhat above a dozen; Premier Guitar's 2010 review instead describes the entire original run as "around a dozen." A commonly cited figure of 18 total units could not be verified against any source found in this research and should not be treated as confirmed. **On who actually built these (added 2026-07-30):** the site owner and secondary forum sources describe this run as kit-built by Metropoulos Amplification ("Metro"), with Friedman doing quality control rather than constructing the amps himself. Forum posts on The Amp Garage and Rig-Talk describe Metro-built kits finished to "Naked spec" and modded by Friedman — not confirmed by Friedman himself in any interview found. Timeline wrinkle: Metropoulos Amplification was founded in 2004, while Friedman dates this run's start to "late '90s or early 2000s" — so Metro, if involved at all, could only account for the later part of the run, not its beginning. A later limited reissue was sold through the retailer Tone Merchants around 2010. Forum teardown discussion (unverified against an official schematic) describes phase-inverter voltage variants, a tube-buffered effects loop positioned after the treble control, and EL34 power tubes biased around 70%.
 - **quote:** `{ text: "There was a short period of time that I made a run of amps called Naked Amplifiers that were clones of that original amp.", attribution: "Dave Friedman, Guitar.com interview" }`
 - **specs:**
   - `{ label: "Unit count", value: "Disputed — Friedman: 'a few US + about a dozen for Japan'; Premier Guitar: ~12 total. A commonly cited '18' figure is unverified." }`
   - `{ label: "Distribution", value: "Primarily Japan, small US allotment; limited reissue via Tone Merchants, c. 2010" }`
+  - `{ label: "Built by", value: "Reportedly kit-built by Metropoulos Amplification, QC'd by Friedman (owner-sourced + secondary forum accounts; not confirmed by Friedman directly)" }`
   - `{ label: "Phase inverter", value: "Variants noted at 330V / 370V / stock 398V — per forum teardown, unverified against an official schematic" }`
   - `{ label: "FX loop", value: "Tube-buffered, positioned after the treble control" }`
   - `{ label: "Power tubes", value: "EL34, biased ~70%" }`
 - **sources:**
   - `"Dave Friedman, interview — Guitar.com (https://guitar.com/features/interviews/dave-friedman-amplifiers/)"`
   - `"Premier Guitar, 2010 review (https://www.premierguitar.com/gear/rack-systems-brown-eye-and-naked-amplifier-reviews)"`
-  - `"The Amp Garage forum, 'Friedman Naked Amp schematic?' (https://ampgarage.com/forum/viewtopic.php?t=34633) — forum technical discussion, unverified against an official schematic"`
-- **media:** `{ photo: "PENDING — see image sourcing list below", video: "https://www.youtube.com/watch?v=pk6vQsP6qRI" }` ("Friedman Naked Amp Very Rare Amp!" — appears to show an original-run unit)
+  - `"The Amp Garage forum, 'Friedman Naked Amp schematic?' (https://ampgarage.com/forum/viewtopic.php?t=34633) — forum technical discussion, unverified against an official schematic; a 2024 post in this same thread states 'the stock Naked MK1 that Metroamp built for Friedman' had a phase inverter around 398V, cited for the Metro/Metropoulos claim"`
+  - `"Rig-Talk forum, 'New Friedman and Naked Amps Demo and Together' (https://www.rig-talk.com/forum/threads/new-friedman-and-naked-amps-demo-and-together.104565/) — a poster describes their own amp as 'a Metro 2203 built by Metropoulos Amps' sent to Friedman for Naked-spec mods; an individual customer's project, not confirmed as the method for the whole commercial run"`
+  - `"Metropoulos Amplification, company history (https://store.metropoulos.net/) — founding year (2004), used to flag the timeline tension against Friedman's dating of this run"`
+  - `"Site owner's firsthand account — describes this run as kit-built by 'Metropolis' (likely Metropoulos), with Friedman doing quality control only; not independently confirmed by Friedman"`
+- **media:** `{ photo: "PENDING — see image sourcing list below", videos: ["https://www.youtube.com/watch?v=pk6vQsP6qRI", "https://www.youtube.com/watch?v=rOP7_M65c_c"] }` ("Friedman Naked Amp Very Rare Amp!" and "The Best Amp You CAN'T Get" (Michael Nielsen / Big Hairy Guitars) — both appear to show original-run units, second video's channel identity confirmed via YouTube oembed)
 
-### Entry 3 — `naked-mk2`
+### Entry 3 — `ground-up-black-run` (added 2026-07-30)
+
+- **kicker:** "SECOND RUN"
+- **years:** "~2014 (per the site owner; not independently dated)"
+- **title:** "A Second Run — Built From the Ground Up"
+- **dek:** "By the site owner's own account, a second, distinct production run broke from the first run's Marshall-based lineage entirely — finished in black, built on Friedman's own chassis and parts."
+- **body:** The site owner personally owned and later sold one of these amps. By his account, this second run differs fundamentally from the first: built from the ground up on Friedman's own chassis and parts rather than a modified/kit-built Marshall chassis, and constructed by Dave Friedman himself rather than a third-party kit builder. Every unit was finished entirely in black. **No independent source corroborates this run's existence** — research across interviews, magazine coverage, forum threads, and other resale listings found nothing describing a second, distinct all-black Naked run beyond what's here; this rests entirely on the site owner's firsthand ownership and his own prior Reverb listing. That listing (sold; the site owner was the seller) described the amp as "hand-built by Dave Friedman... very rare... it took me several years to find one." It was a 100W, two-channel head — 4x 12AX7 preamp / 4x EL34 power tubes, bright switch, 3-way saturation switch, tube-buffered FX loop with return level. Two channels on a 2014-dated unit predates the documented two-channel MK2 (2020) by roughly six years; whether that's the actual origin of MK2's two-channel design or unrelated is unknown — flagged as an open question, not fact.
+- **quote:** `{ text: "Is this expensive... yes but this is also very rare. It took me several years to find one, and I have not seen one go up for sale in a long time.", attribution: "From the site owner's own Reverb listing for this amp (sold)" }`
+- **specs:**
+  - `{ label: "Construction", value: "Built from the ground up on Friedman's own chassis and parts — not a Marshall conversion — per the site owner; unconfirmed independently" }`
+  - `{ label: "Built by", value: "Dave Friedman, personally, per the site owner — contrasts with the first run's reported kit-built origin" }`
+  - `{ label: "Finish", value: "All-black" }`
+  - `{ label: "Power", value: "100W" }`
+  - `{ label: "Channels", value: "2, footswitchable — six years before the documented MK2's 2-channel design; relationship, if any, unknown" }`
+  - `{ label: "Tubes", value: "4x 12AX7 preamp, 4x EL34 power" }`
+  - `{ label: "Controls", value: "Bass, treble, mid, presence, master, pre-amp gain, clean volume, shared global EQ, bright switch, 3-way saturation switch" }`
+  - `{ label: "FX loop", value: "Tube-buffered, with return level control" }`
+  - `{ label: "Unit count", value: "Unknown — only one confirmed example (the site owner's); no other owners or listings found" }`
+- **sources:**
+  - `"Reverb, 'Friedman Naked 2014 Black' (sold listing; https://reverb.com/item/29695395-friedman-naked-2014-black) — automated fetch blocked (403); full listing text provided directly by the site owner, who was the seller"`
+  - `"YouTube, 'Friedman Naked - In the Mix,' El Dorado Guitars (https://www.youtube.com/watch?v=wlRSld3hKxM) — channel identity confirmed via YouTube oembed; black-finish identification per the site owner"`
+  - `"Site owner's firsthand account — personal ownership and sale of this amp; the ground-up/Friedman-built-himself second-run claim could not be independently corroborated (no other owners, press, interviews, or forum posts found)"`
+- **media:** `{ photo: "PENDING — see image sourcing list (Reverb listing photos)", videos: ["https://www.youtube.com/watch?v=wlRSld3hKxM"] }`
+
+### Entry 4 — `naked-mk2`
 
 - **kicker:** "LIMITED EDITION"
 - **years:** "2020"
@@ -103,9 +131,9 @@ Schema per entry: `{ id, kicker, years, title, dek, body, quote?: { text, attrib
   - `"My Les Paul Forum, 'NAD – Friedman Custom Shop (Limited Edition) – Naked MK2' (https://www.mylespaul.com/threads/nad-friedman-custom-shop-limited-edition-naked-mk2.442838/) — forum post, full text blocked on fetch, cited for the model name/year/framing only"`
   - `"Marshall Amp Forum, 'Friedman Naked Mk2 vs. Bogner Modded Soldano SLO-100' (https://marshallforum.com/threads/friedman-naked-mk2-vs-bogner-modded-soldano-slo-100.123961/) — forum discussion"`
   - `"YouTube, Friedman Amplification Custom Shop demo videos — see media list below for individual video citations of speaker/mod variants"`
-- **media:** `{ photo: "PENDING — see image sourcing list below", video: "PENDING" }` — originally sourced as `https://www.youtube.com/watch?v=CwH_Wc4Zq5g` (Custom Shop MK2 demo), but during implementation (2026-07-30) this ID and all 4 backup IDs listed below were independently re-checked via YouTube's oembed endpoint and every one now returns 403 (video/channel gone private since the original research pass). No known-good replacement was found, so this was set to `PENDING` per the "don't guess" rule rather than swapped for an unverified substitute. See `SUMMARY.md`'s 2026-07-29 entry and commit `59d6dca` on `feature/guitar-guides-friedman-naked-amp`.
+- **media:** `{ photo: "PENDING — see image sourcing list below", videos: [] }` — originally sourced as `https://www.youtube.com/watch?v=CwH_Wc4Zq5g` (Custom Shop MK2 demo), but during implementation (2026-07-30) this ID and all 4 backup IDs listed below were independently re-checked via YouTube's oembed endpoint and every one now returns 403 (video/channel gone private since the original research pass). No known-good replacement was found, so this was set to `PENDING` per the "don't guess" rule rather than swapped for an unverified substitute. See `SUMMARY.md`'s 2026-07-29 entry and commit `59d6dca` on `feature/guitar-guides-friedman-naked-amp`.
 
-### Entry 4 — `today`
+### Entry 5 — `today`
 
 - **kicker:** "TODAY"
 - **years:** "2020 – present"
@@ -119,7 +147,7 @@ Schema per entry: `{ id, kicker, years, title, dek, body, quote?: { text, attrib
   - `"friedmanamplification.com — direct site search for 'naked', no results, checked 2026-07-29"`
   - `"Reverb listing, 'Friedman Naked 2009' (https://reverb.com/item/64661916-friedman-naked-2009) — existence confirmed, price/condition not retrievable (blocked)"`
   - `"Reverb, Friedman brand page (https://reverb.com/brand/friedman?product_type=amps) — general market context only, not Naked-specific pricing"`
-- **media:** `{ photo: "PENDING — see image sourcing list below", video: "PENDING" }`
+- **media:** `{ photo: "PENDING — see image sourcing list below", videos: [] }`
 
 ## 3a. Rig & Riff Rundown videos (new section on the guide page)
 
@@ -137,7 +165,7 @@ All three channel identities were confirmed via YouTube's oembed endpoint (autho
 
 ## 4. Media handling
 
-- **Video:** real YouTube URLs go directly into `media.video` (per-era) or `RUNDOWN_VIDEOS` (the Rig & Riff Rundown section, §3a) — `guitar-guide.js` renders them as standard YouTube iframe embeds (no hotlinking concern; this is normal embedding of YouTube's own player).
+- **Video:** real YouTube URLs go directly into `media.videos` (per-era array — an era can embed more than one) or `RUNDOWN_VIDEOS` (the Rig & Riff Rundown section, §3a) — `guitar-guide.js` renders them as standard YouTube iframe embeds (no hotlinking concern; this is normal embedding of YouTube's own player).
 - **Photos:** none hotlinked from third-party sites. The numbered list below is handed to the site owner for licensing/attribution review before anything is downloaded and committed to `src/assets/images/guitar-guides/friedman-naked-amp/`. Until reviewed, `media.photo` stays `"PENDING"` with an inline comment in `data.js` pointing at the relevant numbered item.
 
 **Image sourcing list (for review before download):**
@@ -145,6 +173,7 @@ All three channel identities were confirmed via YouTube's oembed endpoint (autho
 1. Reverb listing photos — `https://reverb.com/item/64661916-friedman-naked-2009` — photos of a 2009-era original-run unit's chassis/cosmetics — Reverb listing photo, rights unclear (check with Reverb/seller) — suggested filename: `naked-original-run-2009-reverb.jpg`
 2. Premier Guitar 2010 review photography — `https://www.premierguitar.com/gear/rack-systems-brown-eye-and-naked-amplifier-reviews` — editorial product photography from the magazine review (covers both Brown Eye and Naked — confirm which shots are the Naked before using) — magazine editorial photo, contact Premier Guitar re: reuse — suggested filename: `naked-review-2010-premierguitar.jpg`
 3. Guitar FX Depot rig photo — `https://guitarfxdepot.com/rigs/billy-howerdels-guitar-rig/` — purported photo of Howerdel's live rig, possibly including the amp — gear-blog photo, sourcing/rights unclear, verify before use — suggested filename: `howerdel-live-rig-guitarfxdepot.jpg`
+4. Site owner's own Reverb listing photos (added 2026-07-30) — `https://reverb.com/item/29695395-friedman-naked-2014-black` — 8 photos of the black "ground-up" second-run unit (front, back, badge, tolex/piping close-ups, control panel) — the site owner was the seller and the photographer, so this is the one item on this list without third-party rights uncertainty, but still pending his explicit go-ahead before download — suggested filenames: `naked-ground-up-black-2014-01.jpg` through `-08.jpg`, matching thumbnail order in the listing
 
 **Additional MK2 demo videos found — ALL NOW DEAD, do not use (re-checked 2026-07-30):**
 
@@ -153,7 +182,7 @@ All three channel identities were confirmed via YouTube's oembed endpoint (autho
 - ~~`https://www.youtube.com/watch?v=8mRzm45X3IM`~~ — MK2 bright-switch mod demo — 403 via oembed
 - ~~`https://www.youtube.com/watch?v=zwiTPMmc7qc`~~ — MK2 vs. Custom 50 comparison — 403 via oembed
 
-This entire batch of Custom Shop demo videos appears to have gone private since the original research pass. A fresh research pass would be needed to find a replacement MK2 video before `naked-mk2`'s `media.video` can move off `PENDING`.
+This entire batch of Custom Shop demo videos appears to have gone private since the original research pass. A fresh research pass would be needed to find a replacement MK2 video before `naked-mk2`'s `media.videos` can move off an empty array.
 
 ## 5. Homepage change
 

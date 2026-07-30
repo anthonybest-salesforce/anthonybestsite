@@ -86,9 +86,11 @@
       card.appendChild(specs);
     }
 
-    if (era.media && era.media.video && era.media.video !== 'PENDING') {
-      var videoEmbed = renderVideoEmbed(era.media.video, era.title);
-      if (videoEmbed) card.appendChild(videoEmbed);
+    if (era.media && Array.isArray(era.media.videos)) {
+      era.media.videos.forEach(function (videoUrl) {
+        var videoEmbed = renderVideoEmbed(videoUrl, era.title);
+        if (videoEmbed) card.appendChild(videoEmbed);
+      });
     }
 
     if (Array.isArray(era.sources) && era.sources.length) {

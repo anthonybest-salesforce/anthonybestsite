@@ -36,7 +36,7 @@ window.GUIDE_ERAS = [
     ],
     media: {
       photo: `PENDING — see image sourcing list, item 3 (guitarfxdepot.com rig photo)`,
-      video: `PENDING`,
+      videos: [],
     },
   },
   {
@@ -48,6 +48,7 @@ window.GUIDE_ERAS = [
     body: [
       `Off the back of Howerdel's amp, Friedman built a limited clone run branded "Naked Amplifiers."`,
       `**Unit counts conflict between sources and are presented as-is rather than resolved:** Friedman's own recollection describes "a few amps for the US, and a small run of amps for Japan, like a dozen amps or so" — implying a total somewhat above a dozen; Premier Guitar's 2010 review instead describes the entire original run as "around a dozen." A commonly cited figure of 18 total units could not be verified against any source found in this research and should not be treated as confirmed.`,
+      `**On who actually built these:** the site owner and secondary forum sources describe this run as kit-built by Metropoulos Amplification ("Metro"), with Friedman handling quality control rather than constructing the amps himself. Forum posts on The Amp Garage and Rig-Talk describe Metro-built kits finished to "Naked spec" and modded by Friedman, but this isn't confirmed by Friedman himself in any interview found. There's also a timeline wrinkle worth noting: Metropoulos Amplification was founded in 2004, while Friedman dates this run's start to "late '90s or early 2000s" — meaning Metro, if involved at all, could only account for the later part of the run, not its beginning.`,
       `A later limited reissue was sold through the retailer Tone Merchants around 2010. Forum teardown discussion (unverified against an official schematic) describes phase-inverter voltage variants, a tube-buffered effects loop positioned after the treble control, and EL34 power tubes biased around 70%.`,
     ],
     quote: {
@@ -57,6 +58,7 @@ window.GUIDE_ERAS = [
     specs: [
       { label: `Unit count`, value: `Disputed — Friedman: "a few US + about a dozen for Japan"; Premier Guitar: ~12 total. A commonly cited "18" figure is unverified.` },
       { label: `Distribution`, value: `Primarily Japan, small US allotment; limited reissue via Tone Merchants, c. 2010` },
+      { label: `Built by`, value: `Reportedly kit-built by Metropoulos Amplification, QC'd by Friedman (owner-sourced + secondary forum accounts; not confirmed by Friedman directly)` },
       { label: `Phase inverter`, value: `Variants noted at 330V / 370V / stock 398V — per forum teardown, unverified against an official schematic` },
       { label: `FX loop`, value: `Tube-buffered, positioned after the treble control` },
       { label: `Power tubes`, value: `EL34, biased ~70%` },
@@ -64,11 +66,55 @@ window.GUIDE_ERAS = [
     sources: [
       `Dave Friedman, interview — Guitar.com (https://guitar.com/features/interviews/dave-friedman-amplifiers/)`,
       `Premier Guitar, 2010 review (https://www.premierguitar.com/gear/rack-systems-brown-eye-and-naked-amplifier-reviews)`,
-      `The Amp Garage forum, "Friedman Naked Amp schematic?" (https://ampgarage.com/forum/viewtopic.php?t=34633) — forum technical discussion, unverified against an official schematic`,
+      `The Amp Garage forum, "Friedman Naked Amp schematic?" (https://ampgarage.com/forum/viewtopic.php?t=34633) — forum technical discussion, unverified against an official schematic; a 2024 post in this same thread states "the stock Naked MK1 that Metroamp built for Friedman" had a phase inverter around 398V, cited here for the Metro/Metropoulos claim`,
+      `Rig-Talk forum, "New Friedman and Naked Amps Demo and Together" (https://www.rig-talk.com/forum/threads/new-friedman-and-naked-amps-demo-and-together.104565/) — a poster describes their own amp as "a Metro 2203 built by Metropoulos Amps" sent to Friedman for Naked-spec mods; an individual customer's project, not confirmed as the method for the whole commercial run`,
+      `Metropoulos Amplification, company history (https://store.metropoulos.net/) — founding year (2004), used to flag the timeline tension against Friedman's "late '90s/early 2000s" dating of this run`,
+      `Site owner's firsthand account — describes this run as kit-built by "Metropolis" (likely Metropoulos), with Friedman doing quality control only; not independently confirmed by Friedman`,
     ],
     media: {
       photo: `PENDING — see image sourcing list, item 1 (Reverb listing)`,
-      video: `https://www.youtube.com/watch?v=pk6vQsP6qRI`,
+      videos: [
+        `https://www.youtube.com/watch?v=pk6vQsP6qRI`,
+        `https://www.youtube.com/watch?v=rOP7_M65c_c`,
+      ],
+    },
+  },
+  {
+    id: 'ground-up-black-run',
+    kicker: 'SECOND RUN',
+    years: '~2014 (per the site owner; not independently dated)',
+    title: `A Second Run — Built From the Ground Up`,
+    dek: `By the site owner's own account, a second, distinct production run broke from the first run's Marshall-based lineage entirely — finished in black, built on Friedman's own chassis and parts.`,
+    body: [
+      `The site owner personally owned and later sold one of these amps. By his account, this second run differs fundamentally from the first: rather than a modified or kit-built Marshall chassis, these were built from the ground up on Friedman's own chassis and parts, and constructed by Dave Friedman himself rather than a third-party kit builder. Every unit in this run was finished entirely in black.`,
+      `**No independent source corroborates this run's existence.** Research across interviews, magazine coverage, forum threads, and other resale listings turned up nothing describing a second, distinct all-black Naked run beyond what's here. This entry rests entirely on the site owner's firsthand ownership and his own prior Reverb sale listing — treat it as owner-sourced testimony rather than independently documented history until further corroboration surfaces.`,
+      `That listing (sold; the site owner was the seller) described the amp as "hand-built by Dave Friedman... very rare... it took me several years to find one, and I have not seen one go up for sale in a long time." It was a 100-watt, two-channel head — four 12AX7 preamp tubes, four EL34 power tubes, a bright switch, a 3-way saturation switch, and a tube-buffered effects loop with a return-level control. Two channels on a 2014-dated unit is notable: it predates the documented two-channel MK2 (2020) by roughly six years. Whether that's the actual origin of MK2's two-channel design or an unrelated coincidence isn't known — flagged as an open question, not stated as fact.`,
+    ],
+    quote: {
+      text: `Is this expensive... yes but this is also very rare. It took me several years to find one, and I have not seen one go up for sale in a long time.`,
+      attribution: `From the site owner's own Reverb listing for this amp (sold)`,
+    },
+    specs: [
+      { label: `Construction`, value: `Built from the ground up on Friedman's own chassis and parts — not a Marshall conversion — per the site owner; unconfirmed independently` },
+      { label: `Built by`, value: `Dave Friedman, personally, per the site owner — contrasts with the first run's reported kit-built origin` },
+      { label: `Finish`, value: `All-black` },
+      { label: `Power`, value: `100W` },
+      { label: `Channels`, value: `2, footswitchable — six years before the documented MK2's 2-channel design; relationship, if any, unknown` },
+      { label: `Tubes`, value: `4x 12AX7 preamp, 4x EL34 power` },
+      { label: `Controls`, value: `Bass, treble, mid, presence, master, pre-amp gain, clean volume, shared global EQ, bright switch, 3-way saturation switch` },
+      { label: `FX loop`, value: `Tube-buffered, with return level control` },
+      { label: `Unit count`, value: `Unknown — only one confirmed example (the site owner's); no other owners or listings found` },
+    ],
+    sources: [
+      `Reverb, "Friedman Naked 2014 Black" (sold listing; https://reverb.com/item/29695395-friedman-naked-2014-black) — automated fetch blocked (403); full listing text provided directly by the site owner, who was the seller`,
+      `YouTube, "Friedman Naked - In the Mix," El Dorado Guitars (https://www.youtube.com/watch?v=wlRSld3hKxM) — channel identity confirmed via YouTube oembed; black-finish identification per the site owner`,
+      `Site owner's firsthand account — personal ownership and sale of this amp; claims about it being a distinct ground-up, Friedman-built-himself second run could not be independently corroborated in this research (no other owners, press, interviews, or forum posts found describing a second/black Naked run)`,
+    ],
+    media: {
+      photo: `PENDING — see image sourcing list (Reverb listing photos)`,
+      videos: [
+        `https://www.youtube.com/watch?v=wlRSld3hKxM`,
+      ],
     },
   },
   {
@@ -96,7 +142,7 @@ window.GUIDE_ERAS = [
     ],
     media: {
       photo: `PENDING — see image sourcing list`,
-      video: `PENDING`,
+      videos: [],
     },
   },
   {
@@ -120,7 +166,7 @@ window.GUIDE_ERAS = [
     ],
     media: {
       photo: `PENDING`,
-      video: `PENDING`,
+      videos: [],
     },
   },
 ];
