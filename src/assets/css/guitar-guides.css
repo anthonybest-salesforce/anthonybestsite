@@ -12,6 +12,10 @@
   padding: 0;
 }
 
+html {
+  background-color: #0c0c0d;
+}
+
 [data-theme="studio"] {
   --gold: #c8a96e;
   --gold-dim: rgba(200, 169, 110, 0.45);
@@ -22,7 +26,6 @@
   --card-border: rgba(255, 255, 255, 0.09);
   --card-border-hover: rgba(255, 255, 255, 0.16);
 
-  min-height: 100%;
   font-family: 'Syne', sans-serif;
   color: var(--text);
   background-color: #0c0c0d;
