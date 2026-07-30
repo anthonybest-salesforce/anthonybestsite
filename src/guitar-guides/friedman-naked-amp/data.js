@@ -36,7 +36,26 @@ window.GUIDE_ERAS = [
     ],
     media: {
       photo: `PENDING — see image sourcing list, item 3 (guitarfxdepot.com rig photo)`,
-      videos: [],
+      videos: [
+        {
+          title: `Rig Rundown — A Perfect Circle`,
+          url: `https://www.youtube.com/watch?v=WxoHvr2ICYA`,
+          source: `Premier Guitar, May 10 2017`,
+          note: `Full rig walkthrough. Describes the Friedman-modded 1978 Marshall Super Lead reworked with a Naylor-style preamp — the same amp lineage as the Naked — though the video's own companion article doesn't use the "Naked" brand name. Per the site owner's direct viewing of the on-camera footage (not corroborated by the written article, which describes only one head-format amp): Howerdel owns more than one of these rack-mounted units, and two are part of his main touring rig alongside a two-input Marshall 2203 "Lead MkII." This detail is owner-sourced from the video itself — flagged with a timestamp-TBD citation until independently re-confirmed.`,
+        },
+        {
+          title: `Riff Rundown — "Judith"`,
+          url: `https://www.youtube.com/watch?v=AmxgaC9bp1E`,
+          source: `Premier Guitar, Dec 23 2018`,
+          note: `Riff/tutorial format; no amp discussion.`,
+        },
+        {
+          title: `Riff Rundown — "So Long, and Thanks for All the Fish"`,
+          url: `https://www.youtube.com/watch?v=2n3JBz2OL5Q`,
+          source: `Premier Guitar, Nov 18 2018`,
+          note: `Riff/tutorial format; no amp discussion.`,
+        },
+      ],
     },
   },
   {
@@ -171,23 +190,4 @@ window.GUIDE_ERAS = [
   },
 ];
 
-window.GUIDE_RUNDOWNS = [
-  {
-    title: `Rig Rundown — A Perfect Circle`,
-    url: `https://www.youtube.com/watch?v=WxoHvr2ICYA`,
-    source: `Premier Guitar, May 10 2017`,
-    note: `Full rig walkthrough. Describes the Friedman-modded 1978 Marshall Super Lead reworked with a Naylor-style preamp — the same amp lineage as the Naked — though the video's own companion article doesn't use the "Naked" brand name. Per the site owner's direct viewing of the on-camera footage (not corroborated by the written article, which describes only one head-format amp): Howerdel owns more than one of these rack-mounted units, and two are part of his main touring rig alongside a two-input Marshall 2203 "Lead MkII." This detail is owner-sourced from the video itself — flagged with a timestamp-TBD citation until independently re-confirmed.`,
-  },
-  {
-    title: `Riff Rundown — "Judith"`,
-    url: `https://www.youtube.com/watch?v=AmxgaC9bp1E`,
-    source: `Premier Guitar, Dec 23 2018`,
-    note: `Riff/tutorial format; no amp discussion.`,
-  },
-  {
-    title: `Riff Rundown — "So Long, and Thanks for All the Fish"`,
-    url: `https://www.youtube.com/watch?v=2n3JBz2OL5Q`,
-    source: `Premier Guitar, Nov 18 2018`,
-    note: `Riff/tutorial format; no amp discussion.`,
-  },
-];
+window.GUIDE_RUNDOWNS = [];
