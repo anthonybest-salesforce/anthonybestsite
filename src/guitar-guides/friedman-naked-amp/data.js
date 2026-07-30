@@ -92,8 +92,11 @@ window.GUIDE_ERAS = [
     media: {
       photo: `PENDING — see image sourcing list, item 1 (Reverb listing)`,
       videos: [
-        `https://www.youtube.com/watch?v=pk6vQsP6qRI`,
-        `https://www.youtube.com/watch?v=rOP7_M65c_c`,
+        {
+          title: `Friedman Naked Amp Very Rare Amp!`,
+          url: `https://www.youtube.com/watch?v=pk6vQsP6qRI`,
+          source: `TONE WARS`,
+        },
       ],
     },
   },
@@ -152,10 +155,10 @@ window.GUIDE_ERAS = [
     kicker: 'MK2',
     years: '2020',
     title: `Naked Mk2 — The Updated Custom Shop Build`,
-    dek: `Twenty years later, Friedman's Custom Shop revisited the design with an updated circuit — this is the real Mk2, and it was never a production batch.`,
+    dek: `Twenty years later, Friedman's Custom Shop revisited the design with an updated circuit — a true one-off, and the only one ever built.`,
     body: [
       `In 2020, Friedman Amplification's Custom Shop built the Naked Mk2 — a genuinely updated circuit, distinct from the Mk1 used in the original run and the all-black ground-up amps that came before it: 100 watts, two footswitchable channels (clean and overdrive) sharing a single 3-band EQ, a wonderfully touchy Presence control, and a series effects loop. Cosmetically it leans hard into the late-'70s Marshall Super Lead look — big rocker Power and Standby switches, white piping instead of gold.`,
-      `YouTuber Reza Matrix owned one of these and put out a demo video showing it off — but that video has since been set to private, so the best documentation of this build that ever existed online is gone. What's left are scattered forum posts describing it secondhand, and mentions of it having been shown loaded with a Celestion Alnico Cream, a Vintage 30, and an optional bright-switch mod.`,
+      `Confirmed: only one Mk2 was ever built. It made the rounds for a while, borrowed by a handful of other players — including YouTuber Reza Matrix, who put out a demo video that's since been set to private — before eventually being sold back to Dave Friedman himself. The one surviving public demo comes from Michael Nielsen of Big Hairy Guitars, who also had the amp on loan at one point.`,
     ],
     specs: [
       { label: `Circuit`, value: `Updated design — distinct from the Mk1 circuit shared by the original run and the all-black ground-up run` },
@@ -164,18 +167,28 @@ window.GUIDE_ERAS = [
       { label: `Presence control`, value: `Notably sensitive, per demo commentary` },
       { label: `FX loop`, value: `Series` },
       { label: `Speaker options demoed`, value: `Celestion Alnico Cream (90W), Vintage 30` },
-      { label: `Unit count`, value: `1 of 1, or possibly 1 of 2 — exact number unconfirmed; per the site owner` },
+      { label: `Unit count`, value: `1 of 1, confirmed — only one Mk2 was ever built, per the site owner` },
+      { label: `Ownership`, value: `Borrowed by several players over time (including Reza Matrix and Michael Nielsen) before being sold back to Dave Friedman himself, per the site owner` },
     ],
     sources: [
       `My Les Paul Forum, "NAD – Friedman Custom Shop (Limited Edition) – Naked MK2" (https://www.mylespaul.com/threads/nad-friedman-custom-shop-limited-edition-naked-mk2.442838/) — forum post, full text blocked on fetch, cited for the model name/year/framing only`,
       `Marshall Amp Forum, "Friedman Naked Mk2 vs. Bogner Modded Soldano SLO-100" (https://marshallforum.com/threads/friedman-naked-mk2-vs-bogner-modded-soldano-slo-100.123961/) — forum discussion`,
-      `YouTube, Reza Matrix — demo of this specific Naked Mk2 unit; video has since been set to private and is no longer publicly viewable (per the site owner)`,
+      `YouTube, "The Best Amp You CAN'T Get," Michael Nielsen - Big Hairy Guitars (https://www.youtube.com/watch?v=rOP7_M65c_c) — channel identity confirmed via YouTube oembed; the surviving public demo of this exact 1-of-1 unit, filmed while Nielsen had it on loan, per the site owner`,
+      `YouTube, Reza Matrix — demo of this specific Naked Mk2 unit, filmed while Matrix had it on loan; video has since been set to private and is no longer publicly viewable (per the site owner)`,
       `Rig-Talk forum, "Friedman Naked Mk II" (https://www.rig-talk.com/forum/threads/friedman-naked-mk-ii.211962/) — 2020 thread of forum members reacting to a demo video of this amp; one post references "reza rasp," consistent with Reza's involvement, though the thread itself doesn't state a unit count or confirm the video has since gone private`,
       `Reddit, r/GuitarAmps, "Can we agree that Friedman Naked is the best high-gain amp?" (https://www.reddit.com/r/GuitarAmps/comments/1jgnfbt/can_we_agree_that_friedman_naked_is_the_best_high/) — could not be fetched or independently verified in this research pass (blocked); included per the site owner as a forum discussion referencing this amp`,
+      `Site owner's firsthand account — confirms this is a 1-of-1 build, the loan history to several players, and the eventual sale back to Dave Friedman; not independently corroborated beyond the surviving Nielsen video`,
     ],
     media: {
       photo: `PENDING — see image sourcing list`,
-      videos: [],
+      videos: [
+        {
+          title: `The Best Amp You CAN'T Get`,
+          url: `https://www.youtube.com/watch?v=rOP7_M65c_c`,
+          source: `Michael Nielsen - Big Hairy Guitars`,
+          note: `The surviving public demo of this 1-of-1 unit — filmed while Nielsen had the amp on loan, before it was eventually sold back to Dave Friedman.`,
+        },
+      ],
     },
   },
   {
