@@ -4,20 +4,21 @@ Personal site for Anthony Best — Youtuber, Musician, Collector.
 
 ## Stack
 
-- **Host:** Heroku (static buildpack via `bin/start-nginx-static`)
-- **Deploy:** Push to `main` → auto-deploys to Heroku
-- **Web root:** `src/` (configured in `static.json`)
+- **Host:** Cloudflare Worker (`anthonybest-cos`) — static assets + a Hono API, backed by D1. See [Chief of Staff admin portal](#chief-of-staff-admin-portal-added-2026-07-17) below for the full architecture. Heroku was the original host but is fully decommissioned — no app running there anymore.
+- **Deploy:** `npm run deploy` (`wrangler deploy`), or push to `main` if Workers Builds push-to-deploy is connected (see the deploy checklist below)
+- **Web root:** `src/` (unchanged public static site; copied into `dist/` at build time by `scripts/copy-public.mjs`)
 - **Font:** [Syne](https://fonts.google.com/specimen/Syne) via Google Fonts
 
 ## Project structure
 
 ```
 anthonybestsite/
-├── Procfile                      ← Heroku: web: bin/start-nginx-static
-├── static.json                   ← Heroku static buildpack config (root: src/)
+├── wrangler.toml                 ← Cloudflare Worker config (D1 binding, assets, vars)
+├── worker/                       ← Hono app: public routes + Access-gated /api/admin
+├── admin/                        ← Vite + React + TypeScript SPA, served at /admin/*
 ├── README.md
 ├── SUMMARY.md                    ← Migration notes & DNS backup
-├── src/                          ← Deployed web root
+├── src/                          ← Public static site (link-in-bio, guitar guides, etc.)
 │   ├── index.html                ← Link-in-bio page (homepage)
 │   ├── ALB_Logo_White_Transparent.png
 │   └── assets/
@@ -36,21 +37,25 @@ anthonybestsite/
 ## Local development
 
 ```bash
-npx serve src/
+npx serve src/       # static site only
+npm run dev           # Vite dev server for the admin SPA
+npm run dev:worker    # wrangler dev, full Worker + D1 locally
 ```
 
-Then open [http://localhost:3000](http://localhost:3000).
+Then open [http://localhost:3000](http://localhost:3000) (static) or the URL Vite/wrangler print.
 
 ## Deploy
 
-The Heroku app is configured to auto-deploy from GitHub on every push to `main`. Open a PR, merge to `main`, and Heroku ships it automatically — no GitHub Action is involved in the deploy itself.
+The site runs on a Cloudflare Worker, not Heroku. Deploy with:
 
 ```bash
-git push origin main          # only if working directly on main (use a PR normally)
-gh pr merge --merge --delete-branch   # standard merge-to-main flow
+npm run build    # vite build + copy src/ into dist/
+npm run deploy   # wrangler deploy
 ```
 
-The `.github/workflows/deploy.yml` workflow runs a post-deploy smoke test after each push — it polls the live URL with a content-hash compare against the source file, and only runs the test suite once the deploy has actually landed. Heroku does not gate on the smoke test; it's purely diagnostic.
+If Cloudflare Workers Builds is connected to this GitHub repo (see the first-deploy checklist below), pushing to `main` triggers the same deploy automatically — open a PR, `gh pr merge --merge --delete-branch`, and Cloudflare ships it. Otherwise run `npm run deploy` manually after merging.
+
+The `.github/workflows/deploy.yml` workflow runs a post-deploy smoke test against the live site after each push to `main` — diagnostic only, it does not gate merges or deploys.
 
 ## Social links (on the homepage)
 

@@ -469,3 +469,41 @@ subagent-driven-development from a design spec and implementation plan
   review; nothing gets downloaded/hosted until that review happens.
 - Not yet merged to `main` — still mid-implementation on the feature
   branch as of this entry; PR to follow once all plan tasks are verified.
+
+## 2026-07-30 — Removed remaining Heroku references; docs now match the Cloudflare Worker reality
+
+`README.md` and `CLAUDE.md` still described Heroku as the current host and
+deploy target, even though the 2026-07-17 Chief of Staff admin portal
+migration (see that entry above) had already cut the site over to the
+Cloudflare Worker (`anthonybest-cos`) and DNS had pointed `anthonybest.com`
+there since. The docs' top-level "Stack"/"Deploy" sections just never got
+updated to match — a gap the "Documentation & Memory" rule in `CLAUDE.md`
+is supposed to catch.
+
+- `README.md` and `CLAUDE.md`: rewrote "Stack"/"Deploy"/"Deployment Process"
+  to describe the Cloudflare Worker deploy (`npm run build && npm run
+  deploy`, i.e. `wrangler deploy`), and to flag that push-to-deploy via
+  Workers Builds should not be assumed connected — deploy explicitly unless
+  confirmed otherwise.
+- `MEMORY.md`: updated the deployment bullet to match.
+- **Fixed a real bug, not just docs:** `.github/workflows/deploy.yml` and
+  `tests/run_tests.sh` were still hardcoded to the old, now-dead Heroku app
+  URL (`anthonybest-bf380286087d.herokuapp.com`) rather than
+  `https://anthonybest.com`. The post-deploy smoke test has effectively
+  been testing nothing meaningful since the 2026-07-17 cutover. Both now
+  target the real production URL.
+- Deleted vestigial Heroku-era files no longer used by anything:
+  `Procfile` (referenced a `bin/start-nginx-static` that didn't even exist
+  anymore), `static.json`, `config/nginx.conf.erb` — all three already
+  called out as dead in `HARNESS-MIGRATION-BRIEF.md`.
+- Left `docs/dns-backup.md`'s "Existing Heroku subdomains — KEEP" section
+  untouched: those CNAMEs (`new`, `se`, `dse`) may point at other,
+  unrelated Heroku apps outside this repo's scope, and this doc's job is
+  to preserve DNS state accurately, not describe this app's current stack.
+  Verify separately before touching those records.
+- Left `SUMMARY.md`'s own history and the `docs/superpowers/plans|specs/`
+  archived planning docs untouched — they're accurate records of what was
+  true when written, not living reference docs.
+- User instruction captured for future sessions: when asked to "commit" or
+  "commit and deploy," always run the actual deploy step too (don't assume
+  merging a PR is sufficient) — added to `CLAUDE.md`'s Deploy section.
