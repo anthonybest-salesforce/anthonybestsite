@@ -53,6 +53,22 @@
     return wrap;
   }
 
+  function renderVideoCard(video, fallbackTitle) {
+    var videoObj = typeof video === 'string' ? { url: video } : video;
+    var card = el('div', 'gg-rundown-card');
+    if (videoObj.title) card.appendChild(el('div', 'gg-rundown-title', videoObj.title));
+    if (videoObj.source) card.appendChild(el('div', 'gg-rundown-source', videoObj.source));
+
+    var embed = renderVideoEmbed(videoObj.url, videoObj.title || fallbackTitle);
+    if (embed) card.appendChild(embed);
+
+    if (videoObj.note) {
+      card.appendChild(elHtml('p', 'gg-rundown-note', renderInline(videoObj.note)));
+    }
+
+    return card;
+  }
+
   function renderEra(era) {
     var card = el('div', 'gg-era-card');
     card.appendChild(el('span', 'gg-era-kicker', era.kicker));
@@ -87,9 +103,8 @@
     }
 
     if (era.media && Array.isArray(era.media.videos)) {
-      era.media.videos.forEach(function (videoUrl) {
-        var videoEmbed = renderVideoEmbed(videoUrl, era.title);
-        if (videoEmbed) card.appendChild(videoEmbed);
+      era.media.videos.forEach(function (video) {
+        card.appendChild(renderVideoCard(video, era.title));
       });
     }
 
@@ -112,21 +127,6 @@
     return item;
   }
 
-  function renderRundown(video) {
-    var card = el('div', 'gg-rundown-card');
-    card.appendChild(el('div', 'gg-rundown-title', video.title));
-    card.appendChild(el('div', 'gg-rundown-source', video.source));
-
-    var embed = renderVideoEmbed(video.url, video.title);
-    if (embed) card.appendChild(embed);
-
-    if (video.note) {
-      card.appendChild(elHtml('p', 'gg-rundown-note', renderInline(video.note)));
-    }
-
-    return card;
-  }
-
   function init() {
     var timelineEl = document.getElementById('gg-timeline');
     if (timelineEl && Array.isArray(window.GUIDE_ERAS)) {
@@ -138,7 +138,7 @@
     var rundownsEl = document.getElementById('gg-rundowns');
     if (rundownsEl && Array.isArray(window.GUIDE_RUNDOWNS)) {
       window.GUIDE_RUNDOWNS.forEach(function (video) {
-        rundownsEl.appendChild(renderRundown(video));
+        rundownsEl.appendChild(renderVideoCard(video));
       });
     }
   }
