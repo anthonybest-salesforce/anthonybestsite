@@ -96,7 +96,7 @@ window.GUIDE_ERAS = [
     ],
     media: {
       photo: `PENDING — see image sourcing list`,
-      video: `https://www.youtube.com/watch?v=CwH_Wc4Zq5g`,
+      video: `PENDING`,
     },
   },
   {
