@@ -61,7 +61,7 @@
     card.appendChild(el('p', 'gg-era-dek', era.dek));
 
     var body = el('div', 'gg-era-body');
-    var paragraphs = Array.isArray(era.body) ? era.body : [era.body];
+    var paragraphs = Array.isArray(era.body) ? era.body : (era.body ? [era.body] : []);
     paragraphs.forEach(function (paragraph) {
       body.appendChild(elHtml('p', null, renderInline(paragraph)));
     });
