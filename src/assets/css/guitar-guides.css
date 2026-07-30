@@ -1,0 +1,407 @@
+/*
+  Guitar Guides — shared template styles.
+  Theme tokens mirror src/index.html's inline palette (--gold, --text, etc.),
+  scoped under [data-theme="studio"] so a future alternate skin can be added
+  later as a second data-theme value without restructuring this file. Only
+  the "studio" skin exists today.
+*/
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: #0c0c0d;
+}
+
+[data-theme="studio"] {
+  --gold: #c8a96e;
+  --gold-dim: rgba(200, 169, 110, 0.45);
+  --gold-faint: rgba(200, 169, 110, 0.10);
+  --text: #e8e4dc;
+  --muted: #cc6633;
+  --card-bg: rgba(8, 8, 10, 0.52);
+  --card-border: rgba(255, 255, 255, 0.09);
+  --card-border-hover: rgba(255, 255, 255, 0.16);
+
+  font-family: 'Syne', sans-serif;
+  color: var(--text);
+  background-color: #0c0c0d;
+}
+
+.gg-page {
+  position: relative;
+  min-height: 100vh;
+  padding: 56px 24px 64px;
+}
+
+.gg-container {
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+/* ── Hero ── */
+.gg-kicker {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.8px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.gg-title {
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--text);
+  line-height: 1.15;
+  margin-bottom: 14px;
+}
+
+.gg-dek {
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(232, 228, 220, 0.72);
+  margin-bottom: 40px;
+}
+
+/* ── Era timeline ── */
+.gg-timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.gg-timeline::before {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, var(--gold-dim) 15%, var(--gold-dim) 85%, transparent);
+}
+
+.gg-era {
+  position: relative;
+  padding-left: 34px;
+}
+
+.gg-era::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 6px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #0c0c0d;
+  border: 1px solid var(--gold-dim);
+}
+
+.gg-era-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  padding: 22px 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.gg-era-card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 2px;
+  background: var(--gold);
+  border-radius: 14px 0 0 14px;
+}
+
+.gg-era-kicker {
+  display: block;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 2.8px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.gg-era-years {
+  display: block;
+  font-size: 11px;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+
+.gg-era-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.gg-era-dek {
+  font-size: 14px;
+  line-height: 1.55;
+  color: rgba(232, 228, 220, 0.78);
+  margin-bottom: 14px;
+}
+
+.gg-era-body p {
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: rgba(232, 228, 220, 0.72);
+  margin-bottom: 12px;
+}
+
+.gg-era-body p:last-child {
+  margin-bottom: 0;
+}
+
+.gg-era-body strong {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.gg-quote {
+  border-left: 2px solid var(--gold-dim);
+  padding: 4px 0 4px 16px;
+  margin: 14px 0;
+  font-size: 13.5px;
+  font-style: italic;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.gg-quote cite {
+  display: block;
+  margin-top: 6px;
+  font-size: 11px;
+  font-style: normal;
+  letter-spacing: 0.5px;
+  color: var(--muted);
+}
+
+.gg-specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 24px;
+  margin: 16px 0;
+}
+
+.gg-spec-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 3px;
+}
+
+.gg-spec-label::before {
+  content: '●';
+  font-size: 8px;
+}
+
+.gg-spec-value {
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--text);
+  max-width: 260px;
+}
+
+.gg-video {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.4);
+  margin: 16px 0;
+}
+
+.gg-video iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.gg-sources {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--card-border);
+}
+
+.gg-sources summary {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.gg-sources ul {
+  list-style: none;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.gg-sources li {
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: rgba(232, 228, 220, 0.55);
+  padding-left: 14px;
+  position: relative;
+}
+
+.gg-sources li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: rgba(232, 228, 220, 0.3);
+}
+
+/* ── Rundown videos section ── */
+.gg-section-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 48px 0 6px;
+}
+
+.gg-section-subtitle {
+  font-size: 13px;
+  color: rgba(232, 228, 220, 0.6);
+  margin-bottom: 22px;
+}
+
+.gg-rundowns {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.gg-rundown-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  padding: 18px 20px;
+}
+
+.gg-rundown-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.gg-rundown-source {
+  font-size: 10.5px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.gg-rundown-note {
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: rgba(232, 228, 220, 0.65);
+  margin-top: 10px;
+}
+
+/* ── Landing page guide list ── */
+.gg-guide-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.gg-guide-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 20px 22px;
+  border-radius: 14px;
+  background: var(--card-bg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--card-border);
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.22s cubic-bezier(.22,1,.36,1), border-color 0.22s ease;
+}
+
+.gg-guide-card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 2px;
+  background: var(--gold);
+}
+
+.gg-guide-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--card-border-hover);
+}
+
+.gg-guide-card-kicker {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.gg-guide-card-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.gg-guide-card-dek {
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: rgba(232, 228, 220, 0.65);
+}
+
+/* ── Footer / back link ── */
+.gg-footer {
+  margin-top: 48px;
+  text-align: center;
+}
+
+.gg-back-link {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: lowercase;
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.gg-back-link:hover {
+  color: var(--text);
+  border-bottom-color: rgba(232, 228, 220, 0.3);
+}

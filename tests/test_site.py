@@ -102,6 +102,18 @@ class TestRoutes(unittest.TestCase):
     def test_robots_txt(self):
         self._assert_200("/robots.txt", "robots.txt")
 
+    def test_guitar_guides_index(self):
+        self._assert_200("/guitar-guides/", "Guitar Guides index")
+
+    def test_guitar_guides_friedman_naked_amp(self):
+        self._assert_200("/guitar-guides/friedman-naked-amp/", "Friedman Naked Amp guide")
+
+    def test_guitar_guides_css(self):
+        self._assert_200("/assets/css/guitar-guides.css", "Guitar Guides stylesheet")
+
+    def test_guitar_guide_js(self):
+        self._assert_200("/assets/js/guitar-guide.js", "Guitar Guides renderer script")
+
 
 class TestNotFound(unittest.TestCase):
     """Unknown routes return 404, not a server error."""
@@ -256,6 +268,18 @@ class TestContent(unittest.TestCase):
         text = body.decode("utf-8", errors="ignore").lower()
         has_link = any(s in text for s in ["youtube", "instagram", "linkedin"])
         self.assertTrue(has_link, "Homepage should reference at least one social platform")
+
+    def test_homepage_links_to_guitar_guides(self):
+        _, _, body = fetch("/")
+        text = body.decode("utf-8", errors="ignore")
+        self.assertIn("/guitar-guides/", text,
+                      "Homepage should link to the Guitar Guides section")
+
+    def test_homepage_links_to_reverb(self):
+        _, _, body = fetch("/")
+        text = body.decode("utf-8", errors="ignore")
+        self.assertIn("reverb.com/shop/anthony-best", text,
+                      "Homepage should link to the Reverb shop")
 
     def test_sitemap_is_xml(self):
         _, headers, body = fetch("/sitemap.xml")

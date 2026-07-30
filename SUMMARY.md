@@ -425,3 +425,47 @@ Heroku-era plan of an unlinked-but-public template folder.
   available in the environment this change was made in. Structural checks
   (balanced tags, all 9 slide IDs present, no leftover golf content) passed;
   a real build/deploy check is still needed before merging.
+
+## 2026-07-29 — Added Guitar Guides section (Friedman "Naked" amp), on branch `feature/guitar-guides-friedman-naked-amp`
+
+New public section at `/guitar-guides/`, reversing the 2026-07-17 decision
+to keep non-homepage content gated — this content is audience-facing
+history/collector writeups, not personal admin data. Built via
+subagent-driven-development from a design spec and implementation plan
+(`docs/superpowers/specs/` and `docs/superpowers/plans/`,
+`2026-07-29-guitar-guides-friedman-naked-amp*`).
+
+- Homepage (`src/index.html`) gained two new link-cards (Guitar Guides,
+  Reverb shop) plus a `sameAs` entry for the Reverb shop URL. Fixing this
+  surfaced a latent CSS bug: `.link-card:nth-child()` fade-in animation was
+  only defined for the first 3 children, so cards 4-5 would have stayed
+  permanently invisible — extended the existing stagger pattern rather than
+  changing the animation approach.
+- New shared template: `src/assets/css/guitar-guides.css` (theme tokens
+  under `[data-theme="studio"]`, scoped so a second visual skin could be
+  added later without a rewrite — none exists yet) and
+  `src/assets/js/guitar-guide.js` (vanilla-JS DOM renderer reading
+  `window.GUIDE_ERAS`/`window.GUIDE_RUNDOWNS` from a per-guide `data.js`).
+  Reusable for future guides beyond this one.
+- First guide: `src/guitar-guides/friedman-naked-amp/`, sourced from real
+  web research (Premier Guitar, Guitar.com, Guitar World, forums, Reverb,
+  YouTube) with disputed facts (donor amp model, unit counts) presented
+  side-by-side rather than resolved, matching the site owner's explicit
+  "don't silently pick a source" instruction.
+- **Known gap found during Task 6's own verification, not yet fixed
+  everywhere it's referenced:** the `naked-mk2` era's video
+  (`CwH_Wc4Zq5g`, cited in the design spec) and all 4 of its listed backup
+  video IDs now return 403 from YouTube's oembed endpoint — video/channel
+  appears to have gone private since the original research pass. Set to
+  `PENDING` in `data.js` rather than guessing at a replacement (no
+  known-good substitute found). The design spec
+  (`2026-07-29-...-design.md`) and the plan's own Task 6 acceptance
+  checklist still describe this video as working — both are now stale on
+  this point and should be corrected, or a fresh video source found,
+  before this is treated as fully resolved.
+- All real images remain `"PENDING"` throughout — per the design spec, a
+  numbered image-sourcing list (Reverb listing, Premier Guitar review
+  photo, a gear-blog rig photo) was handed to the site owner for licensing
+  review; nothing gets downloaded/hosted until that review happens.
+- Not yet merged to `main` — still mid-implementation on the feature
+  branch as of this entry; PR to follow once all plan tasks are verified.
