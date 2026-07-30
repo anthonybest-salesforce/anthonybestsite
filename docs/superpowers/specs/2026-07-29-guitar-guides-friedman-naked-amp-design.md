@@ -103,7 +103,7 @@ Schema per entry: `{ id, kicker, years, title, dek, body, quote?: { text, attrib
   - `"My Les Paul Forum, 'NAD – Friedman Custom Shop (Limited Edition) – Naked MK2' (https://www.mylespaul.com/threads/nad-friedman-custom-shop-limited-edition-naked-mk2.442838/) — forum post, full text blocked on fetch, cited for the model name/year/framing only"`
   - `"Marshall Amp Forum, 'Friedman Naked Mk2 vs. Bogner Modded Soldano SLO-100' (https://marshallforum.com/threads/friedman-naked-mk2-vs-bogner-modded-soldano-slo-100.123961/) — forum discussion"`
   - `"YouTube, Friedman Amplification Custom Shop demo videos — see media list below for individual video citations of speaker/mod variants"`
-- **media:** `{ photo: "PENDING — see image sourcing list below", video: "https://www.youtube.com/watch?v=CwH_Wc4Zq5g" }` (Custom Shop MK2 demo; four more MK2 demo videos are listed in the sourcing list below for optional secondary embeds)
+- **media:** `{ photo: "PENDING — see image sourcing list below", video: "PENDING" }` — originally sourced as `https://www.youtube.com/watch?v=CwH_Wc4Zq5g` (Custom Shop MK2 demo), but during implementation (2026-07-30) this ID and all 4 backup IDs listed below were independently re-checked via YouTube's oembed endpoint and every one now returns 403 (video/channel gone private since the original research pass). No known-good replacement was found, so this was set to `PENDING` per the "don't guess" rule rather than swapped for an unverified substitute. See `SUMMARY.md`'s 2026-07-29 entry and commit `59d6dca` on `feature/guitar-guides-friedman-naked-amp`.
 
 ### Entry 4 — `today`
 
@@ -146,12 +146,14 @@ All three channel identities were confirmed via YouTube's oembed endpoint (autho
 2. Premier Guitar 2010 review photography — `https://www.premierguitar.com/gear/rack-systems-brown-eye-and-naked-amplifier-reviews` — editorial product photography from the magazine review (covers both Brown Eye and Naked — confirm which shots are the Naked before using) — magazine editorial photo, contact Premier Guitar re: reuse — suggested filename: `naked-review-2010-premierguitar.jpg`
 3. Guitar FX Depot rig photo — `https://guitarfxdepot.com/rigs/billy-howerdels-guitar-rig/` — purported photo of Howerdel's live rig, possibly including the amp — gear-blog photo, sourcing/rights unclear, verify before use — suggested filename: `howerdel-live-rig-guitarfxdepot.jpg`
 
-**Additional MK2 demo videos found (optional, not required for launch):**
+**Additional MK2 demo videos found — ALL NOW DEAD, do not use (re-checked 2026-07-30):**
 
-- `https://www.youtube.com/watch?v=qrm2O4JnoqE` — MK2 with Vintage 30 speaker
-- `https://www.youtube.com/watch?v=Ix3Un3ZfFM0` — MK2 with Celestion Alnico Cream
-- `https://www.youtube.com/watch?v=8mRzm45X3IM` — MK2 bright-switch mod demo
-- `https://www.youtube.com/watch?v=zwiTPMmc7qc` — MK2 vs. Custom 50 comparison
+- ~~`https://www.youtube.com/watch?v=qrm2O4JnoqE`~~ — MK2 with Vintage 30 speaker — 403 via oembed
+- ~~`https://www.youtube.com/watch?v=Ix3Un3ZfFM0`~~ — MK2 with Celestion Alnico Cream — 403 via oembed
+- ~~`https://www.youtube.com/watch?v=8mRzm45X3IM`~~ — MK2 bright-switch mod demo — 403 via oembed
+- ~~`https://www.youtube.com/watch?v=zwiTPMmc7qc`~~ — MK2 vs. Custom 50 comparison — 403 via oembed
+
+This entire batch of Custom Shop demo videos appears to have gone private since the original research pass. A fresh research pass would be needed to find a replacement MK2 video before `naked-mk2`'s `media.video` can move off `PENDING`.
 
 ## 5. Homepage change
 

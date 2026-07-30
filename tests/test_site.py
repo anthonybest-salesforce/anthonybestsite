@@ -108,6 +108,12 @@ class TestRoutes(unittest.TestCase):
     def test_guitar_guides_friedman_naked_amp(self):
         self._assert_200("/guitar-guides/friedman-naked-amp/", "Friedman Naked Amp guide")
 
+    def test_guitar_guides_css(self):
+        self._assert_200("/assets/css/guitar-guides.css", "Guitar Guides stylesheet")
+
+    def test_guitar_guide_js(self):
+        self._assert_200("/assets/js/guitar-guide.js", "Guitar Guides renderer script")
+
 
 class TestNotFound(unittest.TestCase):
     """Unknown routes return 404, not a server error."""
