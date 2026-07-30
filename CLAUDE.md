@@ -44,8 +44,9 @@ Written by Dev, approved by PM (per the council process above).
 
 **Deploy**
 - The site runs on a Cloudflare Worker (`anthonybest-cos`), not Heroku — Heroku is fully decommissioned. See [README.md](README.md) for the architecture.
-- Deploy with `npm run build && npm run deploy` (`wrangler deploy`) after merging to `main`. If Cloudflare Workers Builds push-to-deploy is connected to this repo, merging alone triggers the same deploy automatically — but don't assume that's wired up; run the deploy command explicitly unless it's confirmed connected.
-- **When the user says "commit" or "commit and deploy," always deploy too** — merging the PR is not sufficient on its own; run the deploy command (or confirm Workers Builds already shipped it) so the change is actually live.
+- Cloudflare Workers Builds push-to-deploy is connected to this repo (confirmed 2026-07-30) — merging a PR to `main` auto-deploys, same as Heroku used to. No manual `wrangler deploy` needed in the normal flow.
+  - Note: the live Worker's asset cache can serve a stale `cf-cache-status: HIT` for a few seconds/minutes after deploy even with `max-age=0` — if a post-merge check looks stale, retry with a cache-busting query param before assuming the deploy didn't land.
+- **When the user says "commit" or "commit and deploy," verify the change actually landed live** (cache-busted fetch of a changed file) rather than assuming the merge was enough — but the fallback if Workers Builds is ever found disconnected is `npm run build && npm run deploy`.
 - After deploy, [.github/workflows/deploy.yml](.github/workflows/deploy.yml) polls the live URL and runs `tests/run_tests.sh` as a post-deploy smoke test. This is diagnostic only — a failure doesn't roll back or block anything; treat it as a signal to go check the live site.
 
 ## Documentation & Memory
