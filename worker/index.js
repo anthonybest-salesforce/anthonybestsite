@@ -17,6 +17,47 @@ function isAdmin(c, email) {
   return Boolean(email) && allowlist.includes(email);
 }
 
+// HTTPS enforcement — nginx used to do this via X-Forwarded-Proto; the
+// Worker sees the request's real scheme directly. Skipped for local dev
+// (wrangler dev has no TLS listener, so every local request is http: —
+// enforcing this locally would redirect-loop every request to a scheme
+// nothing is listening on).
+app.use("*", async (c, next) => {
+  const url = new URL(c.req.url);
+  const isLocalDev = url.hostname === "localhost" || url.hostname === "127.0.0.1";
+  if (!isLocalDev && url.protocol === "http:") {
+    url.protocol = "https:";
+    return c.redirect(url.toString(), 301);
+  }
+  await next();
+});
+
+// Security headers, replicating the old nginx config (config/nginx.conf.erb,
+// removed in the Heroku cleanup) now that the Worker's static-asset serving
+// doesn't set any of this on its own. Response objects from ASSETS.fetch()
+// have immutable headers, so headers are applied to a fresh Response
+// wrapping the same body/status.
+//
+// Cache-Control is NOT set here — Cloudflare's static-assets layer
+// force-overwrites Cache-Control/ETag on asset-served responses regardless
+// of what the Worker script sets afterward. Per-file-type cache rules live
+// in src/_headers instead (the platform's documented mechanism for this,
+// same convention as Cloudflare Pages).
+app.use("*", async (c, next) => {
+  await next();
+  if (!c.res) return;
+
+  const path = new URL(c.req.url).pathname;
+  const res = new Response(c.res.body, c.res);
+  res.headers.set("X-Content-Type-Options", "nosniff");
+  res.headers.set("X-Frame-Options", "SAMEORIGIN");
+  res.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+  if (!path.startsWith("/api/")) {
+    res.headers.append("Vary", "Accept-Encoding");
+  }
+  c.res = res;
+});
+
 app.use("*", async (c, next) => {
   const email = getEmail(c);
   c.set("email", email);
@@ -108,9 +149,9 @@ app.get("/links", (c) => c.redirect("/", 301));
 
 app.route("/api/admin", admin);
 
-// Anything else: try the exact static asset, and if it's missing fall back
-// to the right index.html — /admin/* deep-links fall back to the admin SPA
-// shell, everything else falls back to the public site's root page.
+// Anything else: try the exact static asset. /admin/* deep-links fall back
+// to the admin SPA shell so client-side routing can take over; everything
+// else on the public site gets a real 404, not a silent redirect home.
 app.notFound(async (c) => {
   const url = new URL(c.req.url);
   if (url.pathname.startsWith("/api/")) {
@@ -120,9 +161,16 @@ app.notFound(async (c) => {
   const direct = await c.env.ASSETS.fetch(c.req.raw);
   if (direct.status !== 404) return direct;
 
-  const fallbackPath = url.pathname.startsWith("/admin") ? "/admin/index.html" : "/index.html";
-  const fallbackUrl = new URL(fallbackPath, url.origin);
-  return c.env.ASSETS.fetch(new Request(fallbackUrl, c.req.raw));
+  if (url.pathname.startsWith("/admin")) {
+    const fallbackUrl = new URL("/admin/index.html", url.origin);
+    return c.env.ASSETS.fetch(new Request(fallbackUrl, c.req.raw));
+  }
+
+  return c.html(
+    `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>404 Not Found</title></head>` +
+      `<body><h1>404 Not Found</h1><p>The page you're looking for doesn't exist. <a href="/">Go home</a>.</p></body></html>`,
+    404
+  );
 });
 
 export default app;

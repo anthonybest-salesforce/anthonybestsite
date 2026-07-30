@@ -44,6 +44,16 @@ npm run dev:worker    # wrangler dev, full Worker + D1 locally
 
 Then open [http://localhost:3000](http://localhost:3000) (static) or the URL Vite/wrangler print.
 
+To run the smoke-test suite locally against the real Worker (headers, redirects, 404 handling — not just static files) before pushing:
+
+```bash
+npm run build
+npm run dev:worker &
+BASE_URL=http://localhost:8787 python3 tests/test_site.py
+```
+
+See the note in `tests/test_site.py`'s docstring about the one test (`test_http_redirects_to_https`) that's expected to fail against `localhost`.
+
 ## Deploy
 
 The site runs on a Cloudflare Worker, not Heroku. Deploy with:

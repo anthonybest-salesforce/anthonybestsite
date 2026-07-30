@@ -8,6 +8,17 @@ Usage:
     python tests/test_site.py
     BASE_URL=https://anthonybest.com python tests/test_site.py
 
+To mirror the CI smoke test locally against the real Worker code (not just
+static files — headers, redirects, 404 handling all come from worker/):
+    npm run build
+    npm run dev:worker &          # wrangler dev, local Miniflare, no auth needed
+    BASE_URL=http://localhost:8787 python tests/test_site.py
+
+Note: TestHTTPSRedirect.test_http_redirects_to_https will fail against
+localhost by design — the Worker skips HTTPS enforcement for
+localhost/127.0.0.1 so local dev stays usable (there's no TLS listener to
+redirect to). It only passes against a real hostname.
+
 Exit codes:
     0  all tests passed
     1  one or more tests failed
@@ -32,6 +43,16 @@ HTTP_BASE = BASE_URL.replace("https://", "http://", 1)
 # Per-request timeout in seconds
 TIMEOUT = 20
 
+# Cloudflare's bot protection blocks the default urllib UA ("Python-urllib/3.x")
+# with a 1010/403 error page instead of serving the real response. A normal
+# browser UA passes through fine.
+DEFAULT_HEADERS = {
+    "User-Agent": (
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
+        "(KHTML, like Gecko) Chrome/128.0 Safari/537.36"
+    ),
+}
+
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -49,7 +70,8 @@ def fetch(path, *, follow_redirects=True, extra_headers=None, base=None):
     the same tuple so callers can assert on the status code directly.
     """
     url = (base or BASE_URL) + path
-    req = urllib.request.Request(url, headers=extra_headers or {})
+    headers = {**DEFAULT_HEADERS, **(extra_headers or {})}
+    req = urllib.request.Request(url, headers=headers)
 
     if follow_redirects:
         opener = urllib.request.build_opener()
