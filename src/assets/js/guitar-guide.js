@@ -15,9 +15,12 @@
       .replace(/'/g, '&#39;');
   }
 
-  // Escapes everything, then re-enables "**bold**" spans as <strong>.
+  // Escapes everything, then re-enables "**bold**" spans as <strong> and
+  // "[text](url)" spans as links.
   function renderInline(str) {
-    return escapeHtml(str).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    return escapeHtml(str)
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
   }
 
   function youTubeEmbedUrl(url) {
