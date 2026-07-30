@@ -155,7 +155,12 @@ All three channel identities were confirmed via YouTube's oembed endpoint (autho
 
 ## 5. Homepage change
 
-Add a 4th `.link-card` in `src/index.html`, after LinkedIn, before the closing `.cards` div — same markup pattern (icon bubble, platform/label text, arrow), linking to `/guitar-guides/`. No new icon asset needed; use a simple text/emoji or inline SVG glyph consistent in weight with the existing three SVG icons (final glyph choice left to implementation).
+Add two new `.link-card` entries in `src/index.html`, after LinkedIn, before the closing `.cards` div — same markup pattern (icon bubble, platform/label text, arrow) as the existing three:
+
+- **Guitar Guides** → `/guitar-guides/`. No new icon asset needed; use a simple text/emoji or inline SVG glyph consistent in weight with the existing three SVG icons (final glyph choice left to implementation).
+- **Reverb** → `https://reverb.com/shop/anthony-best` (`target="_blank" rel="noopener noreferrer"`, matching the external-link pattern already used for YouTube/Instagram/LinkedIn). Reverb's brand icon (an "R" wordmark) can follow the same inline-SVG treatment as the existing three, or fall back to a simple glyph if a clean SVG isn't readily available — final call left to implementation.
+
+Also add `https://reverb.com/shop/anthony-best` to the homepage's existing JSON-LD `Person.sameAs` array (`src/index.html`), alongside Instagram/LinkedIn/YouTube — same pattern, no new schema needed.
 
 ## 6. SEO / housekeeping
 
