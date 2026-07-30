@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  HEROKU_APP_URL: https://anthonybest-bf380286087d.herokuapp.com
+  SITE_URL: https://anthonybest.com
 
 jobs:
   smoke_test:
@@ -17,9 +17,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Wait for Heroku dyno to be live and run tests
+      - name: Wait for Cloudflare Worker deploy to be live and run tests
         env:
-          BASE_URL: ${{ env.HEROKU_APP_URL }}
+          BASE_URL: ${{ env.SITE_URL }}
           WAIT_TIMEOUT: "90"
           POLL_INTERVAL: "5"
         run: |

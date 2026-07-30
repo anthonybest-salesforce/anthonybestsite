@@ -1,22 +1,22 @@
 #!/usr/bin/env bash
 # ─────────────────────────────────────────────────────────────────────────────
-# run_tests.sh — Wait for Heroku to ship the locally-checked-out commit,
-# then run the smoke-test suite against the live URL.
+# run_tests.sh — Wait for the Cloudflare Worker to ship the locally-checked-out
+# commit, then run the smoke-test suite against the live URL.
 #
 # How the deploy-wait works:
 #   1. Hash src/index.html in the local working tree (= GITHUB_SHA in CI).
 #   2. Poll BASE_URL/ and hash the response body.
 #   3. When the hashes match, the deploy has landed — proceed to tests.
 #
-# Heroku's static buildpack serves files byte-for-byte through nginx, so the
-# response body is identical to the source file. No HEROKU_API_KEY required.
+# The Worker serves src/ (copied into dist/ at build time) as static assets,
+# so the response body should be identical to the source file.
 #
 # Usage:
 #   ./tests/run_tests.sh
 #   BASE_URL=https://anthonybest.com ./tests/run_tests.sh
 #
 # Options (env vars):
-#   BASE_URL        Target URL  (default: https://anthonybest-bf380286087d.herokuapp.com)
+#   BASE_URL        Target URL  (default: https://anthonybest.com)
 #   WAIT_TIMEOUT    Max seconds to wait for deploy to land  (default: 300)
 #   POLL_INTERVAL   Seconds between deploy probes           (default: 5)
 #   CANARY_FILE     Repo-relative file to compare           (default: src/index.html)
@@ -25,7 +25,7 @@
 set -euo pipefail
 
 # ── Config ────────────────────────────────────────────────────────────────────
-BASE_URL="${BASE_URL:-https://anthonybest-bf380286087d.herokuapp.com}"
+BASE_URL="${BASE_URL:-https://anthonybest.com}"
 WAIT_TIMEOUT="${WAIT_TIMEOUT:-300}"
 POLL_INTERVAL="${POLL_INTERVAL:-5}"
 CANARY_FILE="${CANARY_FILE:-src/index.html}"

@@ -7,7 +7,7 @@ Keep entries short. Prune ones that go stale rather than leaving them to mislead
 ## Conventions & Decisions
 
 - **The Council** governs this app: Dev, Data Architect, UI Builder, UX Designer, PM, QA, chaired by a CTO. Full charter and the "ask the council" invocation rule are in [CLAUDE.md](CLAUDE.md).
-- **Deployment**: feature branch → PR → merge commit (`gh pr merge --merge --delete-branch`, not squash) → push to `main` auto-deploys to Heroku. Full rules in [CLAUDE.md](CLAUDE.md).
+- **Deployment**: feature branch → PR → merge commit (`gh pr merge --merge --delete-branch`, not squash) → deploy via `npm run build && npm run deploy` (Cloudflare Worker `anthonybest-cos`; Heroku is fully decommissioned). Don't assume push-to-deploy is wired up — run the deploy command explicitly when the user asks to commit/deploy. Full rules in [CLAUDE.md](CLAUDE.md).
 - **Branch protection** on `main` requires a PR but not an approving review (`required_approving_review_count: 0`) — acceptable for a single-maintainer repo as of 2026-07-17; revisit if that changes.
 
 ## Gotchas

@@ -43,7 +43,9 @@ Written by Dev, approved by PM (per the council process above).
 - Force-pushes and branch deletion are disabled on `main` at the GitHub level — never attempt to rewrite `main` history.
 
 **Deploy**
-- Merging to `main` auto-deploys to Heroku (static buildpack, web root `src/`, per [static.json](static.json)). No manual deploy step, and no GitHub Action performs the deploy itself.
+- The site runs on a Cloudflare Worker (`anthonybest-cos`), not Heroku — Heroku is fully decommissioned. See [README.md](README.md) for the architecture.
+- Deploy with `npm run build && npm run deploy` (`wrangler deploy`) after merging to `main`. If Cloudflare Workers Builds push-to-deploy is connected to this repo, merging alone triggers the same deploy automatically — but don't assume that's wired up; run the deploy command explicitly unless it's confirmed connected.
+- **When the user says "commit" or "commit and deploy," always deploy too** — merging the PR is not sufficient on its own; run the deploy command (or confirm Workers Builds already shipped it) so the change is actually live.
 - After deploy, [.github/workflows/deploy.yml](.github/workflows/deploy.yml) polls the live URL and runs `tests/run_tests.sh` as a post-deploy smoke test. This is diagnostic only — a failure doesn't roll back or block anything; treat it as a signal to go check the live site.
 
 ## Documentation & Memory

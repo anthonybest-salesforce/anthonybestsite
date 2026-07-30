@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Smoke-test and regression suite for the anthonybest.com Heroku deployment.
+Smoke-test and regression suite for the anthonybest.com Cloudflare Worker deployment.
 
 Requires only the Python 3 standard library — no pip install needed.
 
