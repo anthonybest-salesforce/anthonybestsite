@@ -125,13 +125,25 @@ window.GUIDE_ERAS = [
     ],
     sources: [
       `Reverb, "Friedman Naked 2014 Black" (sold listing; https://reverb.com/item/29695395-friedman-naked-2014-black) — automated fetch blocked (403); full listing text provided directly by the site owner, who was the seller`,
+      `YouTube, "Friedman Naked Demo," Mark Day Guitar (https://www.youtube.com/watch?v=cG_tLsskGfU) — channel identity confirmed via YouTube oembed; per the site owner, the closest thing to an official demo of this era's amp`,
       `YouTube, "Friedman Naked - In the Mix," El Dorado Guitars (https://www.youtube.com/watch?v=wlRSld3hKxM) — channel identity confirmed via YouTube oembed; black-finish identification per the site owner`,
       `Site owner's firsthand account — personal ownership and sale of this amp; claims about it being a distinct ground-up, Friedman-built-himself second run could not be independently corroborated in this research (no other owners, press, interviews, or forum posts found describing a second/black Naked run)`,
     ],
     media: {
       photo: `PENDING — see image sourcing list (Reverb listing photos)`,
       videos: [
-        `https://www.youtube.com/watch?v=wlRSld3hKxM`,
+        {
+          title: `Friedman Naked Demo`,
+          url: `https://www.youtube.com/watch?v=cG_tLsskGfU`,
+          source: `Mark Day Guitar`,
+          note: `Per the site owner, the closest thing to an official demo of this era's amp.`,
+        },
+        {
+          title: `Friedman Naked - In the Mix`,
+          url: `https://www.youtube.com/watch?v=wlRSld3hKxM`,
+          source: `El Dorado Guitars`,
+          note: `Black-finish identification per the site owner.`,
+        },
       ],
     },
   },
