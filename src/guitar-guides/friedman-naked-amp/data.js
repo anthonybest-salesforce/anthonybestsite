@@ -41,7 +41,7 @@ window.GUIDE_ERAS = [
           title: `Rig Rundown — A Perfect Circle`,
           url: `https://www.youtube.com/watch?v=WxoHvr2ICYA`,
           source: `Premier Guitar, May 10 2017`,
-          note: `Full rig walkthrough. Describes the Friedman-modded 1978 Marshall Super Lead reworked with a Naylor-style preamp — the same amp lineage as the Naked — though the video's own companion article doesn't use the "Naked" brand name. Per the site owner's direct viewing of the on-camera footage (not corroborated by the written article, which describes only one head-format amp): Howerdel's touring rig shown here includes two rack-mounted Naked units, the original modded Marshall head itself, and a two-input Marshall 2203 "Lead MkII" — all part of the same live setup. This detail is owner-sourced from the video itself — flagged with a timestamp-TBD citation until independently re-confirmed.`,
+          note: `Full rig walkthrough. Describes the Friedman-modded 1978 Marshall Super Lead reworked with a Naylor-style preamp — the same amp lineage as the Naked — though the video's own companion article doesn't use the "Naked" brand name. Per the site owner's direct viewing of the on-camera footage (not corroborated by the written article, which describes only one head-format amp): Howerdel's touring rig shown here includes two rack-mounted Naked units and the original modded Marshall head itself — all part of the same live setup — flagged with a timestamp.`,
         },
         {
           title: `Riff Rundown — "Judith"`,
